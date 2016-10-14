@@ -1,0 +1,20 @@
+﻿
+<div class="footer bar">
+    <div style="width: 960px;margin: 0 auto;text-align: center;">
+        <a href="/about">关于</a>
+        <a href="/tech">技术</a>
+        <a href="/tool">工具</a>
+    </div>
+</div>
+<script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+<script>
+        $(function () {
+            $('#searchForm').submit(function (e) {
+                e.preventDefault()
+                location.href = '/s/' + encodeURIComponent($(this).find('input').first().val().replace(/\//, '.').replace(/_/, '-'))
+            })
+            $('input[type="text"]').focus().select()
+        })
+</script>

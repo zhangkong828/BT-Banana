@@ -9,7 +9,9 @@ namespace BT.Banana.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        
+        /// <summary>
+        /// 首页
+        /// </summary>
         public ActionResult Index()
         {
             return View();
@@ -33,6 +35,22 @@ namespace BT.Banana.Web.Controllers
             }
             Response.Cookies.Add(cookie);
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// 搜索页
+        /// </summary>
+        public ActionResult S()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 详情页
+        /// </summary>
+        public ActionResult D()
+        {
+            return View();
         }
     }
 }

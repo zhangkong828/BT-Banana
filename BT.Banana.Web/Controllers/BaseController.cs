@@ -1,4 +1,5 @@
-﻿using BT.Banana.Web.Helper;
+﻿using BT.Banana.Web.Core;
+using BT.Banana.Web.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,22 @@ namespace BT.Banana.Web.Controllers
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             return base.BeginExecuteCore(callback, state);
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+
+            // 标记异常已处理
+            filterContext.ExceptionHandled = true;
+
+            var currentUrl = System.Web.HttpContext.Current.Request.Url.ToString();
+
+            //log
+            Log.Error(currentUrl, filterContext.Exception);
+
+            // 跳转到错误页
+            filterContext.Result = new RedirectResult("/Error/NotFound");
         }
     }
 }

@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 搜索 的本地化字符串。
+        /// </summary>
+        public static string IndexSubmitButton {
+            get {
+                return ResourceManager.GetString("IndexSubmitButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 最好的BT资源搜索引擎，今日新增3,193个。 的本地化字符串。
         /// </summary>
         public static string IndexTips {
