@@ -99,12 +99,16 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\Config.cs" />
+    <Compile Include="Core\Engiy_Com.cs" />
     <Compile Include="Core\Log.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CultureHelper.cs" />
+    <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\RequestHelper.cs" />
+    <Compile Include="Models\ItemViewModel.cs" />
+    <Compile Include="Models\SearchResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +117,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_LayoutPage.cshtml" />
     <Content Include="Views\Shared\Footer_PartialPage.cshtml" />
+    <Content Include="Views\Home\S.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -122,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Resources\Resources.csproj">

@@ -40,8 +40,11 @@ namespace BT.Banana.Web.Controllers
         /// <summary>
         /// 搜索页
         /// </summary>
-        public ActionResult S()
+        public ActionResult S(string key)
         {
+            if (string.IsNullOrEmpty(key))
+                return RedirectToAction("index");
+
             return View();
         }
 
