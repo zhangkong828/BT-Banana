@@ -78,6 +78,9 @@ namespace BT.Banana.Web.Core
             }
         }
 
+        /// <summary>
+        /// 获取最底层的exception
+        /// </summary>
         private static Exception GetInnerException(Exception ex)
         {
             if (ex.InnerException != null)

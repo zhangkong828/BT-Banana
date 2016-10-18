@@ -119,7 +119,6 @@
   </resheader>
   <data name="IndexInputPlaceholder" xml:space="preserve">
     <value>搜索BT资源，共索引了BT资源127,207,177个。</value>
-    <comment>首页搜索框 文本提示</comment>
   </data>
   <data name="IndexSubmitButton" xml:space="preserve">
     <value>搜索</value>

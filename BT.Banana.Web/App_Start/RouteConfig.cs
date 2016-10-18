@@ -29,8 +29,8 @@ namespace BT.Banana.Web
 
             routes.MapRoute(
                 name: "d",
-                url: "d/{hash}.html",
-                defaults: new { controller = "Home", action = "D", hash = UrlParameter.Optional }
+                url: "d/{id}.html",
+                defaults: new { controller = "Home", action = "D", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

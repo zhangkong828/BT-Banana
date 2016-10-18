@@ -50,16 +50,19 @@ namespace BT.Banana.Web.Controllers
             if (!int.TryParse(index, out currentIndex))
                 currentIndex = 1;
             currentIndex = currentIndex < 1 ? 1 : currentIndex;
-            var result = Engiy_Com.Search(key, currentIndex);
+            var result = Engiy_Com.Search(key, currentIndex, cultureName);
             return View(result);
         }
 
         /// <summary>
         /// 详情页
         /// </summary>
-        public ActionResult D()
+        public ActionResult D(string id)
         {
-            return View();
+            if (string.IsNullOrEmpty(id))
+                return RedirectToAction("NotFound");
+            var result = Engiy_Com.GetDetial(id, cultureName);
+            return View(result);
         }
     }
 }

@@ -118,6 +118,7 @@
     <Content Include="Views\_LayoutPage.cshtml" />
     <Content Include="Views\Shared\Footer_PartialPage.cshtml" />
     <Content Include="Views\Home\S.cshtml" />
+    <Content Include="Views\Home\D.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,80 @@
+﻿@model BT.Banana.Web.Models.ItemViewModel
+@{
+    ViewBag.Title = "D";
+    Layout = "~/Views/_LayoutPage.cshtml";
+}
+<div class="col-md-5 col-md-offset-1 col-sm-12 col-xs-12 detail col">
+    <h4 class="inline"><a href="/d/@(Model.id).html">@(Model.name)</a></h4>
+    <h5 class="inline">
+        <a href="@(Model.magnet)" class="inline">@(Model.magnet)</a>
+    </h5>
+    <div>
+        <button class="btn btn-success" data-clipboard-text="@(Model.magnet)" data-placement="bottom" id="btnCopy" title="已复制">
+            复制磁力链接
+        </button>
+        <a class="btn btn-success" href="@(Model.magnet)" id="magnetLink">
+            立即下载
+        </a>
+    </div>
+    <div class="table-responsive" style="margin-top:10px;">
+        <table class="table table-bordered card info">
+            <thead>
+                <tr>
+                    <th>类型</th>
+                    <th>文件尺寸</th>
+                    <th>文件数</th>
+                    <th>下载次数</th>
+                    <th>更新于</th>
+                    <th>创建于</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@(Model.type)</td>
+                    <td>@(Model.filesize)</td>
+                    <td>@(Model.filecount)</td>
+                    <td>@(Model.downloadcount)</td>
+                    <td>@(Model.updatetime)</td>
+                    <td>@(Model.createtime)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="files">
+        <h5><b>相关搜索关键字</b></h5>
+        @{
+            foreach (var item in Model.searchkeywords)
+            {
+        <a href="/s/@(item)" class="label label-danger">@(item)</a>
+            }
+        }
+        <h5><b>文件列表</b></h5>
+        <ul>
+            @{
+                foreach (var item in Model.filelist)
+                {
+            <li class="inline">@(Html.Raw(item.name))(@(Html.Raw(item.size)))</li>
+                }
+            }
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs" style="margin-top: 30px">
+
+    <div class="recent-container">
+        <strong>你可能也喜欢</strong>
+        @{
+            foreach (var item in Model.soyoulike)
+            {
+                <div style="margin:6px 0px" class="inline">
+                    <a href="/d/@(item.id).html">@(item.name)</a>
+                </div>
+            }
+        }
+    </div>
+
+</div>
+

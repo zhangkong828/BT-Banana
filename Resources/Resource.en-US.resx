@@ -119,7 +119,6 @@
   </resheader>
   <data name="IndexInputPlaceholder" xml:space="preserve">
     <value>Search BT resources, a total of index of BT resources 127207177.</value>
-    <comment>首页搜索框 文本提示</comment>
   </data>
   <data name="IndexSubmitButton" xml:space="preserve">
     <value>Search</value>

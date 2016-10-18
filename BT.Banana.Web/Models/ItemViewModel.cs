@@ -10,7 +10,7 @@ namespace BT.Banana.Web.Models
         public ItemViewModel()
         {
             searchkeywords = new List<string>();
-            soyoulike = new List<string>();
+            soyoulike = new List<ItemInfo>();
             filelist = new List<FileInfo>();
             filedes = new List<string>();
         }
@@ -63,7 +63,7 @@ namespace BT.Banana.Web.Models
         /// <summary>
         /// 你可能也喜欢
         /// </summary>
-        public List<string> soyoulike { get; set; }
+        public List<ItemInfo> soyoulike { get; set; }
         /// <summary>
         /// 文件列表
         /// </summary>
@@ -80,5 +80,11 @@ namespace BT.Banana.Web.Models
         /// 文件大小
         /// </summary>
         public string size { get; set; }
+    }
+
+    public class ItemInfo
+    {
+        public string id { get; set; }
+        public string name { get; set; }
     }
 }
