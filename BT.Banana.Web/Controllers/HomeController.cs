@@ -1,4 +1,5 @@
-﻿using BT.Banana.Web.Helper;
+﻿using BT.Banana.Web.Core;
+using BT.Banana.Web.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace BT.Banana.Web.Controllers
         public ActionResult SetLang()
         {
             var culture = RequestHelper.GetValue("lang");
+            var redirecturl = Request.UrlReferrer.ToString();
             culture = CultureHelper.GetImplementedCulture(culture);
             var cookie = Request.Cookies["_culture"];
             if (cookie != null)
@@ -34,18 +36,22 @@ namespace BT.Banana.Web.Controllers
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
-            return RedirectToAction("Index");
+            return Redirect(redirecturl);
         }
 
         /// <summary>
         /// 搜索页
         /// </summary>
-        public ActionResult S(string key)
+        public ActionResult S(string key, string index)
         {
             if (string.IsNullOrEmpty(key))
                 return RedirectToAction("index");
-
-            return View();
+            var currentIndex = 0;
+            if (!int.TryParse(index, out currentIndex))
+                currentIndex = 1;
+            currentIndex = currentIndex < 1 ? 1 : currentIndex;
+            var result = Engiy_Com.Search(key, currentIndex);
+            return View(result);
         }
 
         /// <summary>

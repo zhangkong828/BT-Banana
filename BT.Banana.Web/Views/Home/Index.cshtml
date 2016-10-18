@@ -33,17 +33,11 @@ if (c == culture)
             <div class="col-md-12 channel-menu">
                 <div class="pull-right float-middle">
                     <select id="lang" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                        <option value="/setlang?lang=en-US" @selected("en-us", culture)>
-                            English
-                        </option>
                         <option value="/setlang?lang=zh-CN" @selected("zh-cn", culture)>
                             简体中文
                         </option>
-                        <option value="/setlang?lang=jp" @selected("jp", culture)>
-                            日本の
-                        </option>
-                        <option value="/setlang?lang=kr" @selected("kr", culture)>
-                            한국의
+                        <option value="/setlang?lang=en-US" @selected("en-us", culture)>
+                            English
                         </option>
                     </select>
                 </div>

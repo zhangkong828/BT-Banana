@@ -13,10 +13,18 @@ namespace BT.Banana.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+
             routes.MapRoute(
-                name: "s",
-                url: "s/{key}",
-                defaults: new { controller = "Home", action = "S", key = UrlParameter.Optional }
+                name: "s-page",
+                url: "s/{key}__{type}_{index}",
+                defaults: new { controller = "Home", action = "S", key = UrlParameter.Optional, type = UrlParameter.Optional, index = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+             name: "s",
+             url: "s/{key}",
+             defaults: new { controller = "Home", action = "S", key = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -24,7 +32,7 @@ namespace BT.Banana.Web
                 url: "d/{hash}.html",
                 defaults: new { controller = "Home", action = "D", hash = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "Default",
                 url: "{action}/{id}",

@@ -12,10 +12,10 @@ namespace BT.Banana.Web.Core
     {
         public static readonly string BaseUrl = "http://engiy.com/";
 
-        public static SearchResultViewModel Search(string key, string index)
+        public static SearchResultViewModel Search(string key, int index)
         {
             var result = new SearchResultViewModel();
-            var url = BaseUrl + "s/" + key + "__1_" + index;
+            var url = BaseUrl + "s/" + key + "__1_" + index;//__1 代表搜索全部
             var html = HttpHelper.Get(url, "locale=zh-cn");//使用中文
             if (string.IsNullOrEmpty(html))
                 return result;
@@ -68,10 +68,17 @@ namespace BT.Banana.Web.Core
             return result;
         }
 
+
         public static ItemViewModel GetDetial(string id)
         {
             var result = new ItemViewModel();
+            var url = BaseUrl + "d/" + id;
+            var html = HttpHelper.Get(url, "locale=zh-cn");//使用中文
+            if (string.IsNullOrEmpty(html))
+                return result;
             return result;
         }
+
+
     }
 }

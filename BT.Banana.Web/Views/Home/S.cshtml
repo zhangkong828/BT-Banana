@@ -1,8 +1,82 @@
-﻿
+﻿@model BT.Banana.Web.Models.SearchResultViewModel
 @{
     ViewBag.Title = "S";
     Layout = "~/Views/_LayoutPage.cshtml";
 }
+<div class="row-fluid result-count">
+    <div class="col-md-5 col-md-offset-1 col-sm-12 col-xs-12 col">
+        <span>@Html.Raw($"根据 {Model.key} 搜索到 {Model.totalcount} 个相关资源")</span>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="col-md-5 col-md-offset-1 col-sm-12 col-xs-12 col">
+        @{
+            if (Model.HasResult)
+            {
+                foreach (var item in Model.items)
+                {
+                    <div class="result-item">
+                        <strong class="inline item-name">
+                            <a href="/d/@(item.id).html" target="_blank">@Html.Raw(item.name)</a>
+                        </strong>
+                        <div class="files">
+                            <ul>
+                                @{
+                                    foreach (var li in item.filedes)
+                                    {
+                                        <li class="inline">@Html.Raw(li)</li>
+                                    }
+                                    if (item.filedes.Count > 0)
+                                    {
+                                        <li><a target="_blank" href="/d/@(item.id).html">更多...</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="info">
+                            <span>类型:@(item.type)</span>
+                            <span>文件数:@(item.filecount)</span>
+                            <span>文件尺寸:@(item.filesize)</span>
+                            <span>下载次数:@(item.downloadcount)</span>
+                            <span>更新于:@(item.updatetime)</span>
+                            <span>创建于:@(item.createtime)</span>
+                        </div>
+                    </div>
+                                        }
+                                        @Html.Raw(Model.pagination_html)
+                                    }
+        }
 
-<h2>S</h2>
+    </div>
 
+
+    <div class="col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs side">
+        <div class="recent-container inline">
+            <strong>大家都在搜</strong>
+            @{
+                if (Model.searchwords.Count > 0)
+                {
+                    foreach (var w in Model.searchwords)
+                    {
+                        <div style="margin:3px 0px">
+                            <a href="/s/@(Html.Raw(w))">@Html.Raw(w)</a>
+                        </div>
+                    }
+                }
+            }
+        </div>
+
+        <div class="tip-container">
+            <strong>如何才能找到下载速度快的资源？</strong>
+            <div>
+                通常情况下，如果一个资源更新日期离现在比较近那一定有速度并且下载次数越多速度越快。
+            </div>
+            <div>
+                小伙伴们懂了吗？可以用排序功能，找<b>下载次数多的</b>或者<b>比较新的</b>资源，那下载速度一定是嗷嗷快。
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

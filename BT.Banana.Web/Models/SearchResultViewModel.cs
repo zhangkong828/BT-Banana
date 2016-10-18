@@ -43,5 +43,6 @@ namespace BT.Banana.Web.Models
         /// </summary>
         public List<string> searchwords { get; set; }
 
+        public bool HasResult { get { return items.Count > 0; } }
     }
 }
