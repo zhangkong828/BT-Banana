@@ -26,16 +26,7 @@ namespace BT.Banana.Web.Controllers
             var culture = RequestHelper.GetValue("lang");
             var redirecturl = Request.UrlReferrer.ToString();
             culture = CultureHelper.GetImplementedCulture(culture);
-            var cookie = Request.Cookies["_culture"];
-            if (cookie != null)
-                cookie.Value = culture;
-            else
-            {
-                cookie = new HttpCookie("_culture");
-                cookie.Value = culture;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
+            CookieHelper.SetValue("_culture", culture);
             return Redirect(redirecturl);
         }
 

@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DetailCopyButton" xml:space="preserve">
+    <value>Copy magnet link</value>
+  </data>
+  <data name="DetailDownloadButton" xml:space="preserve">
+    <value>Download resource</value>
+  </data>
+  <data name="DetailFileList" xml:space="preserve">
+    <value>Include Files</value>
+  </data>
+  <data name="DetailRelatedSearchWords" xml:space="preserve">
+    <value>Related Search Words</value>
+  </data>
+  <data name="DetailSoYouLike" xml:space="preserve">
+    <value>Guess you like</value>
+  </data>
   <data name="IndexInputPlaceholder" xml:space="preserve">
     <value>Search BT resources, a total of index of BT resources 127207177.</value>
   </data>
@@ -125,6 +140,39 @@
   </data>
   <data name="IndexTips" xml:space="preserve">
     <value>The best BT resource search engine, today added 3193.</value>
+  </data>
+  <data name="InputPlaceholder" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="MagnetCreateTime" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="MagnetDownloadCount" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="MagnetFileCount" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="MagnetFileSize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="MagnetType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MagnetUpdateTime" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="SearchKeyWords" xml:space="preserve">
+    <value>Recent</value>
+  </data>
+  <data name="SearchMoreButton" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="SearchTips" xml:space="preserve">
+    <value>&lt;strong&gt;How to find resources to download fast?&lt;/strong&gt;&lt;div&gt;Usually, if a resource update date is relatively close to the present, there must be a certain speed and the number of downloads more quickly.&lt;/div&gt;&lt;div&gt;You know? To use the sort function, find a &lt;b&gt;popularity&lt;/b&gt; or &lt;b&gt;newly&lt;/b&gt; resources, the download speed must be very fast.&lt;/div&gt;</value>
+  </data>
+  <data name="SearchTotalCount" xml:space="preserve">
+    <value>About &lt;b&gt;{1}&lt;/b&gt; results. Search &lt;b&gt;{0}&lt;/b&gt; related</value>
   </data>
   <data name="WebDescription" xml:space="preserve">
     <value>BT Banana（btbanana.com） is included the fastest, most full of BT search engine, a total of more than 200 million BT resources included, more than 200 thousand new every day.</value>

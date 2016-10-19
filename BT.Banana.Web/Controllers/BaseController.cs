@@ -15,9 +15,9 @@ namespace BT.Banana.Web.Controllers
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
             //先试图获取cookie中的语言设置，如果没有，则使用浏览器中带有的语言设置
-            var cultureCookie = Request.Cookies["_culture"];
-            if (cultureCookie != null)
-                cultureName = cultureCookie.Value;
+            var cultureCookie = CookieHelper.GetValue("_culture");
+            if (!string.IsNullOrEmpty(cultureCookie))
+                cultureName = cultureCookie;
             else
                 cultureName = Request.UserLanguages != null && Request.UserLanguages.Length > 0 ?
                 Request.UserLanguages[0] : null;

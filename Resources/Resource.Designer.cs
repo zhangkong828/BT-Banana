@@ -61,6 +61,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 复制磁力链接 的本地化字符串。
+        /// </summary>
+        public static string DetailCopyButton {
+            get {
+                return ResourceManager.GetString("DetailCopyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 立即下载 的本地化字符串。
+        /// </summary>
+        public static string DetailDownloadButton {
+            get {
+                return ResourceManager.GetString("DetailDownloadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件列表 的本地化字符串。
+        /// </summary>
+        public static string DetailFileList {
+            get {
+                return ResourceManager.GetString("DetailFileList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 相关搜索关键字 的本地化字符串。
+        /// </summary>
+        public static string DetailRelatedSearchWords {
+            get {
+                return ResourceManager.GetString("DetailRelatedSearchWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 你可能也喜欢 的本地化字符串。
+        /// </summary>
+        public static string DetailSoYouLike {
+            get {
+                return ResourceManager.GetString("DetailSoYouLike", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 搜索BT资源，共索引了BT资源127,207,177个。 的本地化字符串。
         /// </summary>
         public static string IndexInputPlaceholder {
@@ -84,6 +129,105 @@ namespace Resources {
         public static string IndexTips {
             get {
                 return ResourceManager.GetString("IndexTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 搜索资源 的本地化字符串。
+        /// </summary>
+        public static string InputPlaceholder {
+            get {
+                return ResourceManager.GetString("InputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 创建时间 的本地化字符串。
+        /// </summary>
+        public static string MagnetCreateTime {
+            get {
+                return ResourceManager.GetString("MagnetCreateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载次数 的本地化字符串。
+        /// </summary>
+        public static string MagnetDownloadCount {
+            get {
+                return ResourceManager.GetString("MagnetDownloadCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件数 的本地化字符串。
+        /// </summary>
+        public static string MagnetFileCount {
+            get {
+                return ResourceManager.GetString("MagnetFileCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件大小 的本地化字符串。
+        /// </summary>
+        public static string MagnetFileSize {
+            get {
+                return ResourceManager.GetString("MagnetFileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 类型 的本地化字符串。
+        /// </summary>
+        public static string MagnetType {
+            get {
+                return ResourceManager.GetString("MagnetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新时间 的本地化字符串。
+        /// </summary>
+        public static string MagnetUpdateTime {
+            get {
+                return ResourceManager.GetString("MagnetUpdateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 大家都在搜 的本地化字符串。
+        /// </summary>
+        public static string SearchKeyWords {
+            get {
+                return ResourceManager.GetString("SearchKeyWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更多 的本地化字符串。
+        /// </summary>
+        public static string SearchMoreButton {
+            get {
+                return ResourceManager.GetString("SearchMoreButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;strong&gt;如何才能找到下载速度快的资源？&lt;/strong&gt;&lt;div&gt;通常情况下，如果一个资源更新日期离现在比较近那一定有速度并且下载次数越多速度越快。&lt;/div&gt;&lt;div&gt;小伙伴们懂了吗？可以用排序功能，找&lt;b&gt;下载次数多的&lt;/b&gt;或者&lt;b&gt;比较新的&lt;/b&gt;资源，那下载速度一定是嗷嗷快。&lt;/div&gt; 的本地化字符串。
+        /// </summary>
+        public static string SearchTips {
+            get {
+                return ResourceManager.GetString("SearchTips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 根据 &lt;b&gt;{0}&lt;/b&gt; 搜索到 &lt;b&gt;{1}&lt;/b&gt; 个相关资源 的本地化字符串。
+        /// </summary>
+        public static string SearchTotalCount {
+            get {
+                return ResourceManager.GetString("SearchTotalCount", resourceCulture);
             }
         }
         

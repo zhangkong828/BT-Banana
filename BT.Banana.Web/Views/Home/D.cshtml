@@ -9,23 +9,23 @@
         <a href="@(Model.magnet)" class="inline">@(Model.magnet)</a>
     </h5>
     <div>
-        <button class="btn btn-success" data-clipboard-text="@(Model.magnet)" data-placement="bottom" id="btnCopy" title="已复制">
-            复制磁力链接
+        <button class="btn btn-success" data-clipboard-text="@(Model.magnet)" data-placement="bottom" id="btnCopy" title="">
+            @(Resource.DetailCopyButton)
         </button>
         <a class="btn btn-success" href="@(Model.magnet)" id="magnetLink">
-            立即下载
+            @(Resource.DetailDownloadButton)
         </a>
     </div>
     <div class="table-responsive" style="margin-top:10px;">
         <table class="table table-bordered card info">
             <thead>
                 <tr>
-                    <th>类型</th>
-                    <th>文件尺寸</th>
-                    <th>文件数</th>
-                    <th>下载次数</th>
-                    <th>更新于</th>
-                    <th>创建于</th>
+                    <th>@(Resource.MagnetType)</th>
+                    <th>@(Resource.MagnetFileSize)</th>
+                    <th>@(Resource.MagnetFileCount)</th>
+                    <th>@(Resource.MagnetDownloadCount)</th>
+                    <th>@(Resource.MagnetUpdateTime)</th>
+                    <th>@(Resource.MagnetCreateTime)</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,14 +41,14 @@
         </table>
     </div>
     <div class="files">
-        <h5><b>相关搜索关键字</b></h5>
+        <h5><b>@(Resource.DetailRelatedSearchWords)</b></h5>
         @{
             foreach (var item in Model.searchkeywords)
             {
         <a href="/s/@(item)" class="label label-danger">@(item)</a>
             }
         }
-        <h5><b>文件列表</b></h5>
+        <h5><b>@(Resource.DetailFileList)</b></h5>
         <ul>
             @{
                 foreach (var item in Model.filelist)
@@ -65,7 +65,7 @@
 <div class="col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs" style="margin-top: 30px">
 
     <div class="recent-container">
-        <strong>你可能也喜欢</strong>
+        <strong>@(Resource.DetailSoYouLike)</strong>
         @{
             foreach (var item in Model.soyoulike)
             {

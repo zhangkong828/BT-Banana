@@ -300,6 +300,10 @@ input {
 	margin-top:15px;
 	margin-bottom: 45px;
 }
+.result-count b{
+		color: #EA4335;
+	font-weight: normal;
+}
 .item-name {
 	font-weight: normal;
 }

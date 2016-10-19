@@ -12,17 +12,19 @@ namespace BT.Banana.Web.Core
     {
         private static readonly string BaseUrl = "http://engiy.com/";
 
-        public static SearchResultViewModel Search(string key, int index,string cultureName)
+        public static SearchResultViewModel Search(string key, int index, string cultureName)
         {
+            int Try_Again_Count = 1;
             var result = new SearchResultViewModel();
             var url = BaseUrl + "s/" + key + "__1_" + index;//__1 代表搜索全部
-            cultureName=cultureName == "zh-CN" ? "zh-cn" : "en";
+            cultureName = cultureName == "zh-CN" ? "zh-cn" : "en";
             var cookie = $"locale={cultureName}";
+            TryAgain:
             var html = HttpHelper.Get(url, cookie);
             if (string.IsNullOrEmpty(html))
                 return result;
             //多语言下 正则 注意区分中英文
-            var totalcount_regex = cultureName == "zh-cn"? "<span>搜索到(.+?)个相关BT资源</span>": "<span>About (.+?) Bittorrent results</span>";
+            var totalcount_regex = cultureName == "zh-cn" ? "<span>搜索到(.+?)个相关BT资源</span>" : "<span>About (.+?) Bittorrent results</span>";
             var body_regex = cultureName == "zh-cn" ? "<a href=\"/d/(.+?)\" target=\"_blank\">(.+?)</a>[\\s\\S]*?<span>创建于:.+?</span>" : "<a href=\"/d/(.+?)\" target=\"_blank\">(.+?)</a>[\\s\\S]*?<span>Created:.+?</span>";
             //搜索总数
             result.totalcount = Regex.Match(html, totalcount_regex).Groups[1].Value;
@@ -67,16 +69,27 @@ namespace BT.Banana.Web.Core
             {
                 result.searchwords.Add(a.Groups[1].Value);
             }
+            //由于网络等原因 可能第一次获取不到数据，这里会重新尝试一次
+            if (result.items.Count == 0)
+            {
+                if (Try_Again_Count > 0)
+                {
+                    Try_Again_Count--;
+                    goto TryAgain;
+                }
+            }
             return result;
         }
 
 
-        public static ItemViewModel GetDetial(string id,string cultureName)
+        public static ItemViewModel GetDetial(string id, string cultureName)
         {
+            int Try_Again_Count = 1;
             var item = new ItemViewModel();
             var url = BaseUrl + "d/" + id;
             cultureName = cultureName == "zh-CN" ? "zh-cn" : "en";
             var cookie = $"locale={cultureName}";
+            TryAgain:
             var html = HttpHelper.Get(url, cookie);
             if (string.IsNullOrEmpty(html))
                 return item;
@@ -119,6 +132,15 @@ namespace BT.Banana.Web.Core
                     id = div.Groups[1].Value,
                     name = div.Groups[2].Value
                 });
+            }
+            //由于网络等原因 可能第一次获取不到数据，这里会重新尝试一次
+            if (string.IsNullOrEmpty(item.name))
+            {
+                if (Try_Again_Count > 0)
+                {
+                    Try_Again_Count--;
+                    goto TryAgain;
+                }
             }
             return item;
         }
