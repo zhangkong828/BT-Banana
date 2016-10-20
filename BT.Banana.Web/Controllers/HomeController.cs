@@ -41,7 +41,7 @@ namespace BT.Banana.Web.Controllers
             if (!int.TryParse(index, out currentIndex))
                 currentIndex = 1;
             currentIndex = currentIndex < 1 ? 1 : currentIndex;
-            var result = Engiy_Com.Search(key, currentIndex, cultureName);
+            var result = Engiy_Com.Search(key.Trim(), currentIndex, cultureName);
             return View(result);
         }
 

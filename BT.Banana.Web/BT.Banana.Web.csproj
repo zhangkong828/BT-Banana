@@ -91,6 +91,8 @@
   <ItemGroup>
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\todc-bootstrap.min.css" />
+    <Content Include="Content\img\logo_b.png" />
+    <Content Include="Content\img\logo_s.png" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
