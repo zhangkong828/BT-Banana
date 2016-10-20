@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/_LayoutPage.cshtml";
+}
+
+<div class="row-fluid" style="margin-top:20px">
+    <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12 col">
+        <br>
+        <h4>概述</h4>
+        <p>
+            <a href="http://btbanana.com">Banana</a> 是一个BT搜索引擎，为的是解决Bittorrent协议自身没有实现资源搜索的功能。
+        </p>
+        <p>
+            <a href="http://btbanana.com">Banana</a> 通过DHT网络获取到用户正在下载的资源信息，包括文件名，大小等，具体来说就是实现了Bittorrent中的<a href="http://www.bittorrent.org/beps/bep_0003.html">bep_0003</a>, <a href="http://www.bittorrent.org/beps/bep_0005.html">bep_0005</a>, <a href="http://www.bittorrent.org/beps/bep_0009.html">bep_0009</a>, <a href="http://www.bittorrent.org/beps/bep_0010.html">bep_0010</a>四条协议。
+        </p>
+        <br><br>
+        <h4>合法</h4>
+        <p>
+            正因为如此，根据Bittorrent协议<a href="http://btbanana.com">Banana</a>只能获取到torrent文件的info信息，所以<a href="http://btbanana.com">Banana</a>服务器上不保存任何torrent种子文件，同时，也不提供任何的tracker服务，通常来说，这样就意味着<a href="http://btbanana.com">Banana</a>在大多数国家都是可以合法运营的。
+        </p>
+        <p>
+            同时<a href="http://btbanana.com">Banana</a>也不提供任何除BT资源搜索外的服务。比如视频在线播放（你可以使用如<a href="http://pan.baidu.com">百度网盘</a>）。<a href="http://btbanana.com">Banana</a>的搜索结果通常都只是一个磁力链接，这样有利于互联网分享，如需下载资源，你还需要安装其它下载软件（如<a href="http://www.utorrent.com/">μTorrent</a>，<a href="http://www.bitcomet.com">BitComet</a>，<a href="http://dl.xunlei.com/">迅雷</a>等等）。
+        </p>
+        <br><br>
+        <h4>搜索</h4>
+        <p>
+            <a href="http://btbanana.com">Banana</a>对一些搜索进行了初步过滤，屏蔽的词库还在不断扩充中。
+        </p>
+        <p>
+            <a href="http://btbanana.com">Banana</a>索引到的内容有侵害到您的权义，或者你拥有的版权，请及时联系我们，在核实信息后，我们会删除。
+        </p>
+        <br><br>
+        <h4>开源</h4>
+        <p>
+            <a href="http://btbanana">Banana</a>会开源吗？是的。
+        </p>
+        <p>
+            开源的<a href="http://btbanana.com">Banana</a>托管在<a href="https://github.com/niubileme/BT-Banana" target="_blank">Github</a>上。如有疑问可以在Github上通过Issues留言。
+        </p>
+    </div>
+</div>
+

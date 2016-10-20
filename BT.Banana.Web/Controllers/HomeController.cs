@@ -44,14 +44,15 @@ namespace BT.Banana.Web.Controllers
             if (!int.TryParse(index, out currentIndex))
                 currentIndex = 1;
             currentIndex = currentIndex < 1 ? 1 : currentIndex;
-            //先查找cache
-            var cachekey = $"{key}_{cultureName}_{currentIndex}";//关键词_语言_页码
-            var result = SearchCache.Cache.Get(cachekey);
-            if (result == null)
-            {
-                result = Engiy_Com.Search(key, currentIndex, cultureName);
-                SearchCache.Cache.Set(cachekey, result);
-            }
+            //使用Cache
+            //var cachekey = $"{key}_{cultureName}_{currentIndex}";//关键词_语言_页码
+            //var result = SearchCache.Cache.Get(cachekey);
+            // if (result == null)
+            //{
+            //    result = Engiy_Com.Search(key, currentIndex, cultureName);
+            //    SearchCache.Cache.Set(cachekey, result);
+            //}
+            var result = Engiy_Com.Search(key, currentIndex, cultureName);
             return View(result);
         }
 
@@ -63,14 +64,15 @@ namespace BT.Banana.Web.Controllers
         {
             if (string.IsNullOrEmpty(id))
                 return RedirectToAction("NotFound");
-            var cachekey = $"{id}_{cultureName}";//id_语言
-            var result = DetailCache.Cache.Get(cachekey);
-            if (result == null)
-            {
-                result = Engiy_Com.GetDetial(id, cultureName);
-                DetailCache.Cache.Set(cachekey, result);
-            }
-
+            //使用Cache
+            //var cachekey = $"{id}_{cultureName}";//id_语言
+            //var result = DetailCache.Cache.Get(cachekey);
+            //if (result == null)
+            //{
+            //    result = Engiy_Com.GetDetial(id, cultureName);
+            //    DetailCache.Cache.Set(cachekey, result);
+            //}
+            var result = Engiy_Com.GetDetial(id, cultureName);
             return View(result);
         }
 

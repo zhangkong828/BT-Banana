@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 关于 的本地化字符串。
+        /// </summary>
+        public static string FooterAboutLink {
+            get {
+                return ResourceManager.GetString("FooterAboutLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 搜索BT资源，共索引了BT资源127,207,177个。 的本地化字符串。
         /// </summary>
         public static string IndexInputPlaceholder {
@@ -250,7 +259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查找类似 BT香蕉 的本地化字符串。
+        ///   查找类似 BT香蕉 - 磁力链接，BT资源，种子搜索引擎 的本地化字符串。
         /// </summary>
         public static string WebTitle {
             get {

@@ -132,6 +132,9 @@
   <data name="DetailSoYouLike" xml:space="preserve">
     <value>Guess you like</value>
   </data>
+  <data name="FooterAboutLink" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="IndexInputPlaceholder" xml:space="preserve">
     <value>Search BT resources, a total of index of BT resources 127207177.</value>
   </data>
@@ -181,6 +184,6 @@
     <value>BT Search , DHT</value>
   </data>
   <data name="WebTitle" xml:space="preserve">
-    <value>BT Banana</value>
+    <value>BT Banana - Bittorrent Resource Search Engine</value>
   </data>
 </root>

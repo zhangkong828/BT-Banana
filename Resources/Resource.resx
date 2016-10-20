@@ -132,6 +132,9 @@
   <data name="DetailSoYouLike" xml:space="preserve">
     <value>你可能也喜欢</value>
   </data>
+  <data name="FooterAboutLink" xml:space="preserve">
+    <value>关于</value>
+  </data>
   <data name="IndexInputPlaceholder" xml:space="preserve">
     <value>搜索BT资源，共索引了BT资源127,207,177个。</value>
   </data>
@@ -181,6 +184,6 @@
     <value>BT搜索，磁力搜索，电影资源搜索</value>
   </data>
   <data name="WebTitle" xml:space="preserve">
-    <value>BT香蕉</value>
+    <value>BT香蕉 - 磁力链接，BT资源，种子搜索引擎</value>
   </data>
 </root>
