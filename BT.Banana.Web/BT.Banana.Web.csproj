@@ -89,25 +89,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\404\css\ie8.css" />
+    <Content Include="Content\404\css\main.css" />
+    <Content Include="Content\404\css\tipsy.css" />
+    <Content Include="Content\404\images\404.png" />
+    <Content Include="Content\404\images\bubble.png" />
+    <Content Include="Content\404\images\dog.png" />
+    <Content Include="Content\404\images\planet.png" />
+    <Content Include="Content\404\images\sky-background.png" />
+    <Content Include="Content\404\images\sky-shine.jpg" />
+    <Content Include="Content\404\images\tipsy.gif" />
+    <Content Include="Content\404\images\universal-preloader.gif" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\todc-bootstrap.min.css" />
     <Content Include="Content\img\logo_b.png" />
     <Content Include="Content\img\logo_s.png" />
+    <Content Include="filter.txt" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Cache\CacheBase.cs" />
+    <Compile Include="Cache\DetailCache.cs" />
+    <Compile Include="Cache\FilterCache.cs" />
+    <Compile Include="Cache\SearchCache.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\Config.cs" />
     <Compile Include="Core\Engiy_Com.cs" />
     <Compile Include="Core\Log.cs" />
+    <Compile Include="Filter\CustomActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="Helper\CultureHelper.cs" />
+    <Compile Include="Helper\FormatHelper.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\RequestHelper.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
@@ -122,6 +140,7 @@
     <Content Include="Views\Shared\Footer_PartialPage.cshtml" />
     <Content Include="Views\Home\S.cshtml" />
     <Content Include="Views\Home\D.cshtml" />
+    <Content Include="Views\Home\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
