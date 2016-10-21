@@ -11,7 +11,7 @@ namespace BT.Banana.Web.Helper
 {
     public class HttpHelper
     {
-        public static string Get(string url, string cookie = null, string encoding = "utf8")
+        public static string Get(string url, string cookie = null, string encoding = "UTF-8")
         {
             var html = "";
             try

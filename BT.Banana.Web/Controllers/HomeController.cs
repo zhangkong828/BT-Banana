@@ -90,6 +90,7 @@ namespace BT.Banana.Web.Controllers
         /// <summary>
         /// 百度电影风云榜
         /// </summary>
+        [HttpPost]
         public ActionResult GetBaiDuHotKeys()
         {
             var num = RequestHelper.GetInt("n");
