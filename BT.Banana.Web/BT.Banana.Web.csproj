@@ -142,6 +142,7 @@
     <Content Include="Views\Home\D.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <None Include="Properties\PublishProfiles\btbanana.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

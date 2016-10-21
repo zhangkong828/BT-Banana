@@ -13,7 +13,7 @@ namespace BT.Banana.Web.Helper
             get
             {
 
-                var dom = ".btbanana.com";
+                var dom = "";
 #if DEBUG
                 dom = "";
 #endif

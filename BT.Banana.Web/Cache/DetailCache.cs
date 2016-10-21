@@ -22,7 +22,7 @@ namespace BT.Banana.Web.Cache
         }
         public DetailCache()
         {
-            ExpireTime = 120;
+            ExpireTime = 30;
         }
     }
 }

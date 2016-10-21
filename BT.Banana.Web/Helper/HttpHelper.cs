@@ -11,7 +11,7 @@ namespace BT.Banana.Web.Helper
 {
     public class HttpHelper
     {
-        public static string Get(string url, string cookie = null)
+        public static string Get(string url, string cookie = null, string encoding = "utf8")
         {
             var html = "";
             try
@@ -21,7 +21,7 @@ namespace BT.Banana.Web.Helper
                 if (cookie != null)
                     request.Headers[HttpRequestHeader.Cookie] = cookie;
                 var response = (HttpWebResponse)request.GetResponse();
-                using (var sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                using (var sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding)))
                 {
                     html = sr.ReadToEnd();
                 }

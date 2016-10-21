@@ -10,7 +10,7 @@
     $(function () {
         $('#searchForm').submit(function (e) {
             e.preventDefault()
-            location.href = '/s/' + encodeURIComponent($(this).find('input').first().val().replace(/\//, '.').replace(/_/, '-'))
+            location.href = '/s/' + encodeURIComponent($.trim($(this).find('input').first().val()))
         })
         $('input[type="text"]').focus().select()
     })
@@ -28,4 +28,13 @@
         var src = document.location.protocol + '//js.passport.qihucdn.com/11.0.1.js?17512a9d5fdf12e562378a74f8f102ac';
         document.write('<script src="' + src + '" id="sozz"><\/script>');
     })();
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?43a75b46558d2646fb5b2355106edadd";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
 </script>

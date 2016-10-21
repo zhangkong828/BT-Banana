@@ -19,7 +19,7 @@ namespace BT.Banana.Web.Core
         /// 3.输出错误信息、正常信息和调试信息
         /// ===================================
         /// </summary>
-        public const int LOG_LEVENL = 3;
+        public const int LOG_LEVENL = 1;
 
 
     }

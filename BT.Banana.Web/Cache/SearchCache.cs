@@ -23,7 +23,7 @@ namespace BT.Banana.Web.Cache
         }
         public SearchCache()
         {
-            ExpireTime = 30;
+            ExpireTime = 10;
         }
 
 
