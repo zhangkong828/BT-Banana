@@ -40,7 +40,7 @@ namespace BT.Banana.Web.Controllers
         {
             if (string.IsNullOrEmpty(key))
                 return RedirectToAction("index");
-            key = key.Trim();//去掉前后空格
+            key = key.Trim();
             var currentIndex = 0;
             if (!int.TryParse(index, out currentIndex))
                 currentIndex = 1;

@@ -9,6 +9,7 @@ namespace BT.Banana.Web.Filter
 {
     public class CustomActionFilter : ActionFilterAttribute
     {
+        //过滤色情、暴力、非法侵权等地址
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

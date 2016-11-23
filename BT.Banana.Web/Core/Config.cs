@@ -20,7 +20,5 @@ namespace BT.Banana.Web.Core
         /// ===================================
         /// </summary>
         public const int LOG_LEVENL = 1;
-
-
     }
 }

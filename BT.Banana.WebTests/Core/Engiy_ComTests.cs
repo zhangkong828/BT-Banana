@@ -14,14 +14,14 @@ namespace BT.Banana.Web.Core.Tests
         [TestMethod()]
         public void SearchTest()
         {
-            var result = Engiy_Com.Search("我", 1);
+            var result = Engiy_Com.Search("西部世界", 1, "zh-CN");
             Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void GetDetialTest()
         {
-            var result = Engiy_Com.GetDetial("AVTUs7C7GP6CfE_FlZIv");
+            var result = Engiy_Com.GetDetial("AVTUs7C7GP6CfE_FlZIv", "zh-CN");
             Assert.IsNotNull(result);
         }
     }

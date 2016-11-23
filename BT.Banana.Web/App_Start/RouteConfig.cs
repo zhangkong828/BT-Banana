@@ -14,7 +14,7 @@ namespace BT.Banana.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 
-
+            //自定义路由
             routes.MapRoute(
                 name: "s-page",
                 url: "s/{key}__{type}_{index}",
