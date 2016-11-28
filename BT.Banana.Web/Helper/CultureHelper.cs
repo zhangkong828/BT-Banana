@@ -15,14 +15,12 @@ namespace BT.Banana.Web.Helper
                                                                             "zh-CN",//第一个为默认语言
                                                                             "en-US"
                                                                             };
-
         /// <summary>
         /// Returns true if the language is a right-to-left language. Otherwise, false.
         /// </summary>
         public static bool IsRighToLeft()
         {
             return System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft;
-
         }
         /// <summary>
         /// Returns a valid culture name based on "name" parameter. If "name" is not valid, it returns the default culture 
@@ -67,7 +65,6 @@ namespace BT.Banana.Web.Helper
         public static string GetNeutralCulture(string name)
         {
             if (!name.Contains("-")) return name;
-
             return name.Split('-')[0]; // Read first part only. E.g. "en", "es"
         }
     }

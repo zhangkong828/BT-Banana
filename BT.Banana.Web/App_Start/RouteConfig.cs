@@ -12,11 +12,9 @@ namespace BT.Banana.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-
             //自定义路由
             routes.MapRoute(
-                name: "s-page",
+                name: "search",
                 url: "s/{key}__{type}_{index}",
                 defaults: new { controller = "Home", action = "S", key = UrlParameter.Optional, type = UrlParameter.Optional, index = UrlParameter.Optional }
             );

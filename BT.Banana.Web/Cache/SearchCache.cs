@@ -25,7 +25,5 @@ namespace BT.Banana.Web.Cache
         {
             ExpireTime = 15;
         }
-
-
     }
 }

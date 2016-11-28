@@ -24,8 +24,6 @@ namespace BT.Banana.Web.Controllers
 
             // 验证，如果为空或者不在当前本地化内，则使用默认语言
             cultureName = CultureHelper.GetImplementedCulture(cultureName);
-
-
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
