@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banana.Web", "Banana.Web\Banana.Web.csproj", "{9BA1DE84-1B16-48C4-9B14-B8040D295128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banana.Common", "Banana.Common\Banana.Common.csproj", "{BD8626A3-C65B-4D65-B85D-083DADFDB52A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BA1DE84-1B16-48C4-9B14-B8040D295128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA1DE84-1B16-48C4-9B14-B8040D295128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA1DE84-1B16-48C4-9B14-B8040D295128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA1DE84-1B16-48C4-9B14-B8040D295128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8626A3-C65B-4D65-B85D-083DADFDB52A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8626A3-C65B-4D65-B85D-083DADFDB52A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8626A3-C65B-4D65-B85D-083DADFDB52A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8626A3-C65B-4D65-B85D-083DADFDB52A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8093976E-576E-4F8E-9AF7-5B4FA0FD899B}
+	EndGlobalSection
+EndGlobal

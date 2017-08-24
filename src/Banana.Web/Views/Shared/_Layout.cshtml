@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Banana.Web</title>
+    <meta name="keywords" content=" " />
+    <meta name="description" content=" " />
+    @*<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">*@
+    <link href="https://cdn.bootcss.com/todc-bootstrap/3.3.7-3.3.13/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/todc-bootstrap/3.3.7-3.3.13/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+</head>
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row-fluid search-nav bar">
+            <div class="pull-right hidden-xs hidden-sm channel-menu">
+                <select id="lang" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                    <option value="/setlang?lang=zh-CN">
+                        简体中文
+                    </option>
+                    <option value="/setlang?lang=en-US">
+                        English
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-1 hidden-sm hidden-xs center">
+                <a href="/">
+                    <img src="~/Content/img/logo_s.png" alt="btbanana.com search logo" title="" style="margin-top:1px;">
+                </a>
+            </div>
+
+            <form class="input-group input-group-lg col-sm-12 col-xs-12 col-md-5" action="/s" method="get" id="searchForm">
+                <input type="text" class="form-control" placeholder="InputPlaceholder" value="" name="q">
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-primary" value="搜索">
+                </span>
+            </form>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <div class="footer bar">
+        <div style="width: 960px;margin: 0 auto;text-align: center;">
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script>
+        $(function () {
+            $('#searchForm').submit(function (e) {
+                e.preventDefault()
+                location.href = '/s/' + encodeURIComponent($.trim($(this).find('input').first().val()))
+            })
+            $('input[type="text"]').focus().select()
+        })
+    </script>
+    <script>
+        $(function () {
+            $('input[name="match"]').change(function () {
+                var href = $('input[name="match"]:checked').parent().attr('href')
+                location.href = href
+            })
+            $('input[name="mode"]').change(function () {
+                var href = $('input[name="mode"]:checked').parent().attr('href')
+                location.href = href
+            })
+        })
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
