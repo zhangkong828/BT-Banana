@@ -17,6 +17,7 @@ namespace Banana.Common
                 request.Method = "GET";
                 if (cookie != null)
                     request.Headers[HttpRequestHeader.Cookie] = cookie;
+                request.AllowAutoRedirect = true;
                 var response = (HttpWebResponse)request.GetResponse();
                 using (var sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding)))
                 {
