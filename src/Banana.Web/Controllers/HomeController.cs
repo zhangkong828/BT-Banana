@@ -8,11 +8,18 @@ using Banana.Web.Models;
 using Microsoft.Extensions.Localization;
 using Banana.Common;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Banana.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IDistributedCache _distributedCache;
+
+        public HomeController(IDistributedCache distributedCache)
+        {
+            _distributedCache = distributedCache;
+        }
 
         public IActionResult Index()
         {

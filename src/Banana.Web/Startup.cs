@@ -26,6 +26,12 @@ namespace Banana.Web
         {
 
             services.AddMvc();
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.InstanceName = Configuration["Redis:InstanceName"];
+                options.Configuration = Configuration["Redis:Connection"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +46,7 @@ namespace Banana.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
+
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
