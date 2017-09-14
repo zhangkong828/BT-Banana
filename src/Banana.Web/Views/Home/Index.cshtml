@@ -2,71 +2,129 @@
 @{
     Layout = null;
 }
-<!DOCTYPE html>
+<!--
+**
+ *   ┏┓　　　┏┓
+ * ┏┛┻━━━┛┻┓
+ * ┃　　　　　　　┃
+ * ┃　　　━　　　┃
+ * ┃　┳┛　┗┳　┃
+ * ┃　　　　　　　┃
+ * ┃　　　┻　　　┃
+ * ┃　　　　　　　┃
+ * ┗━┓　　　┏━┛
+ *    ┃　　　┃
+ *    ┃　　　┃
+ *    ┃　　　┗━━━┓
+ *    ┃　　　　　　　┣┓
+ *    ┃　　　　　　　┏┛
+ *    ┗┓┓┏━┳┓┏┛
+ *      ┃┫┫　┃┫┫
+ *      ┗┻┛　┗┻┛
+ *                 请勿盗取代码
+ *
+ *
+-->
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title>1111</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="keywords" content=" " />
-    <meta name="description" content=" " />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/todc-bootstrap/3.3.7-3.3.13/css/bootstrap-theme.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>111</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-siteapp">
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="~/js/html5.js"></script><![endif]-->
+
+    <link rel="stylesheet" href="~/css/temp.css" asp-append-version="true" />
 </head>
 <body>
-
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="col-md-12 channel-menu">
-                <div class="pull-right float-middle">
-                    <select id="lang" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                        <option value="/setlang?lang=zh-CN" @selected("zh-cn", culture)>
-                            简体中文
-                        </option>
-                        <option value="/setlang?lang=en-US" @selected("en-us", culture)>
-                            English
-                        </option>
-                    </select>
-                </div>
+    <header class="header">
+        <div class="container">
+            <div class="logo"><a href="/" title=""><img src=""><span>111</span></a></div>
+            <div class="sitenav">
+                <ul>
+                    <li id="menu-item-20" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home current-menu-ancestor current-menu-parent menu-item-has-children menu-item-20">
+                        <a href="http://anyunjun.cn/">首页</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-13 current_page_item menu-item-29"><a href="http://anyunjun.cn/baiduwp/">百度网盘搜索</a></li>
+                            <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-32"><a href="http://anyunjun.cn/cili/">磁力种子搜索</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="http://anyunjun.cn/film/">看电影</a></li>
+                    <li><a href="http://anyunjun.cn/tvshow/">追热剧</a></li>
+                </ul>
             </div>
-        </div>
-        <div class="row-fluid" style="margin-top:150px">
-            <form action="/s" method="get" class="col-md-6 col-md-offset-3 center" id="searchForm">
-                <div class="main-search-logo">
-                    <a href="/">
-                        <img src="~/Content/img/logo_b.png" alt="btbanana.com search logo" title="btbanana.com">
-                    </a>
-
-                    <h1>tips</h1>
-                </div>
-                <div class="main-search-input">
-
-
-                    <input type="text" placeholder="IndexInputPlaceholder" name="q" class="form-control input-lg input-search" />
-                </div>
-                <div class="main-search-btn">
-                    <input type="submit" value="搜索" class="btn btn-default btn-lg btn-main-search">
-                </div>
+            <span class="sitenav-on"><i class="fa">&#xe605;</i></span>
+            <span class="sitenav-mask"></span>
+            <span class="searchstart-on"><i class="fa">&#xe600;</i></span>
+            <span class="searchstart-off"><i class="fa">&#xe606;</i></span>
+            <form method="get" class="searchform" action="/search">
+                <button tabindex="3" class="sbtn" type="submit"><i class="fa">&#xe600;</i></button><input tabindex="2" class="sinput" name="sousuo" type="text" placeholder="输入关键字" value="">
             </form>
         </div>
+    </header>
+    <section class="container">
+        <div id="homeso">
+            <form method="get" id="homeso" style="text-align: center;float: none" action="">
+                <img src=""><br /><br />
+                <input tabindex="2" class="homesoin" id="sos" name="sousuo" type="text" placeholder="输入你要搜索的资源名称" value="">
+                <input type="hidden" name="qiehuan" value="1" />
+                <button id="button" tabindex="3" class="homesobtn" type="submit"><i class="fa">网盘搜索</i></button>
+            </form>
+            <script>
+                var a = document.getElementById('sos');
+                var btn = document.getElementById('button');
+                btn.onclick = function () {
+                    if (!a.value) {
+                        alert('不能为空');
+                        return false;
+                    };
+                }
+            </script>
+        </div>
 
-        <div class="row-fluid">
-            <div class="col-md-6 col-md-offset-3" style="margin-top:30px; margin-bottom: 40px;">
-                <div class="hotkey">
+    </section>
 
-                </div>
+
+    <div class="foornav">
+        <a href="/"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/index.png" />首页</span></a>
+        <a href="/film"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/video.png" />电影</span></a>
+        <a href="/tvshow"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/dianshiju.png" />电视剧</span></a>
+        <a href="/va"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/dianshi.png" />综艺</span></a>
+        <a href="/xiao"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/zongyi.png" />搞笑</span></a>
+    </div>
+    
+    <footer class="footer">
+        <div class="branding branding-black">
+            <div class="container" style="text-align: center;">
+                <h2></h2>
+                <a target="blank" class="gobtn" href="">联系</a>
             </div>
         </div>
 
-    </div>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+        <p style="padding: 0 4px;">
+        </p>
+
+    </footer>
+
     <script>
-        $(function () {
-            $.ajax({ type: 'POST', url: '/GetBaiDuHotKeys', data: { n: 10 }, success: function (data) { if (data.msg) { $.each(data.data, function (i, v) { $('<a href="/s/' + v + '">' + v + '</a>&nbsp;&nbsp;&nbsp;&nbsp').appendTo('.hotkey'); }); } } });
-        })
+                window.TBUI = {
+                    uri: '',
+                    ajaxpager: '10',
+                    pagenum: '10',
+                    shareimage: '',
+                    shareimagethumb: '1',
+                    fullgallery: '1',
+                    fullimage: '1'
+                }
     </script>
+    <script type='text/javascript' src='http://anyunjun.cn/wp-content/themes/08yingyuan/js/main.js?ver=0.9'></script>
 </body>
 </html>
