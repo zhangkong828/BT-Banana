@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Banana.Web.Middleware;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using StackExchange.Redis;
+using Banana.Web.Services;
 
 namespace Banana.Web
 {
@@ -24,14 +26,24 @@ namespace Banana.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRedisService, RedisService>();
+            services.AddScoped<IElasticSearchService, ElasticSearchService>();
 
             services.AddMvc();
 
-            services.AddDistributedRedisCache(options =>
-            {
-                options.InstanceName = Configuration["Redis:InstanceName"];
-                options.Configuration = Configuration["Redis:Connection"];
-            });
+            #region Redis
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
+            var RedisDatabase = connectionMultiplexer.GetDatabase(0);
+            services.AddScoped(_ => RedisDatabase);
+            #endregion
+
+
+            #region ElasticSearch
+            var EsSettings = new Nest.ConnectionSettings(new Uri(Configuration["ElasticSearch:Url"]));
+            var EsClient = new Nest.ElasticClient(EsSettings);
+            services.AddScoped(_ => EsClient);
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

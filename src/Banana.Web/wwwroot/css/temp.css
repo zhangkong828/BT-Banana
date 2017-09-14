@@ -844,43 +844,6 @@
     font-size: 13px
 }
 
-#homeso {
-    margin: 45px 0
-}
-
-.pcadd {
-    display: block
-}
-
-.madd {
-    display: none
-}
-
-.homesoin {
-    padding: 4px 8px;
-    width: 500px;
-    border: 1px solid #eee;
-    border-right: none;
-    border-radius: 2px 0 0 2px;
-    color: #999
-}
-
-.homesobtn, .homesoin {
-    height: 50px;
-    outline: 0;
-    font-size: 14px
-}
-
-.homesobtn {
-    padding: 4px 10px;
-    width: 75pt;
-    border: none;
-    border-radius: 0 2px 2px 0;
-    background-color: #ff6651;
-    color: #fff;
-    opacity: .9
-}
-
 @media only screen and (width:768px) {
     .b-listtab-main .item {
         width: 210px

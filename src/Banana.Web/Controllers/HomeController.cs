@@ -9,17 +9,22 @@ using Microsoft.Extensions.Localization;
 using Banana.Common;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Distributed;
+using Banana.Web.Services;
 
 namespace Banana.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IDistributedCache _distributedCache;
+        private readonly IRedisService _redisService;
+        private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController(IDistributedCache distributedCache)
+        public HomeController(IRedisService redisService, IElasticSearchService elasticSearchService)
         {
-            _distributedCache = distributedCache;
+            _redisService = redisService;
+            _elasticSearchService = elasticSearchService;
         }
+
+
 
         public IActionResult Index()
         {
