@@ -21,7 +21,7 @@
  *    ┗┓┓┏━┳┓┏┛
  *      ┃┫┫　┃┫┫
  *      ┗┻┛　┗┻┛
- *                 
+ *
  *
  *
 -->
@@ -37,94 +37,75 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="cache-control" content="no-siteapp">
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="~/js/html5.js"></script><![endif]-->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-    <link rel="stylesheet" href="~/css/temp.css" asp-append-version="true" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-    <header class="header">
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-default navbar-mobile navbar-fixed navbar-transparent bootsnav">
+
+        <!-- Start Top Search -->
+        <div class="top-search">
+            <div class="container">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search">
+                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- End Top Search -->
+
         <div class="container">
-            <div class="logo"><a href="/" title=""><img src=""><span>111</span></a></div>
-            <div class="sitenav">
+            <!-- Start Atribute Navigation -->
+            <div class="attr-nav visible-xs-block visible-sm-block">
                 <ul>
-                    <li>
-                        <a href="/">首页</a>
-                        <ul class="sub-menu">
-                            <li><a href="/">百度网盘搜索</a></li>
-                            <li><a href="/">磁力种子搜索</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/">看电影</a></li>
-                    <li><a href="/">追热剧</a></li>
+                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                 </ul>
             </div>
-            <span class="sitenav-on"><i class="fa">&#xe605;</i></span>
-            <span class="sitenav-mask"></span>
-            <span class="searchstart-on"><i class="fa">&#xe600;</i></span>
-            <span class="searchstart-off"><i class="fa">&#xe606;</i></span>
-            <form method="get" class="searchform" action="/search">
-                <button tabindex="3" class="sbtn" type="submit"><i class="fa">&#xe600;</i></button><input tabindex="2" class="sinput" name="sousuo" type="text" placeholder="输入关键字" value="">
-            </form>
-        </div>
-    </header>
-    <section class="container">
-        <div id="homeso">
-            <form method="get" id="homeso" style="text-align: center;float: none" action="">
-                <img src=""><br /><br />
-                <input tabindex="2" class="homesoin" id="sos" name="sousuo" type="text" placeholder="输入你要搜索的资源名称" value="">
-                <input type="hidden" name="qiehuan" value="1" />
-                <button id="button" tabindex="3" class="homesobtn" type="submit"><i class="fa">网盘搜索</i></button>
-            </form>
-            <script>
-                var a = document.getElementById('sos');
-                var btn = document.getElementById('button');
-                btn.onclick = function () {
-                    if (!a.value) {
-                        alert('不能为空');
-                        return false;
-                    };
-                }
-            </script>
-        </div>
-
-    </section>
-
-
-    <div class="foornav">
-        <a href="/"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/index.png" />首页</span></a>
-        <a href="/film"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/video.png" />电影</span></a>
-        <a href="/tvshow"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/dianshiju.png" />电视剧</span></a>
-        <a href="/va"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/dianshi.png" />综艺</span></a>
-        <a href="/xiao"><span><img src="http://anyunjun.cn/wp-content/themes/08yingyuan/img/zongyi.png" />搞笑</span></a>
-    </div>
-    
-    <footer class="footer">
-        <div class="branding branding-black">
-            <div class="container" style="text-align: center;">
-                <h2></h2>
-                <a target="blank" class="gobtn" href="">联系</a>
+            <!-- End Atribute Navigation -->
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#brand"><img src="images/brand/logo-black.png" class="logo" alt=""></a>
             </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+
+                <ul class="nav navbar-nav navbar-left">
+
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-
-
-        <p style="padding: 0 4px;">
-        </p>
-
-    </footer>
-
-    <script>
-                window.TBUI = {
-                    uri: '',
-                    ajaxpager: '10',
-                    pagenum: '10',
-                    shareimage: '',
-                    shareimagethumb: '1',
-                    fullgallery: '1',
-                    fullimage: '1'
-                }
-    </script>
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </nav>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <div class="pagehead">
+        <div class="container">
+            <span>11</span>
+        </div>
+    </div>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

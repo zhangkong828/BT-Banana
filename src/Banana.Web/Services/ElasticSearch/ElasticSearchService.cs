@@ -8,8 +8,8 @@ namespace Banana.Web.Services
 {
     public class ElasticSearchService : IElasticSearchService
     {
-        private readonly IElasticClient _client;
-        public ElasticSearchService(IElasticClient client)
+        private readonly ElasticClient _client;
+        public ElasticSearchService(ElasticClient client)
         {
             _client = client;
         }

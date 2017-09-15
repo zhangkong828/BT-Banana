@@ -39,7 +39,14 @@ namespace Banana.Web
 
 
             #region ElasticSearch
-            var EsSettings = new Nest.ConnectionSettings(new Uri(Configuration["ElasticSearch:Url"]));
+            var EsUrls = Configuration["ElasticSearch:Url"].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var EsNodes = new List<Uri>();
+            EsUrls.ForEach(url =>
+            {
+                EsNodes.Add(new Uri(url));
+            });
+            var EsPool = new Elasticsearch.Net.StaticConnectionPool(EsNodes);
+            var EsSettings = new Nest.ConnectionSettings(EsPool);
             var EsClient = new Nest.ElasticClient(EsSettings);
             services.AddScoped(_ => EsClient);
             #endregion
