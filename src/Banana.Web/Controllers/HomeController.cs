@@ -18,10 +18,10 @@ namespace Banana.Web.Controllers
         private readonly IRedisService _redisService;
         private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController(IRedisService redisService, IElasticSearchService elasticSearchService)
+        public HomeController()
         {
-            _redisService = redisService;
-            _elasticSearchService = elasticSearchService;
+            //_redisService = redisService;
+            //_elasticSearchService = elasticSearchService;
         }
 
 
@@ -46,13 +46,13 @@ namespace Banana.Web.Controllers
         /// 百度电影风云榜
         /// </summary>
         [HttpPost]
-        public IActionResult GetBaiDuHotKeys(int num)
+        public IActionResult GetBaiDuHotKeys([FromForm]int num)
         {
             List<string> list = new List<string>();
             try
             {
                 string url = "http://top.baidu.com/buzz?b=26&c=1&fr=topcategory_c1";
-                var html = HttpHelper.Get(url, null, "GB2312");
+                var html = HttpHelper.Get(url, null, "gb2312");
                 MatchCollection r = Regex.Matches(html, "<tr[\\s\\S]*?<td[\\s\\S]*?keyword\">[\\s\\S]*?>(.+?)<");
                 int i = 0;
                 foreach (Match item in r)
@@ -74,10 +74,19 @@ namespace Banana.Web.Controllers
 
 
         /// <summary>
-        /// 搜索页
+        /// 磁力搜索
         /// </summary>
-        public IActionResult S(string key, string index)
+        [Route("/s/magnet/{key}/{index?}")]
+        public IActionResult Search(string key, string index)
         {
+            if (string.IsNullOrEmpty(key))
+                return RedirectToAction("index");
+            key = key.Trim();
+            var currentIndex = 0;
+            if (!int.TryParse(index, out currentIndex))
+                currentIndex = 1;
+            currentIndex = currentIndex < 1 ? 1 : currentIndex;
+
             return View();
         }
 

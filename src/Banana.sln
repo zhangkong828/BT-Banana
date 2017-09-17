@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banana.Web", "Banana.Web\Ba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banana.Common", "Banana.Common\Banana.Common.csproj", "{BD8626A3-C65B-4D65-B85D-083DADFDB52A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banana.Test", "Banana.Test\Banana.Test.csproj", "{43955E4F-8880-4E3D-87CC-46B9ABDCFF0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banana.Test", "Banana.Test\Banana.Test.csproj", "{43955E4F-8880-4E3D-87CC-46B9ABDCFF0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

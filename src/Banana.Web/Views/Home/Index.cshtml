@@ -37,7 +37,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="cache-control" content="no-siteapp">
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
@@ -73,12 +73,12 @@
             </div>
             <!-- End Atribute Navigation -->
             <!-- Start Header Navigation -->
-            <div class="navbar-header">
+            <div class="navbar-header visible-xs-block visible-sm-block">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="#brand">
-                    <img src="~/images/logo_s.png" class="logo"/>
+                    <img src="~/images/logo_s.png" class="logo" />
                 </a>
             </div>
             <!-- End Header Navigation -->
@@ -87,11 +87,8 @@
 
                 <ul class="nav navbar-nav navbar-left">
 
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">视频解析</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -99,29 +96,55 @@
     </nav>
     <!-- End Navigation -->
     <div class="clearfix"></div>
-    <div class="container">
-        <div class="pagehead">
+    <div class="container pagehead">
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-6 col-md-offset-3">
-                        <img class="img-responsive center-block" src="~/images/logo_b.png" />
+                        <a href="/">
+                            <img class="img-responsive center-block" src="~/images/logo_b.png" alt="btbanana.com search logo" title="btbanana.com" />
+                        </a>
+                        <h3 style="font-size:15px;color:#717171;margin-bottom:30px;margin-top:12px">sssssss</h3>
                     </div>
-                    <form class="form col-md-6 col-md-offset-3" action="/" method="post">
+                    <form class="form col-md-6 col-md-offset-3" action="/search" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="...">
+                            <input type="text" class="form-control" name="key">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">搜索</button>
+                                <input class="btn btn-success" type="submit" value="搜索">
                             </span>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3" style="margin-top:30px; margin-bottom: 40px;">
+                    <div class="hotkey">
+
+                    </div>
+                </div>
+            </div>
+        
     </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    @Html.Partial("_Footer")
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            $('#searchForm').submit(function (e) {
+                e.preventDefault()
+                location.href = '/s/' + encodeURIComponent($.trim($(this).find('input').first().val()))
+            })
+            $('input[type="text"]').focus().select()
+        })
+    </script>
+    <script>
+        $(function () {
+            $.ajax({ type: 'POST', url: '/Home/GetBaiDuHotKeys', data: { num: 20 }, success: function (data) { if (data.msg) { $.each(data.data, function (i, v) { $('<a href="/s/magnet/' + v + '">' + v + '</a>&nbsp;&nbsp;&nbsp;&nbsp').appendTo('.hotkey'); }); } } });
+        })
+    </script>
+
 </body>
 </html>
