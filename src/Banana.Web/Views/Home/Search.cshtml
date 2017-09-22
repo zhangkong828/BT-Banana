@@ -81,10 +81,22 @@
         </div>
     </div>
 </div>
-<div id="page" class="paging">
-    <a href="?cat=all&amp;pageno=5" target="_self" class=" ">&lt; </a><a href="?cat=all&amp;pageno=1" target="_self">1</a><span>...</span><a href="?cat=all&amp;pageno=4" target="_self">4</a><a href="?cat=all&amp;pageno=5" target="_self">5</a> <a target="_self" class="current">6</a><a href="?cat=all&amp;pageno=7" target="_self">7</a><a href="?cat=all&amp;pageno=8" target="_self">8</a><span>...</span><a href="?cat=all&amp;pageno=24" target="_self">24</a><a href="?cat=all&amp;pageno=7" target="_self" class=" "> &gt;</a>
-</div>
-@section FootScripts {
+<div id="pagination" class="paging"></div>
 
+@section FootScripts {
+    <script src="~/js/pager.js"></script>
+    <script>
+        $(function () {
+            var total = 420;
+            var pagesize = 10;
+            $("#pagination").pagination(total, {
+                num_edge_entries: 1, //边缘页数
+                num_display_entries: 5, //主体页数
+                items_per_page: pagesize,
+                prev_text: "<",
+                next_text: ">"
+            });
+        });
+    </script>
 }
 

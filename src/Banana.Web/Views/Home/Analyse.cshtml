@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Analyse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="/analyse/frame?url=111"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-10 col-xs-12" style="margin-top:8px;">
+            <div class="input-group" style="width: 100%;">
+                <input id="" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html">
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-12" style="margin-top:8px;">
+            <button class="btn btn-success btn-lg btn-block">解析</button>
+        </div>
+    </div>
+</div>
+@section FootScripts{
+    <script src="~/ckplayer/ckplayer.js" charset="utf-8"></script>
+    <script>
+        //window.onload = function () {
+        //    var u = "url111";
+        //    var k = "key111";
+        //    var b = {
+        //        f: '/analyse/core?k=' + k + '&u=' + u,
+        //        c: 0,
+        //        s: 1,
+        //        p: 1,
+        //        b: 1,
+        //    };
+        //    var c = {
+        //        bgcolor: '#FFF',
+        //        allowFullScreen: true,
+        //        allowScriptAccess: 'always',
+        //        wmode: 'transparent'
+        //    };
+        //    var d = ['/analyse/core?k=' + k + '&u=' + u + '&type=1->ajax/get/utf-8'];
+        //    var e = ['iPad', 'iPhone', 'ios', 'android+false', 'msie10+false'];
+        //    CKobject.embed('ckplayer/ckplayer.swf', 'video', 'ck', '100%', '500', true, b, d)
+
+        //};
+
+    </script>
+}

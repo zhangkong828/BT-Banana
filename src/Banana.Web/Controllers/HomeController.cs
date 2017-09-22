@@ -25,19 +25,10 @@ namespace Banana.Web.Controllers
         }
 
 
-
+        /// <summary>
+        /// 首页
+        /// </summary>
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            return View();
-        }
-
-
-        public IActionResult Error()
         {
             return View();
         }
@@ -73,8 +64,67 @@ namespace Banana.Web.Controllers
         }
 
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+
         /// <summary>
-        /// 磁力搜索
+        /// 视频解析
+        /// </summary>
+        [Route("/analyse/{url?}")]
+        public IActionResult Analyse(string url)
+        {
+            return View();
+        }
+
+        [Route("/analyse/frame")]
+        public IActionResult AnalyseFrame(string url)
+        {
+            return View();
+        }
+
+        [Route("/analyse/core")]
+        public ContentResult AnalyseCore(string k, string u, int type)
+        {
+            if (string.IsNullOrEmpty(k) || string.IsNullOrEmpty(u) || type > 1 || type < 0)
+            {
+                return Content("参数错误！");
+            }
+            var token = k.Trim();
+            var url = u.Trim();
+            var result = new List<string>();
+            var list = new List<string>()
+            {
+                "http://111.202.85.147/vipzj.video.tc.qq.com/ACN8B7d9nhTRUYStQHhcRjZP1TTNjWUlDXEIWbEhpY8A/x0012ezj2z6.p201.1.mp4?vkey=4EE9EB8EA76C44ECB6A3B0302C56D204A0E825DB7B66ED0D4BB6D71E1F8F9AF1E09BD89A0567511E8B076A3FFA88D3EC69206DBB6AD1AEF8523E856B620B86610D60B695F217342423828A4E5D31164DC1139E5574F6C4295895C9E0483EEB85",
+                "http://111.202.85.147/vipzj.video.tc.qq.com/ACN8B7d9nhTRUYStQHhcRjZP1TTNjWUlDXEIWbEhpY8A/x0012ezj2z6.p201.2.mp4?vkey=B104F6A614C14FCE56326FD45BC1D367D45D7009BFD2499DDF3EE7BD24D04EF637ED1A85B91D9C02FF9D61FB8253846100A0BD228E67C8BEE2884071E6E086D12B60CD8AD6FFBFBA6A87E6B2EBAD23C8E7955C5A8BF21970B6C471F84EB36338"
+            };
+            foreach (var item in list)
+            {
+                if (type == 1)
+                {
+                    //result = "http://movie.ks.js.cn/flv/other/1_0.mp4->video/mp4";
+                    result.Add($"{item}->video/mp4");
+                }
+                else
+                {
+                    //result = "http://movie.ks.js.cn/flv/other/1_0.mp4";
+                    result.Add(item);
+                }
+
+            }
+            return Content(string.Join("|", result), "text/plain");
+        }
+
+
+        /// <summary>
+        /// 磁力链接 搜索
         /// </summary>
         [Route("/s/magnet/{key}/{index?}")]
         public IActionResult Search(string key, string index)
@@ -91,9 +141,10 @@ namespace Banana.Web.Controllers
         }
 
         /// <summary>
-        /// 详情页
+        /// 磁力链接 详情页
         /// </summary>
-        public IActionResult D(string id)
+        [Route("/d/magnet/{hash}")]
+        public IActionResult Detail(string hash)
         {
             return View();
         }

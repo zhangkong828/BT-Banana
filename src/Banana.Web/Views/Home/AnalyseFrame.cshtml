@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AnalyseFrame</title>
+</head>
+<body>
+    <div id="video" style="width: 100%;height: 100%; position: absolute;top: 0;bottom: 0;left:0;right:0;"></div>
+    <script src="~/ckplayer/ckplayer.js" charset="utf-8"></script>
+    <script>
+        window.onload = function () {
+            var u = "url111";
+            var k = "key111";
+            var b = {
+                f: '/analyse/core?k=' + k + '&u=' + u,
+                c: 0,
+                s: 1,
+                p: 1,
+                b: 1,
+            };
+            var c = {
+                bgcolor: '#FFF',
+                allowFullScreen: true,
+                allowScriptAccess: 'always',
+                wmode: 'transparent'
+            };
+            CKobject.embedSWF('/ckplayer/ckplayer.swf', 'video', 'ck', '100%', '100%', b, c);
+
+        };
+
+    </script>
+</body>
+</html>

@@ -15,7 +15,7 @@ body {
 }
 
 a {
-    color: #6f6f6f;
+    color: #76D17F;
     text-decoration: none;
 }
 
@@ -32,6 +32,7 @@ a {
     }
 
         a:hover {
+            color: #4cae4c;
             text-decoration: none;
         }
 
@@ -479,19 +480,73 @@ nav.navbar .share ul > li > a:focus {
         background-color: #dc3236 !important;
     }
 
+/*
+pager
+=========================*/
+.paging {
+    text-align: center;
+    margin: 24px 0;
+    clear: both
+}
+
+    .paging a {
+        margin: 0 4px;
+        width: 36px;
+        height: 36px;
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #eee;
+        line-height: 34px !important;
+        color: #5cb85c;
+        background: #fff;
+        transition: background ease .4s;
+        -webkit-transition: background ease .4s;
+        -moz-transition: background ease .4s;
+        -o-transition: background ease .4s;
+        -ms-transition: background ease .4s
+    }
+
+        .paging a:hover {
+            background-color: #5cb85c;
+            color: #fff;
+            border-radius: 50%
+        }
+
+    .paging .current {
+        background-color: #5cb85c;
+        color: #fff;
+        margin: 0 4px;
+        width: 36px;
+        height: 36px;
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #eee;
+        line-height: 34px !important;
+    }
+
+        .paging .current.prev, .paging .current.next {
+            color: #5cb85c;
+            background: #fff;
+        }
+
+
+
 .container {
     max-width: 1280px;
     text-align: left;
     position: relative;
     margin: 0 auto;
 }
-.footer{
+
+.footer {
     clear: both;
     color: #bbb;
     font-size: 12px;
     text-align: center;
     background-color: #FFF;
+    margin-top: 20px;
 }
+
 .pagehead {
     padding: 90px 20px 0 20px;
     overflow: hidden;
@@ -534,6 +589,7 @@ nav.navbar .share ul > li > a:focus {
         font-size: medium;
         line-height: 1.2;
     }
+
     .search-item h3 {
         font-size: 1em;
         margin-bottom: 4px;
@@ -556,42 +612,3 @@ nav.navbar .share ul > li > a:focus {
         .search-item .item-bar span {
             margin-right: 10px;
         }
-
-/*分页*/
-.paging {
-    text-align: center;
-    margin: 24px 0;
-    clear: both
-}
-
-    .paging a {
-        margin: 0 4px;
-        width: 36px;
-        height: 36px;
-        line-height: 36px;
-        display: inline-block;
-        cursor: pointer;
-        border: 1px solid #eee;
-        line-height: 34px !important;
-    }
-
-    .paging a {
-        color: #FF6651;
-        background: #fff;
-        transition: background ease .4s;
-        -webkit-transition: background ease .4s;
-        -moz-transition: background ease .4s;
-        -o-transition: background ease .4s;
-        -ms-transition: background ease .4s
-    }
-
-        .paging a:hover {
-            background-color: #FF6651;
-            color: #fff;
-            border-radius: 50%
-        }
-
-    .paging .current {
-        background-color: #FF6651;
-        color: #fff
-    }
