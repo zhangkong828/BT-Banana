@@ -8,8 +8,8 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="/analyse/frame?url=111"></iframe>
+                <div class="embed-responsive embed-responsive-16by9" id="iframeBox">
+                    @*<iframe class="embed-responsive-item" src="/analyse/frame?url=111"></iframe>*@
                 </div>
             </div>
         </div>
@@ -26,29 +26,13 @@
     </div>
 </div>
 @section FootScripts{
-    <script src="~/ckplayer/ckplayer.js" charset="utf-8"></script>
     <script>
-        //window.onload = function () {
-        //    var u = "url111";
-        //    var k = "key111";
-        //    var b = {
-        //        f: '/analyse/core?k=' + k + '&u=' + u,
-        //        c: 0,
-        //        s: 1,
-        //        p: 1,
-        //        b: 1,
-        //    };
-        //    var c = {
-        //        bgcolor: '#FFF',
-        //        allowFullScreen: true,
-        //        allowScriptAccess: 'always',
-        //        wmode: 'transparent'
-        //    };
-        //    var d = ['/analyse/core?k=' + k + '&u=' + u + '&type=1->ajax/get/utf-8'];
-        //    var e = ['iPad', 'iPhone', 'ios', 'android+false', 'msie10+false'];
-        //    CKobject.embed('ckplayer/ckplayer.swf', 'video', 'ck', '100%', '500', true, b, d)
-
-        //};
-
+        window.onload = function () {
+            var iframeBox = document.getElementById("iframeBox");
+            var iframe = document.createElement("iframe");
+            iframe.src = "/analyse/frame?url=111";
+            iframe.className = "embed-responsive-item";
+            iframeBox.appendChild(iframe);
+        }
     </script>
 }
