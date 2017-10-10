@@ -9,7 +9,6 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="embed-responsive embed-responsive-16by9" id="iframeBox">
-                    @*<iframe class="embed-responsive-item" src="/analyse/frame?url=111"></iframe>*@
                 </div>
             </div>
         </div>
@@ -17,22 +16,28 @@
     <div class="col-md-12">
         <div class="col-md-10 col-xs-12" style="margin-top:8px;">
             <div class="input-group" style="width: 100%;">
-                <input id="" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html">
+                <input type="hidden" id="key" value="" />
+                <input id="url" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html">
             </div>
         </div>
         <div class="col-md-2 col-xs-12" style="margin-top:8px;">
-            <button class="btn btn-success btn-lg btn-block">解析</button>
+            <button class="btn btn-success btn-lg btn-block" id="btn">解析</button>
         </div>
     </div>
 </div>
 @section FootScripts{
     <script>
-        window.onload = function () {
-            var iframeBox = document.getElementById("iframeBox");
-            var iframe = document.createElement("iframe");
-            iframe.src = "/analyse/frame?url=111";
-            iframe.className = "embed-responsive-item";
-            iframeBox.appendChild(iframe);
-        }
+        $(function () {
+            $("#btn").click(function () {
+                var url = $("#url").val();
+                var url = $("#key").val();
+                var iframeBox = document.getElementById("iframeBox");
+                var iframe = document.createElement("iframe");
+                iframe.src = "/analyse/frame?url=111&key=222";
+                iframe.className = "embed-responsive-item";
+                iframeBox.appendChild(iframe);
+            });
+
+        })
     </script>
 }

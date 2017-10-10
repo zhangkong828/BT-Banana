@@ -75,6 +75,8 @@ namespace Banana.Web.Controllers
             return View();
         }
 
+
+
         /// <summary>
         /// 视频解析
         /// </summary>
@@ -85,8 +87,14 @@ namespace Banana.Web.Controllers
         }
 
         [Route("/analyse/frame")]
-        public IActionResult AnalyseFrame(string url)
+        public IActionResult AnalyseFrame(string url, string key)
         {
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(key))
+            {
+                return NotFound();
+            }
+            ViewData["url"] = url;
+            ViewData["key"] = key;
             return View();
         }
 
