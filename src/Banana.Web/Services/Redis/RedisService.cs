@@ -21,9 +21,9 @@ namespace Banana.Web.Services
             return await _database.StringGetAsync(key);
         }
 
-        public Task SetAsync(string key, string value)
+        public async Task SetAsync(string key, string value)
         {
-            throw new NotImplementedException();
+            await _database.StringSetAsync(key, value);
         }
     }
 }

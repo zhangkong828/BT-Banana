@@ -29,8 +29,17 @@
     <script>
         $(function () {
             $("#btn").click(function () {
-                var url = $("#url").val();
-                var url = $("#key").val();
+                var url = $.trim($("#url").val());
+                var key = $("#key").val();
+                if (url.length <= 0 || url == "") {
+                    alert("请输入正确的视频地址！");
+                    return;
+                }
+                $.ajax({
+                    url: "",
+                    method: "post",
+                    
+                });
                 var iframeBox = document.getElementById("iframeBox");
                 var iframe = document.createElement("iframe");
                 iframe.src = "/analyse/frame?url=111&key=222";

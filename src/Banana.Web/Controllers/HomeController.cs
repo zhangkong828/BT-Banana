@@ -103,7 +103,7 @@ namespace Banana.Web.Controllers
         {
             if (string.IsNullOrEmpty(k) || string.IsNullOrEmpty(u) || type > 1 || type < 0)
             {
-                return Content("参数错误！");
+                return Content("参数错误！");  
             }
             var token = k.Trim();
             var url = u.Trim();
