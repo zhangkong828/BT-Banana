@@ -83,6 +83,17 @@ namespace Banana.Web.Controllers
         [Route("/analyse/{url?}")]
         public IActionResult Analyse(string url)
         {
+            ViewData["gkey"] = Guid.NewGuid().ToString("n");
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/analyse/getkey")]
+        public IActionResult AnalyseKey(string url, string gkey)
+        {
+            var now = DateTime.Now;
+            var time = now.ToString("yyyy-MM-dd HH:mm:ss");
+            var timestamp = FormatHelper.ConvertToTimeStamp(now);
             return View();
         }
 
@@ -103,7 +114,7 @@ namespace Banana.Web.Controllers
         {
             if (string.IsNullOrEmpty(k) || string.IsNullOrEmpty(u) || type > 1 || type < 0)
             {
-                return Content("参数错误！");  
+                return Content("参数错误！");
             }
             var token = k.Trim();
             var url = u.Trim();
