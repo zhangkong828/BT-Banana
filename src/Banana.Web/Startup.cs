@@ -30,6 +30,8 @@ namespace Banana.Web
             //services.AddScoped<IRedisService, RedisService>();
             //services.AddScoped<IElasticSearchService, ElasticSearchService>();
 
+            services.AddMemoryCache();
+
             services.AddMvc();
 
             #region Redis

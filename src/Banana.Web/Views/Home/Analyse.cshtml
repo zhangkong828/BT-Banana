@@ -36,15 +36,25 @@
                     return;
                 }
                 $.ajax({
-                    url: "",
+                    url: "/analyse/getkey",
                     method: "post",
-
+                    data: { url=url, gkey=gkey },
+                    success: function (response) {
+                        if (response.errorCode == 0) {
+                            var iframeBox = document.getElementById("iframeBox");
+                            var iframe = document.createElement("iframe");
+                            iframe.src = "/analyse/frame?url=" + response.url + "&gkey=" + response.gkey + "&timestamp=" + response.timestamp + "&sign=" + response.sign;
+                            iframe.className = "embed-responsive-item";
+                            iframeBox.appendChild(iframe);
+                        } else {
+                            alert(response.msg);
+                        }
+                    },
+                    error: function () {
+                        alert("服务器出现了一个错误。");
+                    }
                 });
-                var iframeBox = document.getElementById("iframeBox");
-                var iframe = document.createElement("iframe");
-                iframe.src = "/analyse/frame?url=111&key=222";
-                iframe.className = "embed-responsive-item";
-                iframeBox.appendChild(iframe);
+
             });
 
         })

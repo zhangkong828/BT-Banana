@@ -10,16 +10,19 @@ using Banana.Common;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Distributed;
 using Banana.Web.Services;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Banana.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IMemoryCache _memoryCache;
         private readonly IRedisService _redisService;
         private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController()
+        public HomeController(IMemoryCache memoryCache)
         {
+            _memoryCache = memoryCache;
             //_redisService = redisService;
             //_elasticSearchService = elasticSearchService;
         }
@@ -77,13 +80,17 @@ namespace Banana.Web.Controllers
 
 
 
+
         /// <summary>
         /// 视频解析
         /// </summary>
         [Route("/analyse/{url?}")]
         public IActionResult Analyse(string url)
         {
-            ViewData["gkey"] = Guid.NewGuid().ToString("n");
+            var gkey = Guid.NewGuid().ToString("n");
+            ViewData["gkey"] = gkey;
+            //设置绝对过期 60分钟
+            _memoryCache.Set(gkey, 0, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(60)));
             return View();
         }
 
@@ -91,33 +98,58 @@ namespace Banana.Web.Controllers
         [Route("/analyse/getkey")]
         public IActionResult AnalyseKey(string url, string gkey)
         {
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey))
+            {
+                return Json(new { errorCode = -1, msg = "参数不完整，缺少相关参数" });
+            }
             var now = DateTime.Now;
             var time = now.ToString("yyyy-MM-dd HH:mm:ss");
-            var timestamp = FormatHelper.ConvertToTimeStamp(now);
-            return View();
+            var timestamp = FormatHelper.ConvertToTimeStamp(now).ToString();
+            var sign = CreateSign(url, gkey, timestamp);
+            return Json(new { errorCode = 0, url = url, gkey = gkey, timestamp = timestamp, sign = sign });
         }
 
         [Route("/analyse/frame")]
-        public IActionResult AnalyseFrame(string url, string key)
+        public IActionResult AnalyseFrame(string url, string gkey, string timestamp, string sign)
         {
-            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(sign))
             {
                 return NotFound();
             }
             ViewData["url"] = url;
-            ViewData["key"] = key;
+            ViewData["gkey"] = gkey;
+            ViewData["timestamp"] = timestamp;
+            ViewData["sign"] = sign;
             return View();
         }
 
         [Route("/analyse/core")]
-        public ContentResult AnalyseCore(string k, string u, int type)
+        public ContentResult AnalyseCore(string url, string gkey, string timestamp, string sign)
         {
-            if (string.IsNullOrEmpty(k) || string.IsNullOrEmpty(u) || type > 1 || type < 0)
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) | string.IsNullOrEmpty(timestamp) | string.IsNullOrEmpty(sign))
             {
-                return Content("参数错误！");
+                return Content("缺少参数，请求非法！");
             }
-            var token = k.Trim();
-            var url = u.Trim();
+            long timestampl = 0;
+            long.TryParse(timestamp, out timestampl);
+            var time = FormatHelper.ConvertToDateTime(timestampl);
+            //不得超过10分钟
+            if (DateTime.Compare(time.AddMinutes(10), DateTime.Now) < 0)
+            {
+                return Content("请求已过期！");
+            }
+            //gkey次数不能大于10
+            var gkeyCount = 0;
+            if (!_memoryCache.TryGetValue(gkey, out gkeyCount) || gkeyCount > 10)
+            {
+                return Content("参数错误，请求非法！");
+            }
+            //校验签名
+            if (!ValidateSign(url, gkey, timestamp, sign))
+            {
+                return Content("签名错误，请求非法！");
+            }
+            //最后接口调用成功后，gkey++  
             var result = new List<string>();
             var list = new List<string>()
             {
@@ -125,19 +157,26 @@ namespace Banana.Web.Controllers
             };
             foreach (var item in list)
             {
-                if (type == 1)
-                {
-                    result.Add($"{item}->video/mp4");
-                }
-                else
-                {
-                    result.Add(item);
-                }
+                //result.Add($"{item}->video/mp4");
+                result.Add(item);
 
             }
             return Content(string.Join("|", result), "text/plain");
         }
 
+
+        private string CreateSign(string url, string gkey, string timestamp)
+        {
+            var MD5Key = "btbanana.com";
+            return FormatHelper.Md5Hash($"md5key={MD5Key}&url={url}&gkey={gkey}&timestamp={timestamp}&md5key={MD5Key}");
+        }
+
+        private bool ValidateSign(string url, string gkey, string timestamp, string sign)
+        {
+            var MD5Key = "btbanana.com";
+            var sourceSign = FormatHelper.Md5Hash($"md5key={MD5Key}&url={url}&gkey={gkey}&timestamp={timestamp}&md5key={MD5Key}");
+            return sourceSign == sign;
+        }
 
         /// <summary>
         /// 磁力链接 搜索
