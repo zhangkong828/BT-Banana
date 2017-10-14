@@ -96,7 +96,7 @@ namespace Banana.Web.Controllers
 
         [HttpPost]
         [Route("/analyse/getkey")]
-        public IActionResult AnalyseKey(string url, string gkey)
+        public IActionResult AnalyseKey([FromForm]string url, [FromForm]string gkey)
         {
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey))
             {
@@ -110,7 +110,7 @@ namespace Banana.Web.Controllers
         }
 
         [Route("/analyse/frame")]
-        public IActionResult AnalyseFrame(string url, string gkey, string timestamp, string sign)
+        public IActionResult AnalyseFrame([FromQuery]string url, [FromQuery] string gkey, [FromQuery]string timestamp, [FromQuery]string sign)
         {
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(sign))
             {
@@ -123,12 +123,17 @@ namespace Banana.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         [Route("/analyse/core")]
-        public ContentResult AnalyseCore(string url, string gkey, string timestamp, string sign)
+        public IActionResult AnalyseCore([FromForm]string u, [FromForm]string g, [FromForm]string t, [FromForm]string s)
         {
+            var url = u.Trim();
+            var gkey = g;
+            var timestamp = t;
+            var sign = s;
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) | string.IsNullOrEmpty(timestamp) | string.IsNullOrEmpty(sign))
             {
-                return Content("缺少参数，请求非法！");
+                return Json(new { errorCode = -9999, msg = "缺少参数，请求非法！" });
             }
             long timestampl = 0;
             long.TryParse(timestamp, out timestampl);
@@ -136,20 +141,21 @@ namespace Banana.Web.Controllers
             //不得超过10分钟
             if (DateTime.Compare(time.AddMinutes(10), DateTime.Now) < 0)
             {
-                return Content("请求已过期！");
+                return Json(new { errorCode = -10000, msg = "请求已过期" });
             }
             //gkey次数不能大于10
             var gkeyCount = 0;
-            if (!_memoryCache.TryGetValue(gkey, out gkeyCount) || gkeyCount > 10)
+            if (!_memoryCache.TryGetValue(gkey, out gkeyCount) || gkeyCount >= 3)
             {
-                return Content("参数错误，请求非法！");
+                return Json(new { errorCode = -10001, msg = "参数错误，请求非法！" });
             }
             //校验签名
             if (!ValidateSign(url, gkey, timestamp, sign))
             {
-                return Content("签名错误，请求非法！");
+                return Json(new { errorCode = -10002, msg = "签名错误，请求非法！" });
             }
-            //最后接口调用成功后，gkey++  
+            //url解码
+            url = FormatHelper.UrlDecode(url);
             var result = new List<string>();
             var list = new List<string>()
             {
@@ -161,7 +167,9 @@ namespace Banana.Web.Controllers
                 result.Add(item);
 
             }
-            return Content(string.Join("|", result), "text/plain");
+            gkeyCount++;
+            _memoryCache.Set(gkey, gkeyCount, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(60)));
+            return Json(new { errorCode = 0, urls = string.Join("|", result) });
         }
 
 

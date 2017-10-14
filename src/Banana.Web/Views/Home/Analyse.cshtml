@@ -29,7 +29,7 @@
     <script>
         $(function () {
             $("#btn").click(function () {
-                var url = $.trim($("#url").val());
+                var url = encodeURIComponent($.trim($("#url").val()));
                 var gkey = $("#gkey").val();
                 if (url.length <= 0 || url == "") {
                     alert("请输入正确的视频地址！");
@@ -38,7 +38,10 @@
                 $.ajax({
                     url: "/analyse/getkey",
                     method: "post",
-                    data: { url=url, gkey=gkey },
+                    data: { "url": url, "gkey": gkey },
+                    beforeSend: function () {
+                        $("#iframeBox").html("");
+                    },
                     success: function (response) {
                         if (response.errorCode == 0) {
                             var iframeBox = document.getElementById("iframeBox");

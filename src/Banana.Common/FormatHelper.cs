@@ -8,6 +8,17 @@ namespace Banana.Common
 {
     public class FormatHelper
     {
+        #region Url编码解码
+        public static string UrlEncode(string url)
+        {
+            return System.Net.WebUtility.UrlEncode(url);
+        }
+
+        public static string UrlDecode(string url)
+        {
+            return System.Net.WebUtility.UrlDecode(url);
+        }
+        #endregion
 
         #region Base64加密解密
         /// <summary>
