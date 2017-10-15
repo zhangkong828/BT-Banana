@@ -116,7 +116,7 @@ namespace Banana.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["url"] = url;
+            ViewData["url"] = FormatHelper.UrlEncode(FormatHelper.UrlDecode(url));
             ViewData["gkey"] = gkey;
             ViewData["timestamp"] = timestamp;
             ViewData["sign"] = sign;
