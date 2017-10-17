@@ -30,7 +30,10 @@ namespace Banana.Web
             //services.AddScoped<IRedisService, RedisService>();
             //services.AddScoped<IElasticSearchService, ElasticSearchService>();
 
+            services.AddResponseCompression();
+
             services.AddMemoryCache();
+            services.AddSession();
 
             services.AddMvc();
 
@@ -72,6 +75,9 @@ namespace Banana.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseResponseCompression();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

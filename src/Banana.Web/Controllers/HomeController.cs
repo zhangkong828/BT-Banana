@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Distributed;
 using Banana.Web.Services;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Http;
 
 namespace Banana.Web.Controllers
 {
@@ -80,14 +81,18 @@ namespace Banana.Web.Controllers
 
 
 
-
         /// <summary>
         /// 视频解析
         /// </summary>
         [Route("/analyse/{url?}")]
         public IActionResult Analyse(string url)
         {
-            var gkey = Guid.NewGuid().ToString("n");
+            var gkey = HttpContext.Session.GetString("gkey");
+            if (string.IsNullOrEmpty(gkey))
+            {
+                gkey = Guid.NewGuid().ToString();
+                HttpContext.Session.SetString("gkey", gkey);
+            }
             ViewData["gkey"] = gkey;
             //设置绝对过期 60分钟
             _memoryCache.Set(gkey, 0, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(60)));

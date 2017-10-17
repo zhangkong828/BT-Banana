@@ -319,8 +319,8 @@ ul.cart-list > li.total > span{
 
 /* Top Search
 =================================*/
-.top-search{
-    background-color: #333;
+.top-search {
+    background-color: #5cb85c;
     padding: 10px 0;
     display: none;
 }

@@ -44,11 +44,11 @@
                     } else if (response.errorCode == -10001) {
                         parent.location.href = '/analyse/' + $("#u").val();
                     } else {
-                        alert(response.msg);
+                        console.log(response.msg);
                     }
                 },
                 error: function () {
-                    alert("服务器出现了一个错误。");
+                    console.log("服务器出现了一个错误。");
                 }
             });
         })

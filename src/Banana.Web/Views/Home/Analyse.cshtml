@@ -50,11 +50,11 @@
                             iframe.className = "embed-responsive-item";
                             iframeBox.appendChild(iframe);
                         } else {
-                            alert(response.msg);
+                            console.log(response.msg);
                         }
                     },
                     error: function () {
-                        alert("服务器出现了一个错误。");
+                        console.log("服务器出现了一个错误。");
                     }
                 });
 
