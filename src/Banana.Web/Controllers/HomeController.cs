@@ -94,8 +94,6 @@ namespace Banana.Web.Controllers
                 HttpContext.Session.SetString("gkey", gkey);
             }
             ViewData["gkey"] = gkey;
-            //设置绝对过期 60分钟
-            _memoryCache.Set(gkey, 0, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(60)));
             return View();
         }
 
@@ -138,21 +136,21 @@ namespace Banana.Web.Controllers
             var sign = s;
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) | string.IsNullOrEmpty(timestamp) | string.IsNullOrEmpty(sign))
             {
-                return Json(new { errorCode = -9999, msg = "缺少参数，请求非法！" });
+                return Json(new { errorCode = -9999, msg = "参数错误，请求非法！" });
             }
             long timestampl = 0;
             long.TryParse(timestamp, out timestampl);
             var time = FormatHelper.ConvertToDateTime(timestampl);
-            //不得超过10分钟
-            if (DateTime.Compare(time.AddMinutes(10), DateTime.Now) < 0)
+            //不得超过2分钟
+            if (DateTime.Compare(time.AddMinutes(2), DateTime.Now) < 0)
             {
                 return Json(new { errorCode = -10000, msg = "请求已过期" });
             }
-            //gkey次数不能大于10
-            var gkeyCount = 0;
-            if (!_memoryCache.TryGetValue(gkey, out gkeyCount) || gkeyCount >= 3)
+            //gkey需要与会话一致
+            var server_gkey = HttpContext.Session.GetString("gkey");
+            if (gkey != server_gkey)
             {
-                return Json(new { errorCode = -10001, msg = "参数错误，请求非法！" });
+                return Json(new { errorCode = -10001, msg = "会话超时，请求非法！" });
             }
             //校验签名
             if (!ValidateSign(url, gkey, timestamp, sign))
@@ -172,8 +170,6 @@ namespace Banana.Web.Controllers
                 result.Add(item);
 
             }
-            gkeyCount++;
-            _memoryCache.Set(gkey, gkeyCount, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(60)));
             return Json(new { errorCode = 0, urls = string.Join("|", result) });
         }
 
