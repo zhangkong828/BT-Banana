@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12 detail col">
+    <h4 class="inline"><a href="#">aaa</a></h4>
+    <h5 class="inline">
+        <a href="#" class="inline">magnet</a>
+    </h5>
+    <div>
+        <button class="btn btn-success" data-clipboard-text="magnet" data-placement="bottom" id="btnCopy" title="">
+            CopyButton
+        </button>
+        <a class="btn btn-success" href="magnet" id="magnetLink">
+            DownloadButton
+        </a>
+    </div>
+    <div class="table-responsive" style="margin-top:10px;">
+        <table class="table table-bordered card info">
+            <thead>
+                <tr>
+                    <th>MagnetType</th>
+                    <th>MagnetFileSize</th>
+                    <th>MagnetFileCount</th>
+                    <th>MagnetDownloadCount</th>
+                    <th>MagnetUpdateTime</th>
+                    <th>MagnetCreateTime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>type</td>
+                    <td>filesize</td>
+                    <td>filecount</td>
+                    <td>downloadcount</td>
+                    <td>updatetime</td>
+                    <td>createtime</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="files">
+        <h5><b>相关字段</b></h5>
+        <a href="#" class="label label-danger">item</a>
+
+        <h5><b>FileList</b></h5>
+        <ul>
+            <li class="inline">name size</li>
+            <li class="inline">name size</li>
+        </ul>
+
+    </div>
+
+</div>
+@section FootScripts
+    {
+    <script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+}
+
+
