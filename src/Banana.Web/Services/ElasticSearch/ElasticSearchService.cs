@@ -14,6 +14,14 @@ namespace Banana.Web.Services
             _client = client;
         }
 
+        public void Search<T>(string key) where T : class
+        {
+            var response = _client.Search<T>(s=>s
+                            .From(0)
+                            .Size(10)
+                            //.Query(q=>q.Match(m=>m.Field(f=>f.)))
+                            );
+        }
 
     }
 }
