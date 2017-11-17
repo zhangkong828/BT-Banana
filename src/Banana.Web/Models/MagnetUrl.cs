@@ -14,8 +14,8 @@ namespace Banana.Web.Models
         public string InfoHash { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public int Size { get; set; }
-        public string Tag { get; set; }
+        public long Size { get; set; }
+        public string[] Tag { get; set; }
         public DateTime CreateTime { get; set; }
         public List<FileInfo> Files { get; set; }
     }
@@ -24,6 +24,6 @@ namespace Banana.Web.Models
     public class FileInfo
     {
         public string Name { get; set; }
-        public int Size { get; set; }
+        public long Size { get; set; }
     }
 }

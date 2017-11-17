@@ -21,11 +21,11 @@ namespace Banana.Web.Controllers
         private readonly IRedisService _redisService;
         private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController(IMemoryCache memoryCache)
+        public HomeController(IMemoryCache memoryCache, IRedisService redisService, IElasticSearchService elasticSearchService)
         {
             _memoryCache = memoryCache;
-            //_redisService = redisService;
-            //_elasticSearchService = elasticSearchService;
+            _redisService = redisService;
+            _elasticSearchService = elasticSearchService;
         }
 
 
@@ -197,10 +197,10 @@ namespace Banana.Web.Controllers
                 return RedirectToAction("index");
             key = key.Trim();
             var currentIndex = 0;
-            if (!int.TryParse(index, out currentIndex))
-                currentIndex = 1;
+            int.TryParse(index, out currentIndex);
             currentIndex = currentIndex < 1 ? 1 : currentIndex;
 
+            _elasticSearchService.Search(key);
             return View();
         }
 

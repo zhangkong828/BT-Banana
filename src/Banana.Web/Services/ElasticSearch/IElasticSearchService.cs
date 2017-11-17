@@ -7,6 +7,6 @@ namespace Banana.Web.Services
 {
     public interface IElasticSearchService
     {
-
+        void Search(string key);
     }
 }

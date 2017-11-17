@@ -27,8 +27,8 @@ namespace Banana.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<IRedisService, RedisService>();
-            //services.AddScoped<IElasticSearchService, ElasticSearchService>();
+            services.AddScoped<IRedisService, RedisService>();
+            services.AddScoped<IElasticSearchService, ElasticSearchService>();
 
             services.AddResponseCompression();
 
@@ -38,23 +38,23 @@ namespace Banana.Web
             services.AddMvc();
 
             #region Redis
-            //var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
-            //var RedisDatabase = connectionMultiplexer.GetDatabase(0);
-            //services.AddScoped(_ => RedisDatabase);
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
+            var RedisDatabase = connectionMultiplexer.GetDatabase(0);
+            services.AddScoped(_ => RedisDatabase);
             #endregion
 
 
             #region ElasticSearch
-            //var EsUrls = Configuration["ElasticSearch:Url"].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-            //var EsNodes = new List<Uri>();
-            //EsUrls.ForEach(url =>
-            //{
-            //    EsNodes.Add(new Uri(url));
-            //});
-            //var EsPool = new Elasticsearch.Net.StaticConnectionPool(EsNodes);
-            //var EsSettings = new Nest.ConnectionSettings(EsPool);
-            //var EsClient = new Nest.ElasticClient(EsSettings);
-            //services.AddScoped(_ => EsClient);
+            var EsUrls = Configuration["ElasticSearch:Url"].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var EsNodes = new List<Uri>();
+            EsUrls.ForEach(url =>
+            {
+                EsNodes.Add(new Uri(url));
+            });
+            var EsPool = new Elasticsearch.Net.StaticConnectionPool(EsNodes);
+            var EsSettings = new Nest.ConnectionSettings(EsPool);
+            var EsClient = new Nest.ElasticClient(EsSettings);
+            services.AddScoped(_ => EsClient);
             #endregion
 
         }
