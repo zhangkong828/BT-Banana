@@ -26,15 +26,15 @@ namespace Banana.Web.Services
                             .Type(TypeName)
                             .From(0)
                             .Size(10)
-                            //.Query(q => q.
-                            //    MultiMatch(mm => mm.Fields(fs => fs.Fields(f => f.Name, f => f.InfoHash)).Query(key)
-                            //    ))
+                            .Query(q => q.
+                                MultiMatch(mm => mm.Fields(fs => fs.Fields(f => f.Name, f => f.InfoHash)).Query(key)
+                                ))
                             //.Query(q => q.
                             //    Match(m => m.Field(f => f.Name).Query(key)
                             //))
-                            .Query(q => q
-                                .MatchAll()
-                            )
+                            //.Query(q => q
+                            //    .MatchAll()
+                            //)
                             //.Query(q => q
                             //    .Bool(b => b
                             //        .Should(sd => sd
@@ -45,7 +45,7 @@ namespace Banana.Web.Services
                             //                .Query(key)
                             //    )
                             //)))
-                            .Sort(st => st.Descending(d => d.CreateTime))
+                            //.Sort(st => st.Descending(d => d.CreateTime))
                             .Source(sc => sc.IncludeAll())
                             );
             var a = 1;

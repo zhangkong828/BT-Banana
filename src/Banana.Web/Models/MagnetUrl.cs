@@ -9,7 +9,7 @@ namespace Banana.Web.Models
     {
         public MagnetUrl()
         {
-            Files = new List<FileInfo>();
+            //Files = new List<FileInfo>();
         }
         public string InfoHash { get; set; }
         public string Name { get; set; }
@@ -17,7 +17,7 @@ namespace Banana.Web.Models
         public long Size { get; set; }
         public string[] Tag { get; set; }
         public DateTime CreateTime { get; set; }
-        public List<FileInfo> Files { get; set; }
+        public FileInfo[] Files { get; set; }
     }
 
 
