@@ -25,7 +25,7 @@ namespace Banana.Web.Services
                             .Index(IndexName)
                             .Type(TypeName)
                             .From(0)
-                            .Size(10)
+                            .Size(1)
                             .Query(q => q.
                                 MultiMatch(mm => mm.Fields(fs => fs.Fields(f => f.Name, f => f.InfoHash)).Query(key)
                                 ))
