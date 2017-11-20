@@ -1,61 +1,49 @@
-﻿
+﻿@model Banana.Web.Models.MagnetUrl
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var Magnet = $"magnet:?xt=urn:btih:{Model.InfoHash}";
 }
-<div class="col-md-12 detail col">
-    <h4 class="inline"><a href="#">aaa</a></h4>
-    <h5 class="inline">
-        <a href="#" class="inline">magnet</a>
-    </h5>
-    <div>
-        <button class="btn btn-success" data-clipboard-text="magnet" data-placement="bottom" id="btnCopy" title="">
-            CopyButton
-        </button>
-        <a class="btn btn-success" href="magnet" id="magnetLink">
-            DownloadButton
-        </a>
+<div class="col-md-12">
+    <h4 class="magnet-name"><a href="@Magnet">@Model.Name</a></h4>
+</div>
+<div class="col-md-12">
+    <h6 class="magnet-tags">
+        @{
+            foreach (var tag in Model.Tag)
+            {
+                <a href="#" class="label label-danger">@tag</a>
+            }
+        }
+    </h6>
+</div>
+<div class="col-md-12">
+    <code class="magnet-link">@Magnet</code>
+</div>
+<div class="col-md-12">
+    <div class="magnet-infos">
+        <h5><strong>种子类型：</strong><small>@Model.Type</small></h5>
+        <h5><strong>种子大小：</strong><small>@Model.Size</small></h5>
+        <h5><strong>收录时间：</strong><small>@Model.CreateTime</small></h5>
     </div>
-    <div class="table-responsive" style="margin-top:10px;">
-        <table class="table table-bordered card info">
-            <thead>
-                <tr>
-                    <th>MagnetType</th>
-                    <th>MagnetFileSize</th>
-                    <th>MagnetFileCount</th>
-                    <th>MagnetDownloadCount</th>
-                    <th>MagnetUpdateTime</th>
-                    <th>MagnetCreateTime</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>type</td>
-                    <td>filesize</td>
-                    <td>filecount</td>
-                    <td>downloadcount</td>
-                    <td>updatetime</td>
-                    <td>createtime</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="files">
-        <h5><b>相关字段</b></h5>
-        <a href="#" class="label label-danger">item</a>
-
-        <h5><b>FileList</b></h5>
+</div>
+<div class="col-md-12">
+    <div class="magnet-files">
+        <h5><strong>文件列表：</strong></h5>
         <ul>
-            <li class="inline">name size</li>
-            <li class="inline">name size</li>
+            @{
+                foreach (var file in Model.Files)
+                {
+                    <li class="inline">@file.Name <span class="label label-warning">@file.Size</span></li>
+                }
+            }
         </ul>
 
     </div>
-
 </div>
 @section FootScripts
     {
-    <script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+
 }
 
 

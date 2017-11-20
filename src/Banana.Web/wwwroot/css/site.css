@@ -14,27 +14,23 @@ body {
     color: #6f6f6f;
 }
 
-a {
-    color: #76D17F;
+a,
+a:active,
+a:focus {
+    color: #5cb85c;
+    outline: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     text-decoration: none;
 }
 
-    a,
-    a:active,
-    a:focus,
     a:hover {
-        outline: none;
-        -webkit-transition: all 0.3s ease-in-out;
-        -moz-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        -ms-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
+        color: #76D17F;
+        text-decoration: none;
     }
-
-        a:hover {
-            color: #4cae4c;
-            text-decoration: none;
-        }
 
 h1, h2, h3, h4, h5, h6 {
     color: #3f3f3f;
@@ -529,8 +525,6 @@ pager
             background: #fff;
         }
 
-
-
 .container {
     max-width: 1280px;
     text-align: left;
@@ -548,7 +542,7 @@ pager
 }
 
 .pagehead {
-    padding: 90px 20px 0 20px;
+    padding: 100px 20px 0 20px;
     overflow: hidden;
 }
 
@@ -612,3 +606,16 @@ pager
         .search-item .item-bar span {
             margin-right: 10px;
         }
+
+.magnet-name {
+    word-wrap: break-word;
+}
+
+.magnet-tags a {
+    line-height: 28px;
+}
+
+.magnet-link {
+    margin-bottom: 10px;
+    display: block;
+}

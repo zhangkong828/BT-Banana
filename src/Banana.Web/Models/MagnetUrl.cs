@@ -10,7 +10,7 @@ namespace Banana.Web.Models
     {
         public MagnetUrl()
         {
-            //Files = new List<File>();
+            Files = new List<FileInfo>();
         }
         [JsonProperty(PropertyName = "infohash")]
         public string InfoHash { get; set; }
@@ -31,32 +31,15 @@ namespace Banana.Web.Models
         public DateTime CreateTime { get; set; }
 
         [JsonProperty(PropertyName = "files")]
-        public FileInfo[] Files { get; set; }
+        public List<FileInfo> Files { get; set; }
     }
 
-
-    public class File
-    {
-        public FileInfo[] fileinfo { get; set; }
-    }
 
     public class FileInfo
     {
-        public object Name { get; set; }
-        public object Size { get; set; }
+        public string Name { get; set; }
+        public long Size { get; set; }
     }
 }
 
-
-
-public class Rootobject
-{
-    public File[] file { get; set; }
-}
-
-public class File
-{
-    public long size { get; set; }
-    public string name { get; set; }
-}
 

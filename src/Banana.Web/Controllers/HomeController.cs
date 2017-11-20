@@ -30,9 +30,17 @@ namespace Banana.Web.Controllers
 
 
         /// <summary>
-        /// 首页
+        /// pc首页
         /// </summary>
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 首页
+        /// </summary>
+        public IActionResult MobileIndex()
         {
             return View();
         }
@@ -200,7 +208,7 @@ namespace Banana.Web.Controllers
             int.TryParse(index, out currentIndex);
             currentIndex = currentIndex < 1 ? 1 : currentIndex;
 
-            _elasticSearchService.Search(key);
+            // _elasticSearchService.Search(key);
             return View();
         }
 
@@ -210,7 +218,21 @@ namespace Banana.Web.Controllers
         [Route("/d/magnet/{hash}")]
         public IActionResult Detail(string hash)
         {
-            return View();
+            var model = new MagnetUrl();
+            model.InfoHash = "31aa57c3f7658b01e8085207d9adfba63cf47421";
+            model.Name = "天才枪手.Bad.Genius.2017.1080p.WEB-DL.X264.AAC-BT4K";
+            model.Type = ".mp4";
+            model.Size = 45642133;
+            model.CreateTime = DateTime.Now;
+            model.Tag = new string[] { "天才枪手", "Genius", "2017", "1080p", "WEB-DL", "X264", "AAC-BT4K" };
+            var files = new List<FileInfo>();
+            files.Add(new FileInfo() { Name = "[www.BT4K.com][更多精彩尽在www.BT4K.com].nfo", Size = 4531 });
+            files.Add(new FileInfo() { Name = "BT4K欢迎您-双击进入下载更多高清影视.url", Size = 254 });
+            files.Add(new FileInfo() { Name = "www.BT4K.com 免责声明.rtf", Size = 125646 });
+            files.Add(new FileInfo() { Name = "天才枪手.Bad.Genius.2017.1080p.WEB-DL.X264.AAC-BT4K.mp4", Size = 275464531 });
+            files.Add(new FileInfo() { Name = "进入bbs.BT4K.com百度云网盘在线观看.htm", Size = 79854 });
+            model.Files = files;
+            return View(model);
         }
     }
 }

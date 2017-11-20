@@ -26,107 +26,30 @@
  *
 -->
 <!DOCTYPE HTML>
-<html>
+<!--[if IE 7 ]><html class="ie7" lang="zh-cn"><![endif]--><!--[if IE 8 ]><html class="ie8" lang="zh-cn"><![endif]--><!--[if IE 9 ]><html class="ie9" lang="zh-cn"><![endif]--><!--[if (gt IE 9)|!(IE)]><!-->
+<html class="" lang="zh-cn">
+<!--<![endif]-->
+
 <head>
     <meta charset="UTF-8">
     <title>111</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta http-equiv="cache-control" content="no-siteapp">
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-    <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="~/css/index-cover.css" rel="stylesheet" />
 </head>
 <body>
-    <!-- Start Navigation -->
-    <nav class="navbar navbar-default navbar-mobile navbar-fixed navbar-transparent bootsnav">
+    <div id="cover">
 
-        <!-- Start Top Search -->
-        <div class="top-search">
-            <div class="container">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-                </div>
-            </div>
-        </div>
-        <!-- End Top Search -->
+        <div class="topbar">
+            <div id="logo">
+                <a href="">
 
-        <div class="container">
-            <!-- Start Atribute Navigation -->
-            <div class="attr-nav visible-xs-block visible-sm-block">
-                <ul>
-                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
-                </ul>
-            </div>
-            <!-- End Atribute Navigation -->
-            <!-- Start Header Navigation -->
-            <div class="navbar-header visible-xs-block visible-sm-block">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#brand">
-                    <img src="~/images/logo_s.png" class="logo" />
                 </a>
             </div>
-            <!-- End Header Navigation -->
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-menu">
-
-                <ul class="nav navbar-nav navbar-left">
-
-                    <li><a href="/">首页</a></li>
-                    <li><a href="/analyse">视频解析</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
         </div>
-    </nav>
-    <!-- End Navigation -->
-    <div class="clearfix"></div>
-    <div class="container pagehead">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6 col-md-offset-3">
-                    <a href="/">
-                        <img class="img-responsive center-block" src="~/images/logo_b.png" alt="btbanana.com search logo" title="btbanana.com" />
-                    </a>
-                    <h3 style="font-size:15px;color:#717171;margin-bottom:30px;margin-top:12px">sssssss</h3>
-                </div>
-                <form class="form col-md-6 col-md-offset-3" action="/search" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="key">
-                        <span class="input-group-btn">
-                            <input class="btn btn-success" type="submit" value="搜索">
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3" style="margin-top:30px; margin-bottom: 40px;">
-                <div class="hotkey">
-
-                </div>
-            </div>
-        </div>
-
+        @Html.Partial("_Footer")
     </div>
-    @Html.Partial("_Footer")
+
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
@@ -145,6 +68,8 @@
             $.ajax({ type: 'POST', url: '/Home/GetBaiDuHotKeys', data: { num: 20 }, success: function (data) { if (data.msg) { $.each(data.data, function (i, v) { $('<a href="/s/magnet/' + v + '">' + v + '</a>&nbsp;&nbsp;&nbsp;&nbsp').appendTo('.hotkey'); }); } } });
         })
     </script>
+
+
 
 </body>
 </html>

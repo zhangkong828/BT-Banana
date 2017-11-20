@@ -1,31 +1,12 @@
-﻿<!--
-**
- *   ┏┓　　　┏┓
- * ┏┛┻━━━┛┻┓
- * ┃　　　　　　　┃
- * ┃　　　━　　　┃
- * ┃　┳┛　┗┳　┃
- * ┃　　　　　　　┃
- * ┃　　　┻　　　┃
- * ┃　　　　　　　┃
- * ┗━┓　　　┏━┛
- *    ┃　　　┃
- *    ┃　　　┃
- *    ┃　　　┗━━━┓
- *    ┃　　　　　　　┣┓
- *    ┃　　　　　　　┏┛
- *    ┗┓┓┏━┳┓┏┛
- *      ┃┫┫　┃┫┫
- *      ┗┻┛　┗┻┛
- *
- *
- *
--->
+﻿
+@{
+    Layout = null;
+}
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>@ViewBag.Title</title>
+    <title>111</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,14 +18,12 @@
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css"/>
-    @RenderSection("HeadCss", false)
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
     <!-- Start Navigation -->
@@ -94,13 +73,39 @@
     </nav>
     <!-- End Navigation -->
     <div class="clearfix"></div>
-    <div class="container pagehead clearfix">
-        @RenderBody()
+    <div class="container pagehead">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 col-md-offset-3">
+                    <a href="/">
+                        <img class="img-responsive center-block" src="~/images/logo_b.png" alt="btbanana.com search logo" title="btbanana.com" />
+                    </a>
+                    <h3 style="font-size:15px;color:#717171;margin-bottom:30px;margin-top:12px">sssssss</h3>
+                </div>
+                <form class="form col-md-6 col-md-offset-3" action="/search" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="key">
+                        <span class="input-group-btn">
+                            <input class="btn btn-success" type="submit" value="搜索">
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" style="margin-top:30px; margin-bottom: 40px;">
+                <div class="hotkey">
+
+                </div>
+            </div>
+        </div>
+
     </div>
     @Html.Partial("_Footer")
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/jQuery-Paging/1.2.0/jquery.paging.min.js"></script>
     <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
@@ -112,6 +117,11 @@
             $('input[type="text"]').focus().select()
         })
     </script>
-    @RenderSection("FootScripts", false)
+    <script>
+        $(function () {
+            $.ajax({ type: 'POST', url: '/Home/GetBaiDuHotKeys', data: { num: 20 }, success: function (data) { if (data.msg) { $.each(data.data, function (i, v) { $('<a href="/s/magnet/' + v + '">' + v + '</a>&nbsp;&nbsp;&nbsp;&nbsp').appendTo('.hotkey'); }); } } });
+        })
+    </script>
+
 </body>
 </html>
