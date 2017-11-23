@@ -1,4 +1,5 @@
-﻿@model Banana.Web.Models.MagnetUrl
+﻿@model Banana.Web.Models.MagnetLink
+@using Banana.Common
 @{
     ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +13,7 @@
         @{
             foreach (var tag in Model.Tag)
             {
-                <a href="#" class="label label-danger">@tag</a>
+                <a href="/s/magnet/@tag" class="label label-danger">@tag</a>
             }
         }
     </h6>
@@ -23,21 +24,21 @@
 <div class="col-md-12">
     <div class="magnet-infos">
         <h5><strong>种子类型：</strong><small>@Model.Type</small></h5>
-        <h5><strong>种子大小：</strong><small>@Model.Size</small></h5>
+        <h5><strong>种子大小：</strong><small>@FormatHelper.HumanReadableByteCount(Model.Size)</small></h5>
         <h5><strong>收录时间：</strong><small>@Model.CreateTime</small></h5>
     </div>
 </div>
 <div class="col-md-12">
     <div class="magnet-files">
         <h5><strong>文件列表：</strong></h5>
-        <ul>
+        <ol>
             @{
                 foreach (var file in Model.Files)
                 {
-                    <li class="inline">@file.Name <span class="label label-warning">@file.Size</span></li>
+                    <li class="inline">@file.Name <span class="label label-warning">@FormatHelper.HumanReadableByteCount(file.Size)</span></li>
                 }
             }
-        </ul>
+        </ol>
 
     </div>
 </div>

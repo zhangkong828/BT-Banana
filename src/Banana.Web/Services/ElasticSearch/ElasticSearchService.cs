@@ -63,7 +63,7 @@ namespace Banana.Web.Services
                                 )
 
                             )
-                            .Sort(st => st.Descending(d => d.CreateTime))
+                            //.Sort(st => st.Descending(d => d.CreateTime))
                             .Source(sc => sc.IncludeAll())
                             );
             result.Totals = (int)response.Total;
@@ -81,5 +81,11 @@ namespace Banana.Web.Services
             return result;
         }
 
+        public MagnetLink MagnetLinkInfo(string infohash)
+        {
+            //根据唯一id获取
+            var response = _client.Get(new DocumentPath<MagnetLink>(infohash), pd => pd.Index(IndexName).Type(TypeName));
+            return response.Source;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model Banana.Web.Models.ViewModels.MagnetLinkSearchResultViewModel
+@using Banana.Common
 @{
     ViewData["Title"] = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +10,11 @@
 @{
     if (Model.HasResult)
     {
-        <div class="search-statu"><span>搜索到大约@(Model.Totals)条结果，耗时@(Model.FindTime)ms。</span><span></span></div>
+        <div class="search-statu"><span>根据 <strong>@(Model.SearchKey)</strong> 找到约@(Model.Totals)条结果</span></div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">没有找到 <strong>@(Model.SearchKey)</strong> 相关结果</div>
     }
 }
 <div class="row">
@@ -22,7 +27,7 @@
                     <div class="search-item">
                         <div class="item-title">
                             <h3>
-                                <a href="@($"/d/magnet/{item.InfoHash}")" target="_blank">@Html.Raw(item.Name)</a>
+                                <a class="search-item-link" href="@($"/d/magnet/{item.InfoHash}")" target="_blank">@Html.Raw(item.Name)</a>
                             </h3>
                         </div>
                         @{
@@ -36,8 +41,9 @@
 
                         }
                         <div class="item-bar">
-                            <span>创建时间： <b>@item.CreateTime.ToString("yyyy-MM-dd HH:mm")</b></span>
-                            <span>文件大小：<b>@item.Size</b></span>
+                            <span>收录时间： <b>@item.CreateTime.ToString("yyyy-MM-dd")</b></span>
+                            <span>种子类型：<b>@item.Type</b></span>
+                            <span>种子大小：<b>@FormatHelper.HumanReadableByteCount(item.Size)</b></span>
                         </div>
                     </div>
                                 }
@@ -45,7 +51,13 @@
         }
     </div>
 </div>
-<div id="pagination" class="paging"></div>
+@{
+    if (Model.HasResult)
+    {
+        <div id="pagination" class="paging"></div>
+    }
+}
+
 
 @section FootScripts {
     <script src="~/js/pager.js"></script>
@@ -56,16 +68,12 @@
             var pageindex=@Model.PageIndex;
             $("#pagination").pagination(total, {
                 link_to:@Html.Raw(pageLink),
-                current_page: pageindex-1,//当前页 下标0开始
+                current_page: pageindex - 1,//当前页 下标0开始
+                num_edge_entries:1,
                 num_display_entries: 5, //主体页数
                 items_per_page: pagesize,
                 prev_text: "<",
                 next_text: ">"
-            });
-
-            $("#pagination a").click(function () {
-
-
             });
         });
     </script>

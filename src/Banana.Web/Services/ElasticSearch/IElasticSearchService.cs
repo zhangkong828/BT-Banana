@@ -1,4 +1,5 @@
-﻿using Banana.Web.Models.ViewModels;
+﻿using Banana.Web.Models;
+using Banana.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace Banana.Web.Services
     public interface IElasticSearchService
     {
         MagnetLinkSearchResultViewModel MagnetLinkSearch(string key, int pageIndex, int pageSize);
+
+        MagnetLink MagnetLinkInfo(string infohash);
     }
 }

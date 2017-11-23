@@ -570,7 +570,7 @@ pager
 }
 
 .search-statu {
-    margin: 10px 0;
+    margin: 10px 0px 20px 0px;
 }
 
 .search-item {
@@ -590,22 +590,32 @@ pager
         word-wrap: break-word;
     }
 
-    .search-item .item-list {
-        color: #545454;
-        line-height: 1.4;
-        font-size: 13px;
-        word-wrap: break-word;
+.search-item-link {
+    
+}
+
+    .search-item-link em {
+        color: #d9534f;
+        font-style: normal;
     }
 
-    .search-item .item-bar {
-        color: #00802a;
-        font-size: 13px;
-        line-height: 1pc;
-    }
+.search-item .item-list {
+    color: #545454;
+    line-height: 1.4;
+    font-size: 13px;
+    word-wrap: break-word;
+}
 
-        .search-item .item-bar span {
-            margin-right: 10px;
-        }
+.search-item .item-bar {
+    color: #00802a;
+    font-size: 12px;
+    line-height: 1pc;
+    margin-top: 5px;
+}
+
+    .search-item .item-bar span {
+        margin-right: 10px;
+    }
 
 .magnet-name {
     word-wrap: break-word;

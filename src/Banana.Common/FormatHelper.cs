@@ -153,5 +153,15 @@ namespace Banana.Common
             return strResult;
         }
         #endregion
+
+        #region 单位转换
+        public static string HumanReadableByteCount(long bytes)
+        {
+            int unit = 1024;
+            if (bytes < unit) return bytes + " B";
+            int exp = (int)(Math.Log(bytes) / Math.Log(unit));
+            return String.Format("{0:F1} {1}B", bytes / Math.Pow(unit, exp), "KMGTPE"[exp - 1]);
+        }
+        #endregion
     }
 }
