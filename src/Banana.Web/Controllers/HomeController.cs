@@ -207,9 +207,9 @@ namespace Banana.Web.Controllers
             var currentIndex = 0;
             int.TryParse(index, out currentIndex);
             currentIndex = currentIndex < 1 ? 1 : currentIndex;
-
-            // _elasticSearchService.Search(key);
-            return View();
+            var pageSize = 10;
+            var result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+            return View(result);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Banana.Web.Controllers
         [Route("/d/magnet/{hash}")]
         public IActionResult Detail(string hash)
         {
-            var model = new MagnetUrl();
+            var model = new MagnetLink();
             model.InfoHash = "31aa57c3f7658b01e8085207d9adfba63cf47421";
             model.Name = "天才枪手.Bad.Genius.2017.1080p.WEB-DL.X264.AAC-BT4K";
             model.Type = ".mp4";

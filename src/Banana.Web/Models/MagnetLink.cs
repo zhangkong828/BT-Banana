@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Banana.Web.Models
 {
-    public class MagnetUrl
+    public class MagnetLink
     {
-        public MagnetUrl()
+        public MagnetLink()
         {
             Files = new List<FileInfo>();
         }
