@@ -12,17 +12,22 @@ using Microsoft.Extensions.Caching.Distributed;
 using Banana.Web.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.AspNetCore.Http;
+using Banana.Web.Models.ViewModels;
+using Microsoft.Extensions.Options;
+using Banana.Web.Core;
 
 namespace Banana.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private ConfigInfos _configInfos;
         private IMemoryCache _memoryCache;
         private readonly IRedisService _redisService;
         private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController(IMemoryCache memoryCache, IRedisService redisService, IElasticSearchService elasticSearchService)
+        public HomeController(IOptions<ConfigInfos> option, IMemoryCache memoryCache, IRedisService redisService, IElasticSearchService elasticSearchService)
         {
+            _configInfos = option.Value;
             _memoryCache = memoryCache;
             _redisService = redisService;
             _elasticSearchService = elasticSearchService;
@@ -168,16 +173,22 @@ namespace Banana.Web.Controllers
             //url解码
             url = FormatHelper.UrlDecode(url);
             var result = new List<string>();
-            var list = new List<string>()
+            var response = AnalyseService.Analyse(_configInfos.AnalyseServiceAddress, url);
+            if (response == null || response.ErrCode != 0)
             {
-                "http://movie.ks.js.cn/flv/other/1_0.mp4"
-            };
-            foreach (var item in list)
-            {
-                //result.Add($"{item}->video/mp4");
-                result.Add(item);
-
+                //解析失败 返回默认地址  //应该返回错误 todo
+                result.Add("http://movie.ks.js.cn/flv/other/1_0.mp4");
             }
+            else
+            {
+                //可能会有多个视频  这里只取第一个
+                var video = response.Data.FirstOrDefault();
+                //foreach (var item in collection)
+                //{
+
+                //}
+            }
+
             return Json(new { errorCode = 0, urls = string.Join("|", result) });
         }
 
@@ -201,14 +212,28 @@ namespace Banana.Web.Controllers
         [Route("/s/magnet/{key}/{index?}")]
         public IActionResult Search(string key, string index)
         {
+            key = key.Trim();
             if (string.IsNullOrEmpty(key))
                 return RedirectToAction("index");
-            key = key.Trim();
             var currentIndex = 0;
             int.TryParse(index, out currentIndex);
-            currentIndex = currentIndex < 1 ? 1 : currentIndex;
+            currentIndex = currentIndex < 1 ? 1 : currentIndex > 100 ? 100 : currentIndex; //最多100页
             var pageSize = 10;
-            var result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+            var result = new MagnetLinkSearchResultViewModel();
+            //只缓存前20页数据  1分钟
+            if (currentIndex > 20)
+            {
+                result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+            }
+            else
+            {
+                var cacheKey = $"s_m_{key}_{currentIndex}";
+                if (!_memoryCache.TryGetValue(cacheKey, out result))
+                {
+                    result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+                    _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(1)));
+                }
+            }
             return View(result);
         }
 
@@ -220,9 +245,15 @@ namespace Banana.Web.Controllers
         {
             if (string.IsNullOrEmpty(hash) || hash.Length != 40)
                 return new RedirectResult("/error");
-            var model = _elasticSearchService.MagnetLinkInfo(hash);
-            if (model == null)
-                return new RedirectResult("/error");
+            var model = new MagnetLink();
+            var cacheKey = $"d_m_{hash}";
+            if (!_memoryCache.TryGetValue(cacheKey, out model))
+            {
+                model = _elasticSearchService.MagnetLinkInfo(hash);
+                if (model == null)
+                    return new RedirectResult("/error");
+                _memoryCache.Set(cacheKey, model, new TimeSpan(0, 30, 0));
+            }
             return View(model);
         }
     }

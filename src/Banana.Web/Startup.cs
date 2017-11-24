@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Localization;
 using StackExchange.Redis;
 using Banana.Web.Services;
 using System.Text;
+using Banana.Web.Models;
 
 namespace Banana.Web
 {
@@ -37,12 +38,14 @@ namespace Banana.Web
 
             services.AddMvc();
 
+            services.AddOptions();
+            services.Configure<ConfigInfos>(Configuration.GetSection("ConfigInfos"));
+
             #region Redis
             var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
             var RedisDatabase = connectionMultiplexer.GetDatabase(0);
             services.AddScoped(_ => RedisDatabase);
             #endregion
-
 
             #region ElasticSearch
             var EsUrls = Configuration["ElasticSearch:Url"].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
