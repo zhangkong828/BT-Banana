@@ -19,7 +19,8 @@ namespace Banana.Web.Core
             var postData = $"url={url}";
             try
             {
-                return JsonConvert.DeserializeObject<VideoAnalyseResponse>(Post(address, postData));
+                var data = Post(address, postData);
+                return JsonConvert.DeserializeObject<VideoAnalyseResponse>(data);
             }
             catch (Exception ex)
             {

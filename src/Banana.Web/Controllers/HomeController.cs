@@ -172,24 +172,38 @@ namespace Banana.Web.Controllers
             }
             //url解码
             url = FormatHelper.UrlDecode(url);
+            var cacheKey = $"analyse_{url}";
+            var response = new VideoAnalyseResponse();
+            if (!_memoryCache.TryGetValue(cacheKey, out response))
+            {
+                response = AnalyseService.Analyse(_configInfos.AnalyseServiceAddress, url);
+                if (response != null && response.ErrCode == 0)
+                    _memoryCache.Set(cacheKey, response);
+            }
+            //处理数据
             var result = new List<string>();
-            var response = AnalyseService.Analyse(_configInfos.AnalyseServiceAddress, url);
+            var name = string.Empty;
             if (response == null || response.ErrCode != 0)
             {
-                //解析失败 返回默认地址  //应该返回错误 todo
+                //解析失败   //应该返回错误 todo
                 result.Add("http://movie.ks.js.cn/flv/other/1_0.mp4");
             }
             else
             {
                 //可能会有多个视频  这里只取第一个
                 var video = response.Data.FirstOrDefault();
-                //foreach (var item in collection)
-                //{
-
-                //}
+                if (video != null)
+                {
+                    name = video.Name;
+                    foreach (var item in video.Part)
+                    {
+                        if (!string.IsNullOrEmpty(item.Url))
+                            result.Add(item.Url);
+                    }
+                }
             }
 
-            return Json(new { errorCode = 0, urls = string.Join("|", result) });
+            return Json(new { errorCode = 0, name = name, urls = string.Join("|", result) });
         }
 
 
