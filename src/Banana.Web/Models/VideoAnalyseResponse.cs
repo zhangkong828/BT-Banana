@@ -34,6 +34,7 @@ namespace Banana.Web.Models
 
     public class PartInfo
     {
+        public int Index { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public string Remark { get; set; }
