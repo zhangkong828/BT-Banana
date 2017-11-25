@@ -27,6 +27,7 @@
                 },
                 success: function (response) {
                     if (response.errorCode == 0) {
+                        window.title = response.name; 
                         var b = {
                             f: response.urls,
                             c: 0,

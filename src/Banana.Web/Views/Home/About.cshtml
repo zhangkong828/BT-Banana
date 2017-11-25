@@ -1,43 +1,45 @@
 ﻿
 @{
-    ViewBag.Title = "About";
-    Layout = "~/Views/_LayoutPage.cshtml";
+    ViewBag.Title = "关于BT香蕉";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row-fluid" style="margin-top:20px">
-    <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12 col">
-        <br>
-        <h4>概述</h4>
+<div class="row-fluid">
+    <div class="col-md-12">
+        <h5>概述</h5>
         <p>
-            <a href="http://btbanana.com">Banana</a> 是一个BT搜索引擎，为的是解决Bittorrent协议自身没有实现资源搜索的功能。
+            <a href="/">BT香蕉</a>磁力搜索是一个BT搜索引擎，为的是解决Bittorrent协议自身没有实现资源搜索的功能。<br />
+            通过DHT网络获取到用户正在下载的资源信息，包括文件名，大小等，具体来说就是实现了Bittorrent中的<a href="http://www.bittorrent.org/beps/bep_0003.html" target="_blank">bep_0003</a>, <a href="http://www.bittorrent.org/beps/bep_0005.html" target="_blank">bep_0005</a>, <a href="http://www.bittorrent.org/beps/bep_0009.html" target="_blank">bep_0009</a>, <a href="http://www.bittorrent.org/beps/bep_0010.html" target="_blank">bep_0010</a>四条协议。
         </p>
         <p>
-            <a href="http://btbanana.com">Banana</a> 通过DHT网络获取到用户正在下载的资源信息，包括文件名，大小等，具体来说就是实现了Bittorrent中的<a href="http://www.bittorrent.org/beps/bep_0003.html">bep_0003</a>, <a href="http://www.bittorrent.org/beps/bep_0005.html">bep_0005</a>, <a href="http://www.bittorrent.org/beps/bep_0009.html">bep_0009</a>, <a href="http://www.bittorrent.org/beps/bep_0010.html">bep_0010</a>四条协议。
-        </p>
-        <br><br>
-        <h4>合法</h4>
+            正因为如此，根据Bittorrent协议<a href="/">BT香蕉</a>只能获取到torrent文件的info信息，所以<a href="/">BT香蕉</a>服务器上<u>不保存任何torrent种子文件</u>，同时，也<u>不提供任何的tracker服务</u>，通常来说，这样就意味着<a href="/">BT香蕉</a><u>在绝大多数国家都是合法的</u>。
+</p>
         <p>
-            正因为如此，根据Bittorrent协议<a href="http://btbanana.com">Banana</a>只能获取到torrent文件的info信息，所以<a href="http://btbanana.com">Banana</a>服务器上不保存任何torrent种子文件，同时，也不提供任何的tracker服务，通常来说，这样就意味着<a href="http://btbanana.com">Banana</a>在大多数国家都是可以合法运营的。
-        </p>
+            同时<a href="/">BT香蕉</a>也<u>不提供任何除资源搜索外的服务</u>。<a href="/">BT香蕉</a>的搜索结果通常都只是一个磁力链接，这样有利于互联网分享，如需下载资源，你还需要安装其它下载软件（如<a href="http://www.utorrent.com/" target="_blank">μTorrent</a>，<a href="http://www.bitcomet.com" target="_blank">BitComet</a>，<a href="http://dl.xunlei.com/" target="_blank">迅雷</a>等等）。
+</p>
+       
+        <h5>搜索</h5>
         <p>
-            同时<a href="http://btbanana.com">Banana</a>也不提供任何除BT资源搜索外的服务。比如视频在线播放（你可以使用如<a href="http://pan.baidu.com">百度网盘</a>）。<a href="http://btbanana.com">Banana</a>的搜索结果通常都只是一个磁力链接，这样有利于互联网分享，如需下载资源，你还需要安装其它下载软件（如<a href="http://www.utorrent.com/">μTorrent</a>，<a href="http://www.bitcomet.com">BitComet</a>，<a href="http://dl.xunlei.com/">迅雷</a>等等）。
+            <a href="/">BT香蕉</a>索引到的内容如果出现色情、暴力以及侵权等行为时，请联系我们，在核实信息后，我们会进行屏蔽处理。
         </p>
-        <br><br>
-        <h4>搜索</h4>
+        <br />
+        <h5>开源</h5>
         <p>
-            <a href="http://btbanana.com">Banana</a>对一些搜索进行了初步过滤，屏蔽的词库还在不断扩充中。
+            <a href="/">BT香蕉</a>的相关项目是开源的吗？<br />
+            是的。
         </p>
+        <br />
         <p>
-            <a href="http://btbanana.com">Banana</a>索引到的内容有侵害到您的权义，或者你拥有的版权，请及时联系我们，在核实信息后，我们会删除。
-        </p>
-        <br><br>
-        <h4>开源</h4>
-        <p>
-            <a href="http://btbanana">Banana</a>会开源吗？是的。
+            <a href="https://github.com/niubileme/DHTSpider" target="_blank">DHTSpider</a> 一个由C#编写的DHT爬虫，从全球DHT网络里"嗅探"正在下载的资源, 并抓取相关metadata资源(种子信息)。
         </p>
         <p>
-            开源的<a href="http://btbanana.com">Banana</a>托管在<a href="https://github.com/niubileme/BT-Banana" target="_blank">Github</a>上。如有疑问可以在Github上通过Issues留言。
+            <a href="https://github.com/niubileme/BT-Banana" target="_blank">BT-Banana</a> 使用Asp.Net Core2开发，Develop For <a href="/">btbanana.com</a>，目前稳定运行在CentOS服务器上。
         </p>
+        <br />
+        <p>
+            以上，如有任何疑问，可以在Github上通过Issues留言。
+        </p>
+        <br />
     </div>
 </div>
 

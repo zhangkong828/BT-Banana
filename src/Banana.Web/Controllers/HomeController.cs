@@ -35,7 +35,7 @@ namespace Banana.Web.Controllers
 
 
         /// <summary>
-        /// pc首页
+        /// 首页
         /// </summary>
         public IActionResult Index()
         {
@@ -43,9 +43,10 @@ namespace Banana.Web.Controllers
         }
 
         /// <summary>
-        /// 首页
+        /// 电影库
         /// </summary>
-        public IActionResult MobileIndex()
+        [Route("/movies")]
+        public IActionResult Movies()
         {
             return View();
         }
@@ -80,7 +81,7 @@ namespace Banana.Web.Controllers
             return Json(new { msg = list.Count > 0, data = list });
         }
 
-
+        [Route("/about")]
         public IActionResult About()
         {
             return View();
@@ -91,8 +92,60 @@ namespace Banana.Web.Controllers
         {
             return View();
         }
+        
+        /// <summary>
+        /// 磁力链接 搜索
+        /// </summary>
+        [Route("/s/magnet/{key}/{index?}")]
+        public IActionResult Search(string key, string index)
+        {
+            key = key.Trim();
+            if (string.IsNullOrEmpty(key))
+                return RedirectToAction("index");
+            var currentIndex = 0;
+            int.TryParse(index, out currentIndex);
+            currentIndex = currentIndex < 1 ? 1 : currentIndex > 100 ? 100 : currentIndex; //最多100页
+            var pageSize = 10;
+            var result = new MagnetLinkSearchResultViewModel();
+            //只缓存前20页数据  1分钟
+            if (currentIndex > 20)
+            {
+                result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+            }
+            else
+            {
+                var cacheKey = $"s_m_{key}_{currentIndex}";
+                if (!_memoryCache.TryGetValue(cacheKey, out result))
+                {
+                    result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+                    _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(1)));
+                }
+            }
+            return View(result);
+        }
+
+        /// <summary>
+        /// 磁力链接 详情页
+        /// </summary>
+        [Route("/d/magnet/{hash}")]
+        public IActionResult Detail(string hash)
+        {
+            if (string.IsNullOrEmpty(hash) || hash.Length != 40)
+                return new RedirectResult("/error");
+            var model = new MagnetLink();
+            var cacheKey = $"d_m_{hash}";
+            if (!_memoryCache.TryGetValue(cacheKey, out model))
+            {
+                model = _elasticSearchService.MagnetLinkInfo(hash);
+                if (model == null)
+                    return new RedirectResult("/error");
+                _memoryCache.Set(cacheKey, model, new TimeSpan(0, 30, 0));
+            }
+            return View(model);
+        }
 
 
+        #region 视频解析
 
         /// <summary>
         /// 视频解析
@@ -220,55 +273,6 @@ namespace Banana.Web.Controllers
             return sourceSign == sign;
         }
 
-        /// <summary>
-        /// 磁力链接 搜索
-        /// </summary>
-        [Route("/s/magnet/{key}/{index?}")]
-        public IActionResult Search(string key, string index)
-        {
-            key = key.Trim();
-            if (string.IsNullOrEmpty(key))
-                return RedirectToAction("index");
-            var currentIndex = 0;
-            int.TryParse(index, out currentIndex);
-            currentIndex = currentIndex < 1 ? 1 : currentIndex > 100 ? 100 : currentIndex; //最多100页
-            var pageSize = 10;
-            var result = new MagnetLinkSearchResultViewModel();
-            //只缓存前20页数据  1分钟
-            if (currentIndex > 20)
-            {
-                result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
-            }
-            else
-            {
-                var cacheKey = $"s_m_{key}_{currentIndex}";
-                if (!_memoryCache.TryGetValue(cacheKey, out result))
-                {
-                    result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
-                    _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(1)));
-                }
-            }
-            return View(result);
-        }
-
-        /// <summary>
-        /// 磁力链接 详情页
-        /// </summary>
-        [Route("/d/magnet/{hash}")]
-        public IActionResult Detail(string hash)
-        {
-            if (string.IsNullOrEmpty(hash) || hash.Length != 40)
-                return new RedirectResult("/error");
-            var model = new MagnetLink();
-            var cacheKey = $"d_m_{hash}";
-            if (!_memoryCache.TryGetValue(cacheKey, out model))
-            {
-                model = _elasticSearchService.MagnetLinkInfo(hash);
-                if (model == null)
-                    return new RedirectResult("/error");
-                _memoryCache.Set(cacheKey, model, new TimeSpan(0, 30, 0));
-            }
-            return View(model);
-        }
+        #endregion
     }
 }

@@ -25,9 +25,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>@ViewBag.Title</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <title>@ViewBag.Title - BT香蕉btbanana.com</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,7 +35,7 @@
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <link href="~/css/bootsnav.min.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @RenderSection("HeadCss", false)
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -54,8 +52,8 @@
         <div class="top-search">
             <div class="container">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search">
+                    <span class="input-group-addon"><i class="fa fa-search" id="msearch"></i></span>
+                    <input type="text" class="form-control" placeholder="Search" id="mkey">
                     <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
                 </div>
             </div>
@@ -76,7 +74,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="#brand">
-                    <img src="~/images/logo_s.png" class="logo" />
+                    BT香蕉
                 </a>
             </div>
             <!-- End Header Navigation -->
@@ -84,11 +82,9 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
 
                 <ul class="nav navbar-nav navbar-left">
-
                     <li><a href="/">首页</a></li>
-                    <li><a href="#">视频搜索</a></li>
-                    <li><a href="#">磁力搜索</a></li>
-                    <li><a href="/analyse">视频解析</a></li>
+                    <li><a href="/movies">电影库</a></li>
+                    <li><a href="/analyse">解析接口</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -104,14 +100,16 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/jQuery-Paging/1.2.0/jquery.paging.min.js"></script>
     <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         $(function () {
-            $('#searchForm').submit(function (e) {
-                e.preventDefault()
-                location.href = '/s/' + encodeURIComponent($.trim($(this).find('input').first().val()))
-            })
-            $('input[type="text"]').focus().select()
+            $("#msearch").click(function () {
+                var key = $.trim($("#mkey").val());
+                if (key == "" || key.length <= 0) {
+                    //console.log("请先输入参数")
+                } else {
+                    Location.href = '/s/magnet/' + encodeURIComponent(key);
+                }
+            });
         })
     </script>
     @RenderSection("FootScripts", false)

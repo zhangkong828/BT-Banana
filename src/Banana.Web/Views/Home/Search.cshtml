@@ -1,7 +1,7 @@
 ﻿@model Banana.Web.Models.ViewModels.MagnetLinkSearchResultViewModel
 @using Banana.Common
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = $"{Model.SearchKey} 相关磁力搜索";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var pageLink = $"'/s/magnet/{Model.SearchKey}/__id__'";

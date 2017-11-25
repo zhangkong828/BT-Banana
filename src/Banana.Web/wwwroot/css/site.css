@@ -66,8 +66,8 @@ h6 {
     line-height: 18px;
 }
 
-p {
-    margin-bottom: 20px;
+strong {
+    color:#000;
 }
 
 .section {
@@ -550,7 +550,6 @@ pager
     text-align: center;
     font-size: 16px;
     color: gray;
-    width: 650px;
     margin: 0 auto
 }
 
