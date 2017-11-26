@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-
-namespace Banana.Common
+namespace Banana.Web.Helper
 {
     public class FormatHelper
     {

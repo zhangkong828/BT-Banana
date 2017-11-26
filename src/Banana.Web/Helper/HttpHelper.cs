@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace Banana.Common
+namespace Banana.Web.Helper
 {
     public class HttpHelper
     {
@@ -26,7 +26,7 @@ namespace Banana.Common
             }
             catch (Exception ex)
             {
-               // Log.Error(url, ex);
+                // Log.Error(url, ex);
             }
             return html;
         }

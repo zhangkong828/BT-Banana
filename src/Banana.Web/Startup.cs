@@ -74,11 +74,9 @@ namespace Banana.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/error");
             }
-
-            app.UseStaticFiles();
-
+            app.UseDefaultFiles();
             app.UseResponseCompression();
             app.UseSession();
 

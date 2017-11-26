@@ -24,6 +24,8 @@ namespace Banana.Web.Models.ViewModels
 
         public int PageSize { get; set; }
 
+        public int PageTotals { get; set; }
+
         public int Totals { get; set; }
 
     }

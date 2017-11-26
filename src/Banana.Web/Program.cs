@@ -19,6 +19,7 @@ namespace Banana.Web
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://*:11233")
                 .UseStartup<Startup>()
                 .Build();
     }

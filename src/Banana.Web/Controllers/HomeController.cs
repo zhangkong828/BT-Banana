@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Banana.Web.Models;
 using Microsoft.Extensions.Localization;
-using Banana.Common;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Caching.Distributed;
 using Banana.Web.Services;
@@ -15,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Banana.Web.Models.ViewModels;
 using Microsoft.Extensions.Options;
 using Banana.Web.Core;
+using Banana.Web.Helper;
 
 namespace Banana.Web.Controllers
 {
@@ -40,6 +40,24 @@ namespace Banana.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        [Route("/s")]
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SearchPost([FromForm]string key)
+        {
+            if (string.IsNullOrEmpty(key))
+                return Json(new { error = -1, msg = "搜索条件为空" });
+            var result = SearchService.QQSearch(key);
+            return Json(new { error = 0, data = result.SearchResult });
         }
 
         /// <summary>
@@ -92,18 +110,17 @@ namespace Banana.Web.Controllers
         {
             return View();
         }
-        
+
         /// <summary>
         /// 磁力链接 搜索
         /// </summary>
         [Route("/s/magnet/{key}/{index?}")]
-        public IActionResult Search(string key, string index)
+        public IActionResult MagnetSearch(string key, string index)
         {
             key = key.Trim();
             if (string.IsNullOrEmpty(key))
                 return RedirectToAction("index");
-            var currentIndex = 0;
-            int.TryParse(index, out currentIndex);
+            int.TryParse(index, out int currentIndex);
             currentIndex = currentIndex < 1 ? 1 : currentIndex > 100 ? 100 : currentIndex; //最多100页
             var pageSize = 10;
             var result = new MagnetLinkSearchResultViewModel();
@@ -128,7 +145,7 @@ namespace Banana.Web.Controllers
         /// 磁力链接 详情页
         /// </summary>
         [Route("/d/magnet/{hash}")]
-        public IActionResult Detail(string hash)
+        public IActionResult MagnetDetail(string hash)
         {
             if (string.IsNullOrEmpty(hash) || hash.Length != 40)
                 return new RedirectResult("/error");
@@ -148,6 +165,19 @@ namespace Banana.Web.Controllers
         #region 视频解析
 
         /// <summary>
+        /// 验证url 目前只支持腾讯视频
+        /// </summary>
+        private bool VerifyUrl(string url)
+        {
+            var result = true;
+            if (string.IsNullOrEmpty(url))
+                return false;
+            if (!Regex.IsMatch(url, "^[https|http].+?v.qq.com"))
+                return false;
+            return result;
+        }
+
+        /// <summary>
         /// 视频解析
         /// </summary>
         [Route("/analyse/{url?}")]
@@ -160,6 +190,7 @@ namespace Banana.Web.Controllers
                 HttpContext.Session.SetString("gkey", gkey);
             }
             ViewData["gkey"] = gkey;
+            ViewData["url"] = VerifyUrl(url) ? url : "";
             return View();
         }
 
@@ -171,6 +202,8 @@ namespace Banana.Web.Controllers
             {
                 return Json(new { errorCode = -1, msg = "参数不完整，缺少相关参数" });
             }
+            if(!VerifyUrl(url))
+                return Json(new { errorCode = -1, msg = "视频地址不正确或不支持" });
             var now = DateTime.Now;
             var time = now.ToString("yyyy-MM-dd HH:mm:ss");
             var timestamp = FormatHelper.ConvertToTimeStamp(now).ToString();
@@ -204,8 +237,7 @@ namespace Banana.Web.Controllers
             {
                 return Json(new { errorCode = -9999, msg = "参数错误，请求非法！" });
             }
-            long timestampl = 0;
-            long.TryParse(timestamp, out timestampl);
+            long.TryParse(timestamp, out long timestampl);
             var time = FormatHelper.ConvertToDateTime(timestampl);
             //不得超过2分钟
             if (DateTime.Compare(time.AddMinutes(2), DateTime.Now) < 0)

@@ -75,3 +75,14 @@ body {
 #cover {
     min-width: 1126px
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    color: #5cb85c;
+}
+
+    .footer a {
+        color: #5cb85c;
+        text-decoration:none;
+    }

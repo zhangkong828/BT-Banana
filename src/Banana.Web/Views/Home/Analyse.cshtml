@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "视频解析接口";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var gkey = ViewData["gkey"];
+    var url = ViewData["url"] as string;
+    var auto = string.IsNullOrEmpty(url) ? 0 : 1;
 }
 
 <div class="row">
@@ -14,10 +18,13 @@
         </div>
     </div>
     <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="alert alert-info">目前只支持腾讯视频解析，后期会增加对其他源的解析。</div>
+        </div>
         <div class="col-md-10 col-xs-12" style="margin-top:8px;">
             <div class="input-group" style="width: 100%;">
-                <input type="hidden" id="gkey" value="@ViewData["gkey"]" />
-                <input id="url" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html">
+                <input type="hidden" id="gkey" value="@gkey" />
+                <input id="url" class="form-control input-lg" type="text" name="url" placeholder="输入视频播放地址，如：https://v.qq.com/x/cover/qee75hz1x7m6n3s.html" value="@url">
             </div>
         </div>
         <div class="col-md-2 col-xs-12" style="margin-top:8px;">
@@ -28,10 +35,12 @@
 @section FootScripts{
     <script>
         $(function () {
+            var auto=@auto;
+         
             $("#btn").click(function () {
                 var url = encodeURIComponent($.trim($("#url").val()));
                 var gkey = $("#gkey").val();
-                if (url.length <= 0 || url == "") {
+                if (!CheckUrl(url)) {
                     alert("请输入正确的视频地址！");
                     return;
                 }
@@ -60,6 +69,16 @@
 
             });
 
+            function CheckUrl(str) {
+                var reg = /(http||https).+?v.qq.com.+?/;
+                if (!reg.test(str)) {
+                    return false;
+                }
+                return true;
+            };
+
+            if (auto > 0)
+                $("#btn").click();
         })
     </script>
 }
