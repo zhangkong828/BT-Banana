@@ -22,14 +22,14 @@ namespace Banana.Web.Controllers
     {
         private ConfigInfos _configInfos;
         private IMemoryCache _memoryCache;
-        private readonly IRedisService _redisService;
+        //private readonly IRedisService _redisService;
         private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController(IOptions<ConfigInfos> option, IMemoryCache memoryCache, IRedisService redisService, IElasticSearchService elasticSearchService)
+        public HomeController(IOptions<ConfigInfos> option, IMemoryCache memoryCache, IElasticSearchService elasticSearchService)
         {
             _configInfos = option.Value;
             _memoryCache = memoryCache;
-            _redisService = redisService;
+            //_redisService = redisService;
             _elasticSearchService = elasticSearchService;
         }
 
@@ -202,7 +202,7 @@ namespace Banana.Web.Controllers
             {
                 return Json(new { errorCode = -1, msg = "参数不完整，缺少相关参数" });
             }
-            if(!VerifyUrl(url))
+            if (!VerifyUrl(url))
                 return Json(new { errorCode = -1, msg = "视频地址不正确或不支持" });
             var now = DateTime.Now;
             var time = now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -214,10 +214,10 @@ namespace Banana.Web.Controllers
         [Route("/analyse/frame")]
         public IActionResult AnalyseFrame([FromQuery]string url, [FromQuery] string gkey, [FromQuery]string timestamp, [FromQuery]string sign)
         {
-            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(sign))
-            {
-                return NotFound();
-            }
+            //if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(sign))
+            //{
+            //    return NotFound();
+            //}
             ViewData["url"] = FormatHelper.UrlEncode(FormatHelper.UrlDecode(url));
             ViewData["gkey"] = gkey;
             ViewData["timestamp"] = timestamp;
@@ -225,10 +225,34 @@ namespace Banana.Web.Controllers
             return View();
         }
 
-        [HttpPost]
         [Route("/analyse/core")]
-        public IActionResult AnalyseCore([FromForm]string u, [FromForm]string g, [FromForm]string t, [FromForm]string s)
+        public IActionResult AnalyseCore([FromQuery]string u, [FromQuery]string g, [FromQuery]string t, [FromQuery]string s)
         {
+            var json = new CKPlayerJsonViewModel();
+            json.autoplay = true;
+            json.video = new List<CKVideo>() {
+                new CKVideo(){
+                     type="mp4",
+                weight=10,
+                definition="标清",
+                video=new List<CKVideoInfo>(){
+                    new CKVideoInfo() { file = "http://movie.ks.js.cn/flv/other/1_0.mp4",duration=30 },
+                    new CKVideoInfo() { file = "http://7sbltv.com1.z0.glb.clouddn.com/See%20You%20Again.mp4",duration=50 }
+                }
+                },
+                new CKVideo(){
+                     type="mp4",
+                weight=0,
+                definition="高清",
+                video=new List<CKVideoInfo>(){
+                    new CKVideoInfo() { file = "http://movie.ks.js.cn/flv/other/1_0.mp4",duration=10 },
+                    new CKVideoInfo() { file = "http://7sbltv.com1.z0.glb.clouddn.com/See%20You%20Again.mp4",duration=20 }
+                }
+                }
+            };
+            return Json(json);
+
+
             var url = u.Trim();
             var gkey = g;
             var timestamp = t;
@@ -270,8 +294,9 @@ namespace Banana.Web.Controllers
             var name = string.Empty;
             if (response == null || response.ErrCode != 0)
             {
-                //解析失败   //应该返回错误 todo
-                result.Add("http://movie.ks.js.cn/flv/other/1_0.mp4");
+                //result.Add("http://movie.ks.js.cn/flv/other/1_0.mp4");
+                //解析失败   
+                //应该返回错误 todo  这里返回null
             }
             else
             {

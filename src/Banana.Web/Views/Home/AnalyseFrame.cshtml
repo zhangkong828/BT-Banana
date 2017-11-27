@@ -1,6 +1,11 @@
 ﻿
 @{
     Layout = null;
+    var url = ViewData["url"];
+    var gkey = ViewData["gkey"];
+    var timestamp = ViewData["timestamp"];
+    var sign = ViewData["sign"];
+    var website = $"/analyse/core?u={url}&g={gkey}&t={timestamp}&s={sign}";
 }
 <!DOCTYPE html>
 <html>
@@ -13,45 +18,54 @@
     <input type="hidden" id="g" value="@ViewData["gkey"]" />
     <input type="hidden" id="t" value="@ViewData["timestamp"]" />
     <input type="hidden" id="s" value="@ViewData["sign"]" />
-    <div id="video" style="width: 100%;height: 100%; position: absolute;top: 0;bottom: 0;left:0;right:0;"></div>
+    @*<div id="video" style="width: 100%;height: 100%; position: absolute;top: 0;bottom: 0;left:0;right:0;"></div>*@
+    <div id="video" style="width: 1000px;height: 600px;"></div>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="~/ckplayer/ckplayer.js" charset="utf-8"></script>
     <script>
         $(function () {
-            $.ajax({
-                url: "/analyse/core",
-                method: "post",
-                data: { "u": $("#u").val(), "g": $("#g").val(), "t": $("#t").val(), "s": $("#s").val() },
-                beforeSend: function () {
-                    //前置等待
-                },
-                success: function (response) {
-                    if (response.errorCode == 0) {
-                        window.title = response.name; 
-                        var b = {
-                            f: response.urls,
-                            c: 0,
-                            s: 0,
-                            p: 1,
-                            b: 1,
-                        };
-                        var c = {
-                            bgcolor: '#000',
-                            allowFullScreen: true,
-                            allowScriptAccess: 'always',
-                            wmode: 'transparent'
-                        };
-                        CKobject.embedSWF('/ckplayer/ckplayer.swf', 'video', 'ck', '100%', '100%', b, c)
-                    } else if (response.errorCode == -10001) {
-                        parent.location.href = '/analyse/' + $("#u").val();
-                    } else {
-                        console.log(response.msg);
-                    }
-                },
-                error: function () {
-                    console.log("服务器出现了一个错误。");
-                }
-            });
+            var videoObject = {
+                container: '#video',//“#”代表容器的ID，“.”或“”代表容器的class
+                variable: 'player',//该属性必需设置，值等于下面的new chplayer()的对象
+                flashplayer: true,//如果强制使用flashplayer则设置成true
+                video: 'website:@website'//视频地址
+            };
+            var player = new ckplayer(videoObject);
+
+            //$.ajax({
+            //    url: "/analyse/core",
+            //    method: "post",
+            //    data: { "u": $("#u").val(), "g": $("#g").val(), "t": $("#t").val(), "s": $("#s").val() },
+            //    beforeSend: function () {
+            //        //前置等待
+            //    },
+            //    success: function (response) {
+            //        if (response.errorCode == 0) {
+            //            window.title = response.name;
+            //            var b = {
+            //                f: response.urls,
+            //                c: 0,
+            //                s: 0,
+            //                p: 1,
+            //                b: 1,
+            //            };
+            //            var c = {
+            //                bgcolor: '#000',
+            //                allowFullScreen: true,
+            //                allowScriptAccess: 'always',
+            //                wmode: 'transparent'
+            //            };
+            //            CKobject.embedSWF('/ckplayer/ckplayer.swf', 'video', 'ck', '100%', '100%', b, c)
+            //        } else if (response.errorCode == -10001) {
+            //            parent.location.href = '/analyse/' + $("#u").val();
+            //        } else {
+            //            console.log(response.msg);
+            //        }
+            //    },
+            //    error: function () {
+            //        console.log("服务器出现了一个错误。");
+            //    }
+            //});
         })
     </script>
 </body>

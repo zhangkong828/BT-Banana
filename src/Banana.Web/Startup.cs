@@ -42,9 +42,9 @@ namespace Banana.Web
             services.Configure<ConfigInfos>(Configuration.GetSection("ConfigInfos"));
 
             #region Redis
-            var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
-            var RedisDatabase = connectionMultiplexer.GetDatabase(0);
-            services.AddScoped(_ => RedisDatabase);
+            //var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
+            //var RedisDatabase = connectionMultiplexer.GetDatabase(0);
+            //services.AddScoped(_ => RedisDatabase);
             #endregion
 
             #region ElasticSearch
