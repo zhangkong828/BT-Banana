@@ -66,7 +66,7 @@ namespace Banana.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
+            app.UseStaticFiles();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -76,7 +76,6 @@ namespace Banana.Web
             {
                 app.UseExceptionHandler("/error");
             }
-            app.UseDefaultFiles();
             app.UseResponseCompression();
             app.UseSession();
 
