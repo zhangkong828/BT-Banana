@@ -131,7 +131,7 @@
 				<height>27</height>
 				<align>center</align><!--文字对方方式,left,center,right-->
 				<padding>5</padding><!--只在左对齐和右对齐时有效，如左对齐时则表示离左边的距离-->
-				<size>14</size><!--字体大小-->
+				<size>12</size><!--字体大小-->
 				<font>Microsoft YaHei,\5FAE\8F6F\96C5\9ED1,微软雅黑</font><!--字体-->
 				<textColor>0xFFFFFF</textColor><!--字体颜色-->
 				<overTextColor>0xFFFFFF</overTextColor><!--字体颜色-->
@@ -168,7 +168,7 @@
 				<height>27</height>
 				<align>center</align><!--文字对方方式,left,center,right-->
 				<padding>5</padding><!--只在左对齐和右对齐时有效，如左对齐时则表示离左边的距离-->
-				<size>14</size><!--字体大小-->
+				<size>12</size><!--字体大小-->
 				<font>Microsoft YaHei,\5FAE\8F6F\96C5\9ED1,微软雅黑</font><!--字体-->
 				<textColor>0xFFFFFF</textColor><!--字体颜色-->
 				<overTextColor>0xFFFFFF</overTextColor><!--字体颜色-->
@@ -186,7 +186,7 @@
 				<height>27</height>
 				<align>center</align><!--文字对方方式,left,center,right-->
 				<padding>5</padding><!--只在左对齐和右对齐时有效，如左对齐时则表示离左边的距离-->
-				<size>14</size><!--字体大小-->
+				<size>12</size><!--字体大小-->
 				<font>Microsoft YaHei,\5FAE\8F6F\96C5\9ED1,微软雅黑</font><!--字体-->
 				<textColor>0xFFFFFF</textColor><!--字体颜色-->
 				<overTextColor>0xFFFFFF</overTextColor><!--字体颜色-->
@@ -215,7 +215,7 @@
 				<offsetY>-35</offsetY>
 				<height>true</height><!--这里的height是一个特例，因为清晰度列表背景框的Y需要减去背景框的高度-->
 			</backgroundCoor>
-			<event>click</event><!--控制点击显示清晰度列表还是鼠标经过默认按钮显示清晰度列表，click=点击，over=经过显示-->
+			<event>over</event><!--控制点击显示清晰度列表还是鼠标经过默认按钮显示清晰度列表，click=点击，over=经过显示-->
 		</definition>
 		<!--音量调节栏的配置-->
 		<volumeSchedule>

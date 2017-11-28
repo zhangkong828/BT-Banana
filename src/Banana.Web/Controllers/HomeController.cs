@@ -266,7 +266,7 @@ namespace Banana.Web.Controllers
             if (!_memoryCache.TryGetValue(cacheKey, out response))
             {
                 response = AnalyseService.Analyse(_configInfos.AnalyseServiceAddress, url);
-                if (response != null && response.ErrCode == 0)
+                if (response != null && response.ErrCode == 0 && response.Data.Count > 0)
                     _memoryCache.Set(cacheKey, response);
             }
             //处理数据
