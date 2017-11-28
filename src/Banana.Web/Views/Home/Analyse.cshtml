@@ -36,7 +36,7 @@
     <script>
         $(function () {
             var auto=@auto;
-         
+
             $("#btn").click(function () {
                 var url = encodeURIComponent($.trim($("#url").val()));
                 var gkey = $("#gkey").val();
@@ -55,7 +55,7 @@
                         if (response.errorCode == 0) {
                             var iframeBox = document.getElementById("iframeBox");
                             var iframe = document.createElement("iframe");
-                            iframe.src = "/analyse/frame?url=" + response.url + "&gkey=" + response.gkey + "&timestamp=" + response.timestamp + "&sign=" + response.sign;
+                            iframe.src = "/analyse/frame?rk=" + response.requestkey;
                             iframe.className = "embed-responsive-item";
                             iframeBox.appendChild(iframe);
                         } else {

@@ -7,6 +7,10 @@ namespace Banana.Web.Models.ViewModels
 {
     public class CKPlayerJsonViewModel
     {
+        public CKPlayerJsonViewModel()
+        {
+            video = new List<CKVideo>();
+        }
         /// <summary>
         /// 是否自动播放
         /// </summary>
@@ -19,6 +23,10 @@ namespace Banana.Web.Models.ViewModels
 
     public class CKVideo
     {
+        public CKVideo()
+        {
+            video = new List<CKVideoInfo>();
+        }
         public List<CKVideoInfo> video { get; set; }
         /// <summary>
         /// 类型
@@ -43,7 +51,7 @@ namespace Banana.Web.Models.ViewModels
         /// <summary>
         /// 当前段 视频时长，单位：秒
         /// </summary>
-        public long duration { get; set; }
+        public double duration { get; set; }
         /// <summary>
         /// 当前段的文件大小，单位：字节
         /// </summary>

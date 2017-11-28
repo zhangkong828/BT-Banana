@@ -198,6 +198,7 @@ namespace Banana.Web.Controllers
         [Route("/analyse/getkey")]
         public IActionResult AnalyseKey([FromForm]string url, [FromForm]string gkey)
         {
+            url = FormatHelper.UrlDecode(url);
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey))
             {
                 return Json(new { errorCode = -1, msg = "参数不完整，缺少相关参数" });
@@ -208,55 +209,35 @@ namespace Banana.Web.Controllers
             var time = now.ToString("yyyy-MM-dd HH:mm:ss");
             var timestamp = FormatHelper.ConvertToTimeStamp(now).ToString();
             var sign = CreateSign(url, gkey, timestamp);
-            return Json(new { errorCode = 0, url = url, gkey = gkey, timestamp = timestamp, sign = sign });
+            var requestKey = EncodeRequestKey(FormatHelper.UrlEncode(url), gkey, timestamp, sign);
+            return Json(new { errorCode = 0, requestkey = requestKey });
         }
 
         [Route("/analyse/frame")]
-        public IActionResult AnalyseFrame([FromQuery]string url, [FromQuery] string gkey, [FromQuery]string timestamp, [FromQuery]string sign)
+        public IActionResult AnalyseFrame([FromQuery]string rk)
         {
-            //if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(sign))
-            //{
-            //    return NotFound();
-            //}
-            ViewData["url"] = FormatHelper.UrlEncode(FormatHelper.UrlDecode(url));
-            ViewData["gkey"] = gkey;
-            ViewData["timestamp"] = timestamp;
-            ViewData["sign"] = sign;
+            if (string.IsNullOrEmpty(rk))
+            {
+                return NotFound();
+            }
+            ViewData["rk"] = rk;
             return View();
         }
 
         [Route("/analyse/core")]
-        public IActionResult AnalyseCore([FromQuery]string u, [FromQuery]string g, [FromQuery]string t, [FromQuery]string s)
+        public IActionResult AnalyseCore([FromQuery]string rk)
         {
-            var json = new CKPlayerJsonViewModel();
-            json.autoplay = true;
-            json.video = new List<CKVideo>() {
-                new CKVideo(){
-                     type="mp4",
-                weight=10,
-                definition="标清",
-                video=new List<CKVideoInfo>(){
-                    new CKVideoInfo() { file = "http://movie.ks.js.cn/flv/other/1_0.mp4",duration=30 },
-                    new CKVideoInfo() { file = "http://7sbltv.com1.z0.glb.clouddn.com/See%20You%20Again.mp4",duration=50 }
-                }
-                },
-                new CKVideo(){
-                     type="mp4",
-                weight=0,
-                definition="高清",
-                video=new List<CKVideoInfo>(){
-                    new CKVideoInfo() { file = "http://movie.ks.js.cn/flv/other/1_0.mp4",duration=10 },
-                    new CKVideoInfo() { file = "http://7sbltv.com1.z0.glb.clouddn.com/See%20You%20Again.mp4",duration=20 }
-                }
-                }
-            };
-            return Json(json);
-
-
-            var url = u.Trim();
-            var gkey = g;
-            var timestamp = t;
-            var sign = s;
+            var ckplayerJson = new CKPlayerJsonViewModel() { autoplay = true };
+            var url = string.Empty;
+            var gkey = string.Empty;
+            var timestamp = string.Empty;
+            var sign = string.Empty;
+            if (!DecodeRequestKey(rk, out url, out gkey, out timestamp, out sign))
+            {
+                return Json(new { errorCode = -9998, msg = "参数错误，请求非法！" });
+            }
+            //url解码 验证签名需要
+            url = FormatHelper.UrlDecode(url);
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(gkey) | string.IsNullOrEmpty(timestamp) | string.IsNullOrEmpty(sign))
             {
                 return Json(new { errorCode = -9999, msg = "参数错误，请求非法！" });
@@ -279,8 +260,7 @@ namespace Banana.Web.Controllers
             {
                 return Json(new { errorCode = -10002, msg = "签名错误，请求非法！" });
             }
-            //url解码
-            url = FormatHelper.UrlDecode(url);
+
             var cacheKey = $"analyse_{url}";
             var response = new VideoAnalyseResponse();
             if (!_memoryCache.TryGetValue(cacheKey, out response))
@@ -304,16 +284,27 @@ namespace Banana.Web.Controllers
                 var video = response.Data.FirstOrDefault();
                 if (video != null)
                 {
-                    name = video.Name;
+                    var ckvideo = new CKVideo()
+                    {
+                        type = "mp4",
+                        weight = 0,
+                        definition = video.Definition
+                    };
+
                     foreach (var item in video.Part)
                     {
                         if (!string.IsNullOrEmpty(item.Url))
-                            result.Add(item.Url);
+                            ckvideo.video.Add(new CKVideoInfo()
+                            {
+                                file = item.Url,
+                                duration = item.Duration
+                            });
                     }
+                    ckplayerJson.video.Add(ckvideo);
                 }
             }
 
-            return Json(new { errorCode = 0, name = name, urls = string.Join("|", result) });
+            return Json(ckplayerJson);
         }
 
 
@@ -330,6 +321,36 @@ namespace Banana.Web.Controllers
             return sourceSign == sign;
         }
 
+        private string EncodeRequestKey(string url, string gkey, string timestamp, string sign)
+        {
+            var request = $"&u={url}&g={gkey}&t={timestamp}&s={sign}";
+            return FormatHelper.EncodeBase64(request);
+        }
+
+        private bool DecodeRequestKey(string request, out string url, out string gkey, out string timestamp, out string sign)
+        {
+            url = string.Empty;
+            gkey = string.Empty;
+            timestamp = string.Empty;
+            sign = string.Empty;
+
+            var source = FormatHelper.DecodeBase64(request);
+            if (string.IsNullOrEmpty(source))
+                return false;
+            try
+            {
+                url = Regex.Match(source, "&u=(.+?)&").Groups[1].Value;
+                gkey = Regex.Match(source, "&g=(.+?)&").Groups[1].Value;
+                timestamp = Regex.Match(source, "&t=(.+?)&").Groups[1].Value;
+                sign = Regex.Match(source, "&s=(.+)").Groups[1].Value;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
         #endregion
     }
 }
