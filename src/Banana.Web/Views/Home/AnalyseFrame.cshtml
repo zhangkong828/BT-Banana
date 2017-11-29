@@ -26,41 +26,6 @@
                 video: 'website:@Html.Raw(website)'//视频地址
             };
             var player = new ckplayer(videoObject);
-
-            //$.ajax({
-            //    url: "/analyse/core",
-            //    method: "post",
-            //    data: { "u": $("#u").val(), "g": $("#g").val(), "t": $("#t").val(), "s": $("#s").val() },
-            //    beforeSend: function () {
-            //        //前置等待
-            //    },
-            //    success: function (response) {
-            //        if (response.errorCode == 0) {
-            //            window.title = response.name;
-            //            var b = {
-            //                f: response.urls,
-            //                c: 0,
-            //                s: 0,
-            //                p: 1,
-            //                b: 1,
-            //            };
-            //            var c = {
-            //                bgcolor: '#000',
-            //                allowFullScreen: true,
-            //                allowScriptAccess: 'always',
-            //                wmode: 'transparent'
-            //            };
-            //            CKobject.embedSWF('/ckplayer/ckplayer.swf', 'video', 'ck', '100%', '100%', b, c)
-            //        } else if (response.errorCode == -10001) {
-            //            parent.location.href = '/analyse/' + $("#u").val();
-            //        } else {
-            //            console.log(response.msg);
-            //        }
-            //    },
-            //    error: function () {
-            //        console.log("服务器出现了一个错误。");
-            //    }
-            //});
         })
     </script>
 </body>
