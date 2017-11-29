@@ -135,7 +135,7 @@ namespace Banana.Web.Controllers
                 if (!_memoryCache.TryGetValue(cacheKey, out result))
                 {
                     result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
-                    _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(1)));
+                    _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(5)));
                 }
             }
             return View(result);
@@ -267,7 +267,7 @@ namespace Banana.Web.Controllers
             {
                 response = AnalyseService.Analyse(_configInfos.AnalyseServiceAddress, url);
                 if (response != null && response.ErrCode == 0 && response.Data.Count > 0)
-                    _memoryCache.Set(cacheKey, response);
+                    _memoryCache.Set(cacheKey, response, new DateTimeOffset(DateTime.Now.AddHours(1)));
             }
             //处理数据
             var result = new List<string>();
