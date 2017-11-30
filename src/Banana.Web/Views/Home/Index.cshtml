@@ -79,11 +79,11 @@
                         <img class="img-responsive center-block" src="~/images/logo_b.png" alt="btbanana.com search logo" title="btbanana.com" />
                     </a>
                 </div>
-                <form class="form col-md-6 col-md-offset-3" id="searchForm">
+                <form class="form col-md-6 col-md-offset-3">
                     <div class="input-group">
                         <input type="text" class="form-control" name="key" id="ikey">
                         <span class="input-group-btn">
-                            <input class="btn btn-success" type="submit" value="搜索">
+                            <input class="btn btn-success" type="submit" value="搜索" id="searchForm">
                         </span>
                     </div>
                 </form>
@@ -113,9 +113,8 @@
                     Location.href = '/s/magnet/' + encodeURIComponent(key);
                 }
             });
-            $("#searchForm").submit(function (e) {
-                e.preventDefault()
-                var key = $.trim($("#key").val());
+            $("#searchForm").click(function (e) {
+                var key = $.trim($("#ikey").val());
                 if (key == "" || key.length <= 0) {
                     //alert("请先输入参数")
                 } else {
