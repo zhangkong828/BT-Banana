@@ -35,9 +35,13 @@
 @section FootScripts{
     <script>
         $(function () {
-            var auto=@auto;
+            var auto =@auto;
 
             $("#btn").click(function () {
+                if (isMobile()) {
+                    alert("暂还不支持移动端");
+                    return;
+                }
                 var url = encodeURIComponent($.trim($("#url").val()));
                 var gkey = $("#gkey").val();
                 if (!CheckUrl(url)) {
@@ -76,6 +80,13 @@
                 }
                 return true;
             };
+
+            function isMobile(){
+                if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android|ios)/i)) {
+                    return true;
+                }
+                return false;
+            }
 
             if (auto > 0)
                 $("#btn").click();
