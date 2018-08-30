@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    var BaiDuHot = ViewData["BaiDuHot"] as List<string>;
 }
 <!DOCTYPE HTML>
 <html>
@@ -76,7 +77,15 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="margin-top:30px; margin-bottom: 40px;">
                 <div class="hotkey">
-
+                    @{
+                        if (BaiDuHot != null)
+                        {
+                            foreach (var item in BaiDuHot)
+                            {
+                                <a href="/s/magnet/' + v + '" target="_blank">' + v + '</a>
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -112,7 +121,7 @@
     </script>
     <script>
         $(function () {
-            $.ajax({ type: 'POST', url: '/Home/GetBaiDuHotKeys', data: { num: 20 }, success: function (data) { if (data.msg) { $.each(data.data, function (i, v) { $('<a href="/s/magnet/' + v + '" target="_blank">' + v + '</a>&nbsp;&nbsp;&nbsp;&nbsp').appendTo('.hotkey'); }); } } });
+            //$.ajax({ type: 'POST', url: '/Home/GetBaiDuHotKeys', data: { num: 20 }, success: function (data) { if (data.msg) { $.each(data.data, function (i, v) { $('<a href="/s/magnet/' + v + '" target="_blank">' + v + '</a>&nbsp;&nbsp;&nbsp;&nbsp').appendTo('.hotkey'); }); } } });
         })
     </script>
 

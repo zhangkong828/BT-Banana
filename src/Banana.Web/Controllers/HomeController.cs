@@ -39,6 +39,7 @@ namespace Banana.Web.Controllers
         /// </summary>
         public IActionResult Index()
         {
+            ViewData["BaiDuHot"] = GetBaiDuHot(20);
             return View();
         }
 
@@ -75,6 +76,12 @@ namespace Banana.Web.Controllers
         [HttpPost]
         public IActionResult GetBaiDuHotKeys([FromForm]int num)
         {
+            var list = GetBaiDuHot(num);
+            return Json(new { msg = list.Count > 0, data = list });
+        }
+
+        private List<string> GetBaiDuHot(int num)
+        {
             List<string> list = new List<string>();
             try
             {
@@ -96,8 +103,9 @@ namespace Banana.Web.Controllers
             {
                 //Log.Error("百度电影风云榜", ex);
             }
-            return Json(new { msg = list.Count > 0, data = list });
+            return list;
         }
+
 
         [Route("/about")]
         public IActionResult About()
