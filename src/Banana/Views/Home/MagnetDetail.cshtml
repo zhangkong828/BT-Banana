@@ -1,0 +1,50 @@
+﻿@model Banana.Models.MagnetLink
+@using Banana.Helper
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Magnet = $"magnet:?xt=urn:btih:{Model.InfoHash}";
+}
+<div class="col-md-12">
+    <h4 class="magnet-name"><a href="@Magnet">@Model.Name</a></h4>
+</div>
+<div class="col-md-12">
+    <h6 class="magnet-tags">
+        @{
+            foreach (var tag in Model.Tag)
+            {
+                <a href="/s/magnet/@tag" class="label label-danger">@tag</a>
+            }
+        }
+    </h6>
+</div>
+<div class="col-md-12">
+    <code class="magnet-link">@Magnet</code>
+</div>
+<div class="col-md-12">
+    <div class="magnet-infos">
+        <h5><strong>种子类型：</strong><small>@Model.Type</small></h5>
+        <h5><strong>种子大小：</strong><small>@FormatHelper.HumanReadableByteCount(Model.Size)</small></h5>
+        <h5><strong>收录时间：</strong><small>@Model.CreateTime</small></h5>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="magnet-files">
+        <h5><strong>文件列表：</strong></h5>
+        <ol>
+            @{
+                foreach (var file in Model.Files)
+                {
+                    <li class="inline">@file.Name <span class="label label-warning">@FormatHelper.HumanReadableByteCount(file.Size)</span></li>
+                }
+            }
+        </ol>
+
+    </div>
+</div>
+@section FootScripts
+    {
+
+}
+
+
