@@ -75,15 +75,8 @@ namespace Banana.Controllers
         {
             return View();
         }
-
-
+        
         private async Task<List<string>> GetBaiDuHot(int num)
-        {
-            var list = GetBaiDuHot(num);
-            return Json(new { msg = list.Count > 0, data = list });
-        }
-
-        private List<string> GetBaiDuHot(int num)
         {
             List<string> list = new List<string>();
             try
