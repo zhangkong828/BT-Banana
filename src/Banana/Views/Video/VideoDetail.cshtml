@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewData["Title"] = "VideoDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeadCss{
+    <link href="~/css/iconfont.css" rel="stylesheet" />
+    <link href="~/css/video.css" rel="stylesheet" />
+}
+@section HeadScripts{
+    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script src="~/js/videohistory.js"></script>
+}
+<div class="row">
+
+    <div class="col-md-9 col-sm-12 hy-main-content">
+        <div class="hy-video-details clearfix">
+            <div class="item clearfix">
+                <dl class="content">
+                    <dt>
+                        <a class="videopic" href="/m573/?m=vod-play-id-355-src-1-num-1.html" title="暗杀">
+                            <span class="play hidden-xs"></span>
+                        </a>
+                    </dt>
+                    <dd class="clearfix">
+                        <div class="head">
+                            <h3>暗杀</h3>
+                        </div>
+
+                        <ul>
+                            <li><span class="text-muted">主演：</span>全智贤 李政宰 河正宇 吴达洙 赵镇雄</li>
+                            <li><span class="text-muted">导演：</span>崔东勋</li>
+                            <li class="col-sm-6 hidden-xs padding-0"><span class="text-muted">地区：</span>韩国</li>
+                            <li class="col-sm-6 col-sm-6 hidden-xs padding-0"><span class="text-muted">类型：</span><a href="/m573/?m=vod-type-id-10.html" title="剧情片">剧情片</a></li>
+                            <li class="col-sm-6 hidden-sm hidden-xs padding-0"><span class="text-muted">语言：</span>韩语</li>
+                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">年份：</span>2015</li>
+                            <li><span class="text-muted">时间：</span>2017-09-11 22:44:14</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="hy-layout active clearfix">
+            <div class="hy-switch-tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#list1" data-toggle="tab" title="播放线路">播放线路</a></li>
+                    <li><a href="#list2" data-toggle="tab" title="剧情介绍">剧情介绍</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="hy-play-list tab-pane fade in active" id="list1">
+                    <div class="item tyui" id="playlist">
+
+                        <div class="panel clearfix">
+                            <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist1" title="线路1">
+                                线路1
+                                <span class="text-muted pull-right">无需安装任何插件 <i class="icon iconfont icon-right"></i></span>
+                            </a>
+
+                            <div id="playlist1" class="playlist collapse in">
+                                <ul class="playlistlink-1 list-15256 clearfix">
+                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
+                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
+                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel clearfix">
+                            <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist2" title="线路2">
+                                线路2
+                                <span class="text-muted pull-right">无需安装任何插件 <i class="icon iconfont icon-right"></i></span>
+                            </a>
+
+                            <div id="playlist2" class="playlist collapse in">
+                                <ul class="playlistlink-1 list-15256 clearfix">
+                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
+                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
+                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hy-play-list tab-pane fade in" id="list2">
+                    <div class="item">
+                        <div class="plot">
+                            1933年，朝鲜半岛沦陷后，韩国临时政府要挑选三名秘密特工潜伏回朝鲜京城，执行刺杀朝鲜驻军司令官川口真守和卖国贼康寅国的特殊任务。临时政府警察局长廉硕晋（李政宰 饰）因此寻找到了朝鲜独立军狙击手安沃允（全智贤 饰）、新兴武官学校毕业生“速射炮”秋尚沃（赵震雄 饰）和爆破专家黄德三（崔德文 饰）。与此同时，日本驻上海司令部却收到了有关这次暗杀行动的密报。他们雇佣杀手夏威夷·皮斯托（河正宇 饰）和搭档波马德（吴达洙 饰）追杀刺客。为完成各自任务，独立军战士、临时政府专员和雇佣杀手的命运交织在了一起……
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--相关-->
+        <div class="hy-layout clearfix">
+            <div class="hy-video-list">
+                <div class="hy-video-head">
+                    <h3 class="margin-0">猜你喜欢</h3>
+                </div>
+                <div class="swiper-container hy-switch swiper-container-horizontal">
+                    <div class="swiper-wrapper">
+
+                        <div class="col-md-3 col-sm-3 col-xs-6 ">
+                            <div class="item">
+                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
+                                    <span class="play hidden-xs"></span>
+                                    <span class="score">890</span>
+                                </a>
+                                <div class="title">
+                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
+                                </div>
+                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
+                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6 ">
+                            <div class="item">
+                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
+                                    <span class="play hidden-xs"></span>
+                                    <span class="score">890</span>
+                                </a>
+                                <div class="title">
+                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
+                                </div>
+                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
+                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6 ">
+                            <div class="item">
+                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
+                                    <span class="play hidden-xs"></span>
+                                    <span class="score">890</span>
+                                </a>
+                                <div class="title">
+                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
+                                </div>
+                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
+                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6 ">
+                            <div class="item">
+                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
+                                    <span class="play hidden-xs"></span>
+                                    <span class="score">890</span>
+                                </a>
+                                <div class="title">
+                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
+                                </div>
+                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
+                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--end 相关-->
+    </div>
+
+    <div class="col-md-3 col-sm-12 hy-main-side hidden-sm hidden-xs">
+        <div class="hy-layout clearfix">
+            <div class="hy-details-qrcode clearfix">
+                <div class="item">
+                    <h5 class="text-muted">扫一扫用手机观看</h5>
+                    <p><img src="http://www.m1938.com/img/wep.png"></p>
+                    <p class="text-muted">分享到朋友圈</p>
+                </div>
+            </div>
+
+            <div class="hy-video-ranking clearfix">
+                <div class="head">
+                    <a class="text-muted pull-right" href="/m573/?m=vod-type-id-10.html" title="更多">更多 <i class="icon iconfont icon-right"></i></a>
+                    <h5><i class="icon iconfont icon-top text-color"></i> 剧情片排行榜</h5>
+                </div>
+                <div class="item">
+                    <ul class="clearfix">
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">66</span>
+                            <a href="/m573/?m=vod-detail-id-122.html" title="宫锁沉香"><em class="number active">1</em>宫锁沉香</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">102</span>
+                            <a href="/m573/?m=vod-detail-id-126.html" title="乾隆下扬州"><em class="number active">2</em>乾隆下扬州</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">139</span>
+                            <a href="/m573/?m=vod-detail-id-138.html" title="爱慕"><em class="number active">3</em>爱慕</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">213</span>
+                            <a href="/m573/?m=vod-detail-id-125.html" title="西厢记"><em class="number ">4</em>西厢记</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">234</span>
+                            <a href="/m573/?m=vod-detail-id-132.html" title="亲亲我的宝贝"><em class="number ">5</em>亲亲我的宝贝</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">302</span>
+                            <a href="/m573/?m=vod-detail-id-130.html" title="暖"><em class="number ">6</em>暖</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">358</span>
+                            <a href="/m573/?m=vod-detail-id-128.html" title="穿孔"><em class="number ">7</em>穿孔</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">439</span>
+                            <a href="/m573/?m=vod-detail-id-123.html" title="美国情事"><em class="number ">8</em>美国情事</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">511</span>
+                            <a href="/m573/?m=vod-detail-id-129.html" title="拉面女孩"><em class="number ">9</em>拉面女孩</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+<div class="hy-gototop hidden-sm hidden-xs">
+    <ul class="item clearfix">
+        <li>
+            <a href="javascript:()" title="观看记录"><i class="icon iconfont icon-record1"></i></a>
+            <div class="history clearfix">
+                <div class="head">
+                    <h5 class="margin-0 text-muted">观看历史</h5>
+                </div>
+                <script type="text/javascript ">
+                    $MH.limit = 10;
+                    $MH.WriteHistoryBox(200, 170, 'font');
+                    $MH.recordHistory({
+                        name: '[vod:name]',
+                        link: '[vod:link]',
+                        pic: '[vod:pic]'
+                    })
+                </script>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:()" title="二维码"><i class="icon iconfont icon-code1"></i></a>
+            <div class="code clearfix">
+                <p class="margin-0"><img class="pic-responsive" src="http://bshare.optimix.asia/barCode?site=weixin&url=http%3A%2F%2Fwww.jisuysw.com%2F" alt="扫描二维码" /></p>
+            </div>
+        </li>
+        <li><a href="javascript:scroll(0,0)" title="返回顶部"><i class="icon iconfont icon-uparrow"></i></a></li>
+    </ul>
+</div>
+
+@section FootScripts{
+    <script>
+        $(function () {
+            $(".videopic.lazy").lazyload({
+                effect: "fadeIn",
+                threshold: 50,
+            });
+        })
+    </script>
+}

@@ -14,9 +14,13 @@ li, ol, ul {
     font-weight: 400
 }
 
-a:focus, a:hover, a:link {
-    text-decoration: none
+h1, h2, h3, h4, h5, h6, a {
+    color: #333;
 }
+
+    a:focus, a:hover, a:link {
+        text-decoration: none
+    }
 
 .form-control {
     height: 35px;
@@ -140,6 +144,23 @@ a:focus, a:hover, a:link {
     font-size: 14px;
     color: #fff;
     text-align: center
+}
+
+.hy-index-menu li a, .hy-index-tags li a, .hy-right-qrcode dl, .hy-play-list .item .panel .playlist ul li a, .hy-page ul li a, .hy-page ul li .num, .hy-head-menu .item .search .form-control, .hy-video-hit .item, .hy-video-hit .item ul li, .btn-default, .hy-footer-partner .item, .hy-footer-partner .item a, .hy-common .item .content, .hy-common .item .num {
+    border: 1px solid #e2e2e2;
+    background-color: #fff;
+    color: #666;
+}
+
+.hy-video-text-list .item li .title a, .hy-play-list .item .panel .playlist, .hy-play-list .item .panel .downlist .table, .hy-play-list .item .panel .playlist, .hy-cascade .content-meun .item ul, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td, .hy-gototop .item > li > .history li, .hy-new-index-top li, .hy-new-list .item dl {
+    border-top: 1px dashed #e2e2e2;
+}
+
+.hy-switch-tabs .nav-tabs li.active a, .hy-switch-tabs .nav-tabs li.active a:hover, .hy-switch-tabs .nav-tabs li.active a:focus, .hy-head-menu .item .menulist li.active a {
+    border: 0;
+    background: none;
+    border-bottom: 2px solid #09BB07;
+    color: #09BB07;
 }
 
 .hy-index-menu li a:hover, .hy-index-menu li a:hover .icon, .hy-index-tags li a:hover, .hy-cascade .content-meun .head dl dd span, .videopic .score, .hy-page ul li a:hover, .hy-page ul li.active a, .btn-default:hover, .hy-play-list .item .panel .playlist ul li a:hover, .hy-video-ranking li .number.active, .hy-video-details .item .content .head .hit {
@@ -320,6 +341,7 @@ a:focus, a:hover, a:link {
 .text-color {
     color: #5cb85c;
 }
+
 .videopic {
     display: block;
     position: relative;
@@ -436,13 +458,9 @@ a:focus, a:hover, a:link {
             }
 
 .hy-video-ranking {
-    padding: 10px
+    padding: 20px 0 20px;
+    margin-bottom: 10px;
 }
-
-    .hy-video-ranking.side {
-        padding: 20px 0 20px;
-        margin-bottom: 10px
-    }
 
     .hy-video-ranking .head h4 {
         margin: 0 0 8px;
@@ -510,7 +528,8 @@ a:focus, a:hover, a:link {
         }
 
 .hy-video-details {
-    margin-top: 20px
+    margin-top: 20px;
+    border: 1px solid #F2F2F2;
 }
 
     .hy-video-details .item .content {
@@ -621,7 +640,8 @@ a:focus, a:hover, a:link {
 
 .hy-details-qrcode {
     padding: 0;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e2e2e2;
 }
 
     .hy-details-qrcode .item {
@@ -2073,6 +2093,7 @@ a:focus, a:hover, a:link {
             padding: 0 5px
         }
 }
+
 
 @media (max-width: 320px) {
     .hy-video-details .item .content dt, .hy-video-details.active .item .content dt {
