@@ -49,23 +49,23 @@ namespace Banana.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        [Route("/s")]
-        public IActionResult Search()
-        {
-            return View();
-        }
+        ///// <summary>
+        ///// 搜索
+        ///// </summary>
+        //[Route("/s")]
+        //public IActionResult Search()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> SearchPost([FromForm]string key)
-        {
-            if (string.IsNullOrEmpty(key))
-                return Json(new { error = -1, msg = "搜索条件为空" });
-            var result = await SearchService.QQSearch(key);
-            return Json(new { error = 0, data = result.SearchResult });
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> SearchPost([FromForm]string key)
+        //{
+        //    if (string.IsNullOrEmpty(key))
+        //        return Json(new { error = -1, msg = "搜索条件为空" });
+        //    var result = await SearchService.QQSearch(key);
+        //    return Json(new { error = 0, data = result.SearchResult });
+        //}
 
         /// <summary>
         /// 电影库

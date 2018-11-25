@@ -19,7 +19,9 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @RenderSection("HeadScripts", false)
 </head>
 <body>
     <!-- Start Navigation -->
@@ -62,7 +64,7 @@
                     <li><a href="/">首页</a></li>
                     @*<li><a href="/s">视频搜索</a></li>
                     <li><a href="/analyse">解析接口</a></li>*@
-                    <li><a href="/movies">电影库</a></li>
+                    <li><a href="/video">电影库</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -74,8 +76,6 @@
         @RenderBody()
     </div>
     @Html.Partial("_Footer")
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/jQuery-Paging/1.2.0/jquery.paging.min.js"></script>
     <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
     <script>

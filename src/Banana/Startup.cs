@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Banana.Models;
+﻿using Banana.Models;
 using Banana.Services;
+using Banana.Services.MongoDb;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Banana
 {
@@ -24,8 +25,9 @@ namespace Banana
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IRedisService, RedisService>();
-            services.AddScoped<IElasticSearchService, ElasticSearchService>();
+            services.AddSingleton<IMongoDbService, MongoDbService>();
+            //services.AddSingleton<IRedisService, RedisService>();
+            services.AddSingleton<IElasticSearchService, ElasticSearchService>();
 
             services.AddResponseCompression();
 
@@ -37,10 +39,17 @@ namespace Banana
             services.AddOptions();
             services.Configure<ConfigInfos>(Configuration.GetSection("ConfigInfos"));
 
+            #region MongoDB
+            var MongoConnectionString = Configuration["MongoDB:connectionString"];
+            var mClient = new MongoClient(MongoConnectionString);
+            services.AddSingleton(_ => mClient);
+            #endregion
+
+
             #region Redis
             //var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
             //var RedisDatabase = connectionMultiplexer.GetDatabase(0);
-            //services.AddScoped(_ => RedisDatabase);
+            //services.AddSingleton(_ => RedisDatabase);
             #endregion
 
             #region ElasticSearch
@@ -53,7 +62,7 @@ namespace Banana
             var EsPool = new Elasticsearch.Net.StaticConnectionPool(EsNodes);
             var EsSettings = new Nest.ConnectionSettings(EsPool);
             var EsClient = new Nest.ElasticClient(EsSettings);
-            services.AddScoped(_ => EsClient);
+            services.AddSingleton(_ => EsClient);
             #endregion
 
         }
