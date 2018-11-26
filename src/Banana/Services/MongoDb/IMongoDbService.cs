@@ -11,6 +11,10 @@ namespace Banana.Services.MongoDb
 
         VideoSource GetVideoSourceByVideo(long videoId);
 
-        //List<Video> MatchingVideo(long id);
+        List<Video> SearchVideo(string key, int pageIndex, int pageSize = 10);
+
+        List<Video> GetVideoByClassify(string classify, int pageIndex, int pageSize = 10);
+
+        List<Video> GetVideoByClassify(List<string> classify, int pageIndex, int pageSize = 10);
     }
 }
