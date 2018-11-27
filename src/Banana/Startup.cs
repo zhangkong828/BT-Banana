@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Banana
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IMongoDbService, MongoDbService>();
-            //services.AddSingleton<IRedisService, RedisService>();
+            services.AddSingleton<IRedisService, RedisService>();
             services.AddSingleton<IElasticSearchService, ElasticSearchService>();
 
             services.AddResponseCompression();
@@ -37,7 +38,7 @@ namespace Banana
             services.AddMvc();
 
             services.AddOptions();
-            services.Configure<ConfigInfos>(Configuration.GetSection("ConfigInfos"));
+            //services.Configure<ConfigInfos>(Configuration.GetSection("ConfigInfos"));
 
             #region MongoDB
             var MongoConnectionString = Configuration["MongoDB:connectionString"];
@@ -47,9 +48,9 @@ namespace Banana
 
 
             #region Redis
-            //var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
-            //var RedisDatabase = connectionMultiplexer.GetDatabase(0);
-            //services.AddSingleton(_ => RedisDatabase);
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
+            var RedisDatabase = connectionMultiplexer.GetDatabase(0);
+            services.AddSingleton(_ => RedisDatabase);
             #endregion
 
             #region ElasticSearch

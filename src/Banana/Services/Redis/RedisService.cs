@@ -1,29 +1,113 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.Extensions.Configuration;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace Banana.Services
 {
     public class RedisService : IRedisService
     {
+        private readonly IConfiguration _configInfos;
         private readonly IDatabase _database;
 
-        public RedisService(IDatabase database)
+        private readonly string DefaultKey;
+        public RedisService(IConfiguration config, IDatabase database)
         {
+            _configInfos = config;
             _database = database;
+
+            DefaultKey = _configInfos["Redis:defaultKey"];
+        }
+
+        #region Private
+
+        private string AddKeyPrefix(string key)
+        {
+            return $"{DefaultKey}:{key}";
+        }
+
+        private byte[] Serialize(object obj)
+        {
+            if (obj == null)
+                return null;
+
+            var binaryFormatter = new BinaryFormatter();
+            using (var memoryStream = new MemoryStream())
+            {
+                binaryFormatter.Serialize(memoryStream, obj);
+                var data = memoryStream.ToArray();
+                return data;
+            }
+        }
+
+        private T Deserialize<T>(byte[] data)
+        {
+            if (data == null)
+                return default(T);
+
+            var binaryFormatter = new BinaryFormatter();
+            using (var memoryStream = new MemoryStream(data))
+            {
+                var result = (T)binaryFormatter.Deserialize(memoryStream);
+                return result;
+            }
         }
 
 
-        public async Task<string> GetAsync(string key)
+        #endregion
+
+        public string Get(string key)
         {
-            return await _database.StringGetAsync(key);
+            key = AddKeyPrefix(key);
+            return _database.StringGet(key);
         }
 
-        public async Task SetAsync(string key, string value)
+        public T Get<T>(string key)
         {
-            await _database.StringSetAsync(key, value);
+            key = AddKeyPrefix(key);
+            return Deserialize<T>(_database.StringGet(key));
+        }
+
+        public bool IsExist(string key)
+        {
+            key = AddKeyPrefix(key);
+            return _database.KeyExists(key);
+        }
+
+        public bool Set(string key, string data, int cacheTime = 0)
+        {
+            key = AddKeyPrefix(key);
+            TimeSpan? expiry = null;
+            if (cacheTime > 0)
+                expiry = TimeSpan.FromMinutes(cacheTime);
+            return _database.StringSet(key, data, expiry);
+        }
+
+        public bool Set<T>(string key, T data, int cacheTime = 0)
+        {
+            key = AddKeyPrefix(key);
+            TimeSpan? expiry = null;
+            if (cacheTime > 0)
+                expiry = TimeSpan.FromMinutes(cacheTime);
+            var sdata = Serialize(data);
+            return _database.StringSet(key, sdata, expiry);
+        }
+
+
+        public bool SortedSetIncrement(string key, string member, double score, int cacheTime = 0)
+        {
+            key = AddKeyPrefix(key);
+            _database.SortedSetIncrement(key, member, score);
+            if (cacheTime > 0)
+            {
+                TimeSpan expiry = TimeSpan.FromMinutes(cacheTime);
+                return _database.KeyExpire(key, expiry);
+            }
+            return true;
         }
     }
 }

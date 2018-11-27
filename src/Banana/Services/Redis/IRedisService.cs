@@ -7,7 +7,16 @@ namespace Banana.Services
 {
     public interface IRedisService
     {
-        Task<string> GetAsync(string key);
-        Task SetAsync(string key, string value);
+        string Get(string key);
+
+        T Get<T>(string key);
+
+
+        bool Set(string key, string data, int cacheTime = 0);
+
+        bool Set<T>(string key, T data, int cacheTime = 0);
+
+
+        bool IsExist(string key);
     }
 }

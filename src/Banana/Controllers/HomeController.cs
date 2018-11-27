@@ -13,19 +13,20 @@ using Banana.Helper;
 using System.Text.RegularExpressions;
 using Banana.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace Banana.Controllers
 {
     public class HomeController : Controller
     {
-        private ConfigInfos _configInfos;
+        private IConfiguration _configInfos;
         private IMemoryCache _memoryCache;
         //private readonly IRedisService _redisService;
         private readonly IElasticSearchService _elasticSearchService;
 
-        public HomeController(IOptions<ConfigInfos> option, IMemoryCache memoryCache, IElasticSearchService elasticSearchService)
+        public HomeController(IConfiguration config, IMemoryCache memoryCache, IElasticSearchService elasticSearchService)
         {
-            _configInfos = option.Value;
+            _configInfos = config;
             _memoryCache = memoryCache;
             //_redisService = redisService;
             _elasticSearchService = elasticSearchService;
@@ -270,7 +271,7 @@ namespace Banana.Controllers
             var response = new VideoAnalyseResponse();
             if (!_memoryCache.TryGetValue(cacheKey, out response))
             {
-                response = AnalyseService.Analyse(_configInfos.AnalyseServiceAddress, url);
+                response = AnalyseService.Analyse(_configInfos["ConfigInfos:AnalyseServiceAddress"], url);
                 if (response != null && response.ErrCode == 0 && response.Data.Count > 0)
                     _memoryCache.Set(cacheKey, response, new DateTimeOffset(DateTime.Now.AddHours(1)));
             }
