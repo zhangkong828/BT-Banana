@@ -1,12 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Banana.Core
 {
     public class CommonService
     {
+        public static List<string> GetVideoClassify(string type)
+        {
+            switch (type)
+            {
+                case "电影":
+                    return new List<string>() { "动作片", "喜剧片", "爱情片", "科幻片", "恐怖片", "剧情片", "战争片", "纪录片" };
+                case "电视剧":
+                    return new List<string>() { "国产剧", "港剧", "日剧", "欧美剧", "韩剧", "台剧", "泰剧", "越南剧" };
+                case "综艺":
+                    return new List<string>() { "综艺" };
+                case "动漫":
+                    return new List<string>() { "动漫" };
+                case "伦理":
+                    return new List<string>() { "伦理片", "写真视频", "美女写真", "美女视频", "	韩国主播VIP视频" };
+                default:
+                    return null;
+            }
+        }
+
         /// <summary>
         /// 总-排行榜Key
         /// </summary>

@@ -129,10 +129,10 @@ namespace Banana.Services
             return result;
         }
 
-        public double? SortedSetScore1(string key, string member)
-        {
-            key = AddKeyPrefix(key);
-            return _database.SortedSetCombineAndStore(key, member);
-        }
+        //public double? SortedSetScore1(string key, string member)
+        //{
+        //    key = AddKeyPrefix(key);
+        //    return _database.SortedSetCombineAndStore(key, member);
+        //}
     }
 }

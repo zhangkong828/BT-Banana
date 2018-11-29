@@ -1,4 +1,4 @@
-﻿
+﻿@model Banana.Models.Video
 @{
     ViewData["Title"] = "VideoDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,24 +18,24 @@
             <div class="item clearfix">
                 <dl class="content">
                     <dt>
-                        <a class="videopic" href="/m573/?m=vod-play-id-355-src-1-num-1.html" title="暗杀">
+                        <a class="videopic" href="#" title="暗杀" style="background: rgba(0,0,0,.3) url('data:image/jpg;base64,@Model.Image') center no-repeat;">
                             <span class="play hidden-xs"></span>
                         </a>
                     </dt>
                     <dd class="clearfix">
                         <div class="head">
-                            <h3>暗杀</h3>
+                            <h3>@Model.Name</h3>
                         </div>
-                        <ul>
-                            <li><span class="text-muted">备注：</span>更新至26</li>
-                            <li><span class="text-muted">主演：</span>全智贤 李政宰 河正宇 吴达洙 赵镇雄</li>
-                            <li><span class="text-muted">导演：</span>崔东勋</li>
-                            <li class="col-sm-6 padding-0"><span class="text-muted">影片分类：</span><a href="/m573/?m=vod-type-id-10.html" title="剧情片">剧情片</a></li>
-                            <li class="col-sm-6 hidden-xs padding-0"><span class="text-muted">影片类型：</span></li>
-                            <li class="col-sm-6 padding-0"><span class="text-muted">影片地区：</span>韩国</li>
-                            <li class="col-sm-6 hidden-sm hidden-xs padding-0"><span class="text-muted">影片语言：</span>韩语</li>
-                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">上映年份：</span>2015</li>
-                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">更新时间：</span>2018-11-25 22:17:35</li>
+                        <ul class="clearfix" style="margin-top:20px;">
+                            <li><span class="text-muted">备注：</span>@Model.Remark</li>
+                            <li><span class="text-muted">主演：</span>@Model.Starring</li>
+                            <li><span class="text-muted">导演：</span>@Model.Director</li>
+                            <li class="col-sm-6 padding-0"><span class="text-muted">影片分类：</span><a href="/m573/?m=vod-type-id-10.html" title="@Model.Classify">@Model.Classify</a></li>
+                            <li class="col-sm-6 hidden-xs padding-0"><span class="text-muted">影片类型：</span>@Model.Type</li>
+                            <li class="col-sm-6 padding-0"><span class="text-muted">影片地区：</span>@Model.Region</li>
+                            <li class="col-sm-6 hidden-sm hidden-xs padding-0"><span class="text-muted">影片语言：</span>@Model.Language</li>
+                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">上映年份：</span>@Model.ReleaseDate</li>
+                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">更新时间：</span>@Model.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")</li>
                         </ul>
                     </dd>
                 </dl>
@@ -55,7 +55,7 @@
                         <div class="panel clearfix">
                             <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist1" title="线路1">
                                 线路1
-                                <span class="text-muted pull-right">无需安装任何插件 <i class="icon iconfont icon-right"></i></span>
+                                <span class="text-muted pull-right"><i class="icon iconfont icon-right"></i></span>
                             </a>
 
                             <div id="playlist1" class="playlist collapse in">
@@ -66,27 +66,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="panel clearfix">
-                            <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist2" title="线路2">
-                                线路2
-                                <span class="text-muted pull-right">无需安装任何插件 <i class="icon iconfont icon-right"></i></span>
-                            </a>
 
-                            <div id="playlist2" class="playlist collapse in">
-                                <ul class="playlistlink-1 list-15256 clearfix">
-                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
-                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
-                                    <li><a title="HD韩语中字" href="/m573/?m=vod-play-id-355-src-1-num-1.html" target="_self">HD韩语中字</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="hy-play-list tab-pane fade in" id="list2">
                     <div class="item">
-                        <div class="plot">
-                            1933年，朝鲜半岛沦陷后，韩国临时政府要挑选三名秘密特工潜伏回朝鲜京城，执行刺杀朝鲜驻军司令官川口真守和卖国贼康寅国的特殊任务。临时政府警察局长廉硕晋（李政宰 饰）因此寻找到了朝鲜独立军狙击手安沃允（全智贤 饰）、新兴武官学校毕业生“速射炮”秋尚沃（赵震雄 饰）和爆破专家黄德三（崔德文 饰）。与此同时，日本驻上海司令部却收到了有关这次暗杀行动的密报。他们雇佣杀手夏威夷·皮斯托（河正宇 饰）和搭档波马德（吴达洙 饰）追杀刺客。为完成各自任务，独立军战士、临时政府专员和雇佣杀手的命运交织在了一起……
-                        </div>
+                        <div class="plot">@Html.Raw(Model.Description)</div>
                     </div>
                 </div>
             </div>

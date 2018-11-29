@@ -1,16 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Banana.Core;
+using Banana.Services;
+using Banana.Services.MongoDb;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Banana.Controllers
 {
     public class VideoController : Controller
     {
-        public VideoController()
+        private IMongoDbService _mongoDbService;
+        private IRedisService _redisService;
+        public VideoController(IMongoDbService mongoDbService, IRedisService redisService)
         {
-
+            _mongoDbService = mongoDbService;
+            _redisService = redisService;
         }
         [Route("/video")]
         public IActionResult Video()
         {
+            ViewData["MovieList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("电影"), 1, 12);
+            ViewData["TVList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("电视剧"), 1, 12);
+            ViewData["VarietyList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("综艺"), 1, 12);
+            ViewData["AnimeList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("动漫"), 1, 12);
+            ViewData["SexList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("伦理"), 1, 6);
             return View();
         }
 
@@ -43,20 +54,19 @@ namespace Banana.Controllers
         }
 
         [Route("/d/video/{id}")]
-        public IActionResult VideoDetail(string hash)
+        public IActionResult VideoDetail(string id)
         {
-            //if (string.IsNullOrEmpty(hash) || hash.Length != 40)
-            //    return new RedirectResult("/error");
-            //var model = new MagnetLink();
-            //var cacheKey = $"d_m_{hash}";
-            //if (!_memoryCache.TryGetValue(cacheKey, out model))
-            //{
-            //    model = _elasticSearchService.MagnetLinkInfo(hash);
-            //    if (model == null)
-            //        return new RedirectResult("/error");
-            //    _memoryCache.Set(cacheKey, model, new TimeSpan(0, 30, 0));
-            //}
-            return View();
+            long vid = 0;
+            if (!long.TryParse(id, out vid))
+            {
+                //return "404";
+            }
+            var video = _mongoDbService.GetVideo(vid);
+            if (video == null)
+            {
+                //return "404";
+            }
+            return View(video);
         }
     }
 }

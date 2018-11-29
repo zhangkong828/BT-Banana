@@ -347,7 +347,6 @@ h1, h2, h3, h4, h5, h6, a {
     position: relative;
     padding-top: 150%;
     border-radius: 10px;
-    background: url('../images/novideo.jpg') 50% 50% no-repeat;
     background-size: cover;
 }
 
