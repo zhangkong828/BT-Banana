@@ -110,5 +110,29 @@ namespace Banana.Services
             return true;
         }
 
+        public double? SortedSetScore(string key, string member)
+        {
+            key = AddKeyPrefix(key);
+            return _database.SortedSetScore(key, member);
+        }
+
+
+        public List<KeyValuePair<string, double>> SortedSetRangeByRankWithScores(string key, int pageindex, int pagesize)
+        {
+            var result = new List<KeyValuePair<string, double>>();
+            key = AddKeyPrefix(key);
+            var range = _database.SortedSetRangeByRankWithScores(key, (pageindex - 1) * pagesize, pageindex * pagesize, Order.Descending);
+            foreach (var item in range)
+            {
+                result.Add(new KeyValuePair<string, double>(item.Element, item.Score));
+            }
+            return result;
+        }
+
+        public double? SortedSetScore1(string key, string member)
+        {
+            key = AddKeyPrefix(key);
+            return _database.SortedSetCombineAndStore(key, member);
+        }
     }
 }
