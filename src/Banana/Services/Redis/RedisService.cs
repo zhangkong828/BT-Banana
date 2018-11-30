@@ -129,10 +129,15 @@ namespace Banana.Services
             return result;
         }
 
-        //public double? SortedSetScore1(string key, string member)
-        //{
-        //    key = AddKeyPrefix(key);
-        //    return _database.SortedSetCombineAndStore(key, member);
-        //}
+        public long SortedSetCombineAndStore(string destinationKey, List<string> keys)
+        {
+            destinationKey = AddKeyPrefix(destinationKey);
+            var combineKeys = new List<RedisKey>();
+            keys.ForEach(key =>
+            {
+                combineKeys.Add(AddKeyPrefix(key));
+            });
+            return _database.SortedSetCombineAndStore(SetOperation.Union, destinationKey, combineKeys.ToArray());
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Banana.Core
                 case "动漫":
                     return new List<string>() { "动漫" };
                 case "伦理":
-                    return new List<string>() { "伦理片", "写真视频", "美女写真", "美女视频", "	韩国主播VIP视频" };
+                    return new List<string>() { "伦理片", "写真视频", "美女写真", "美女视频", "韩国主播VIP视频" };
                 default:
                     return null;
             }
