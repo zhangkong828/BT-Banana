@@ -66,6 +66,8 @@ namespace Banana.Controllers
             {
                 //return "404";
             }
+            var videoSource = _mongoDbService.GetVideoSourceByVideo(video.Id);
+            ViewData["VideoSource"] = videoSource;
             return View(video);
         }
     }
