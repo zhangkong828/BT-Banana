@@ -1,9 +1,9 @@
 ﻿using Banana.Models;
 using System.Collections.Generic;
 
-namespace Banana.Services.MongoDb
+namespace Banana.Services
 {
-    public interface IMongoDbService
+    public interface IVideoService
     {
         Video GetVideo(long id);
 

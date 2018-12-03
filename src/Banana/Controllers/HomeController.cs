@@ -22,14 +22,14 @@ namespace Banana.Controllers
         private IConfiguration _configInfos;
         private IMemoryCache _memoryCache;
         //private readonly IRedisService _redisService;
-        private readonly IElasticSearchService _elasticSearchService;
+        private readonly IMagnetSearchService _magnetSearchService;
 
-        public HomeController(IConfiguration config, IMemoryCache memoryCache, IElasticSearchService elasticSearchService)
+        public HomeController(IConfiguration config, IMemoryCache memoryCache, IMagnetSearchService magnetSearchService)
         {
             _configInfos = config;
             _memoryCache = memoryCache;
             //_redisService = redisService;
-            _elasticSearchService = elasticSearchService;
+            _magnetSearchService = magnetSearchService;
         }
 
 
@@ -76,7 +76,7 @@ namespace Banana.Controllers
         {
             return View();
         }
-        
+
         private async Task<List<string>> GetBaiDuHot(int num)
         {
             List<string> list = new List<string>();
@@ -133,14 +133,14 @@ namespace Banana.Controllers
             //只缓存前20页数据  1分钟
             if (currentIndex > 20)
             {
-                result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+                result = _magnetSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
             }
             else
             {
                 var cacheKey = $"s_m_{key}_{currentIndex}";
                 if (!_memoryCache.TryGetValue(cacheKey, out result))
                 {
-                    result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
+                    result = _magnetSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
                     _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(5)));
                 }
             }
@@ -159,7 +159,7 @@ namespace Banana.Controllers
             var cacheKey = $"d_m_{hash}";
             if (!_memoryCache.TryGetValue(cacheKey, out model))
             {
-                model = _elasticSearchService.MagnetLinkInfo(hash);
+                model = _magnetSearchService.MagnetLinkInfo(hash);
                 if (model == null)
                     return new RedirectResult("/error");
                 _memoryCache.Set(cacheKey, model, new TimeSpan(0, 30, 0));

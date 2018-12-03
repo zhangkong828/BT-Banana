@@ -1,15 +1,14 @@
 ﻿using Banana.Core;
 using Banana.Services;
-using Banana.Services.MongoDb;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Banana.Controllers
 {
     public class VideoController : Controller
     {
-        private IMongoDbService _mongoDbService;
+        private IVideoService _mongoDbService;
         private IRedisService _redisService;
-        public VideoController(IMongoDbService mongoDbService, IRedisService redisService)
+        public VideoController(IVideoService mongoDbService, IRedisService redisService)
         {
             _mongoDbService = mongoDbService;
             _redisService = redisService;

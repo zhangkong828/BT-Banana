@@ -2,15 +2,15 @@
 using Banana.Models;
 using MongoDB.Driver;
 
-namespace Banana.Services.MongoDb
+namespace Banana.Services
 {
-    public class MongoDbService : IMongoDbService
+    public class VideoService : IVideoService
     {
         private readonly MongoClient _client;
 
         private readonly string DBNAME = "TVideo";
 
-        public MongoDbService(MongoClient client)
+        public VideoService(MongoClient client)
         {
             _client = client;
         }

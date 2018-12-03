@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Banana.Services
 {
-    public class ElasticSearchService : IElasticSearchService
+    public class MagnetSearchService : IMagnetSearchService
     {
         private readonly ElasticClient _client;
 
         public string IndexName = "dht";
         public string TypeName = "infos";
 
-        public ElasticSearchService(ElasticClient client)
+        public MagnetSearchService(ElasticClient client)
         {
             _client = client;
         }

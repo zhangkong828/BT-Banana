@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Banana.Services
 {
-    public interface IElasticSearchService
+    public interface IMagnetSearchService
     {
         MagnetLinkSearchResultViewModel MagnetLinkSearch(string key, int pageIndex, int pageSize);
 
