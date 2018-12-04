@@ -129,7 +129,7 @@ namespace Banana.Services
             return result;
         }
 
-        public long SortedSetCombineAndStore(string destinationKey, List<string> keys)
+        public long SortedSetCombineAndStore(string destinationKey, List<string> keys, int cacheTime = 0)
         {
             destinationKey = AddKeyPrefix(destinationKey);
             var combineKeys = new List<RedisKey>();
@@ -137,7 +137,13 @@ namespace Banana.Services
             {
                 combineKeys.Add(AddKeyPrefix(key));
             });
-            return _database.SortedSetCombineAndStore(SetOperation.Union, destinationKey, combineKeys.ToArray());
+            var num = _database.SortedSetCombineAndStore(SetOperation.Union, destinationKey, combineKeys.ToArray());
+            if (cacheTime > 0)
+            {
+                TimeSpan expiry = TimeSpan.FromMinutes(cacheTime);
+                _database.KeyExpire(destinationKey, expiry);
+            }
+            return num;
         }
     }
 }

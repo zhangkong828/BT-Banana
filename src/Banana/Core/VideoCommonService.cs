@@ -34,7 +34,7 @@ namespace Banana.Core
         }
 
         /// <summary>
-        /// 总-排行榜Key
+        /// 总排行榜Key
         /// </summary>
         public static string TotalRankingKey
         {
@@ -45,119 +45,28 @@ namespace Banana.Core
         }
 
         /// <summary>
-        /// 周-电影排行榜Key
+        /// 周排行榜Key
         /// </summary>
-        public static string WeekMovieRankingKey
+        public static string WeekRankingKey
         {
             get
             {
-                return "WeekMovieRankingKey";
+                return "WeekRankingKey";
             }
         }
 
         /// <summary>
-        /// 周-电视剧排行榜Key
+        /// 日排行榜Key
         /// </summary>
-        public static string WeekTVRankingKey
+        public static string DayRankingKey
         {
             get
             {
-                return "WeekTVRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 周-综艺排行榜Key
-        /// </summary>
-        public static string WeekVarietyRankingKey
-        {
-            get
-            {
-                return "WeekVarietyRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 周-动漫排行榜Key
-        /// </summary>
-        public static string WeekAnimeRankingKey
-        {
-            get
-            {
-                return "WeekAnimeRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 周-伦理排行榜Key
-        /// </summary>
-        public static string WeekSexRankingKey
-        {
-            get
-            {
-                return "WeekSexRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 日-电影排行榜Key
-        /// </summary>
-        public static string DayMovieRankingKey
-        {
-            get
-            {
-                return GetToDayString() + "DayMovieRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 日-电视剧排行榜Key
-        /// </summary>
-        public static string DayTVRankingKey
-        {
-            get
-            {
-                return GetToDayString() + "DayTVRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 日-综艺排行榜Key
-        /// </summary>
-        public static string DayVarietyRankingKey
-        {
-            get
-            {
-                return GetToDayString() + "DayVarietyRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 日-动漫排行榜Key
-        /// </summary>
-        public static string DayAnimeRankingKey
-        {
-            get
-            {
-                return GetToDayString() + "DayAnimeRankingKey";
-            }
-        }
-
-        /// <summary>
-        /// 日-伦理排行榜Key
-        /// </summary>
-        public static string DaySexRankingKey
-        {
-            get
-            {
-                return GetToDayString() + "DaySexRankingKey";
+                return "DayRankingKey";
             }
         }
 
 
-        public static string GetToDayString()
-        {
-            return DateTime.Today.ToString("yyyyMMdd");
-        }
+
     }
 }
