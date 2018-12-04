@@ -16,11 +16,11 @@ namespace Banana.Controllers
         [Route("/video")]
         public IActionResult Video()
         {
-            ViewData["MovieList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("电影"), 1, 12);
-            ViewData["TVList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("电视剧"), 1, 12);
-            ViewData["VarietyList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("综艺"), 1, 12);
-            ViewData["AnimeList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("动漫"), 1, 12);
-            ViewData["SexList"] = _mongoDbService.GetVideoByClassify(CommonService.GetVideoClassify("伦理"), 1, 6);
+            ViewData["MovieList"] = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("电影"), 1, 12);
+            ViewData["TVList"] = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("电视剧"), 1, 12);
+            ViewData["VarietyList"] = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("综艺"), 1, 12);
+            ViewData["AnimeList"] = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("动漫"), 1, 12);
+            ViewData["SexList"] = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("伦理"), 1, 6);
             return View();
         }
 
