@@ -28,14 +28,13 @@ namespace Banana.Services
         /// <summary>
         /// 本周排行key
         /// </summary>
-        private string GetCurrentWeekRankingKey(string classify)
+        private string GetCurrentWeekRankingKey(string classify, out DateTime start, out DateTime end)
         {
             var type = VideoCommonService.GetVideoType(classify) ?? "";
-            var start = Utility.GetWeekUpOfDate(DateTime.Now, DayOfWeek.Monday, 0).Date;
-            var end = Utility.GetWeekUpOfDate(DateTime.Now, DayOfWeek.Sunday, 1).Date;
+            start = Utility.GetWeekUpOfDate(DateTime.Now, DayOfWeek.Monday, 0).Date;
+            end = Utility.GetWeekUpOfDate(DateTime.Now, DayOfWeek.Sunday, 1).Date;
             return $"{VideoCommonService.WeekRankingKey}{start.ToString("yyyyMMdd")}{end.ToString("yyyyMMdd")}{type}";
         }
-
 
         public bool AccessStatistics(string id, string classify)
         {
@@ -53,7 +52,24 @@ namespace Banana.Services
 
         public List<KeyValuePair<string, double>> GetWeekRanking(string classify, int pageindex, int pagesize)
         {
-            return _redisService.SortedSetRangeByRankWithScores(GetCurrentWeekRankingKey(classify), pageindex, pagesize);
+            lock (classify)
+            {
+                //本周排行key
+                var currentWeekRankingKey = GetCurrentWeekRankingKey(classify, out DateTime start, out DateTime end);
+                if (!_redisService.IsExist(currentWeekRankingKey))
+                {
+                    //获取本周的日key
+                    var dayKeys = new List<string>();
+                    while (DateTime.Compare(start, end) <= 0)
+                    {
+                        dayKeys.Add(GetDayRankingKey(classify, start));
+                        start = start.AddDays(1);
+                    }
+                    //合并日key 计算到周key
+                    _redisService.SortedSetCombineAndStore(currentWeekRankingKey, dayKeys, 60 * 24 * 15);//15天
+                }
+                return _redisService.SortedSetRangeByRankWithScores(currentWeekRankingKey, pageindex, pagesize);
+            }
         }
     }
 }
