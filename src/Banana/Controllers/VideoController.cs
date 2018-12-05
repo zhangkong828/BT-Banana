@@ -2,6 +2,8 @@
 using Banana.Models;
 using Banana.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 
 namespace Banana.Controllers
@@ -10,56 +12,66 @@ namespace Banana.Controllers
     {
         private IVideoService _mongoDbService;
         private IRedisService _redisService;
-        public VideoController(IVideoService mongoDbService, IRedisService redisService)
+        private IMemoryCache _memoryCache;
+        private IVideoRankingService _videoRankingService;
+
+        public VideoController(IVideoService mongoDbService, IRedisService redisService, IMemoryCache memoryCache, IVideoRankingService videoRankingService)
         {
             _mongoDbService = mongoDbService;
             _redisService = redisService;
+            _memoryCache = memoryCache;
+            _videoRankingService = videoRankingService;
         }
         [Route("/video")]
         public IActionResult Video()
         {
             var movieListKey = "VideoIndex_MovieList";
-            var movieList = _redisService.Get<List<Video>>(movieListKey);
-            if (movieList == null)
+            var movieList = new List<Video>();
+            if (!_memoryCache.TryGetValue(movieListKey, out movieList))
             {
                 movieList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("电影"), 1, 12);
-                _redisService.Set(movieListKey, movieList, 10);
+                if (movieList != null && movieList.Count > 0)
+                    _memoryCache.Set(movieListKey, movieList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
             ViewData["MovieList"] = movieList;
 
             var tvListKey = "VideoIndex_TVList";
-            var tvList = _redisService.Get<List<Video>>(tvListKey);
-            if (tvList == null)
+            var tvList = new List<Video>();
+            if (!_memoryCache.TryGetValue(tvListKey, out tvList))
             {
                 tvList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("电视剧"), 1, 12);
-                _redisService.Set(tvListKey, tvList, 10);
+                if (tvList != null && tvList.Count > 0)
+                    _memoryCache.Set(tvListKey, tvList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
             ViewData["TVList"] = tvList;
 
             var varietyListKey = "VideoIndex_VarietyList";
-            var varietyList = _redisService.Get<List<Video>>(varietyListKey);
-            if (varietyList == null)
+            var varietyList = new List<Video>();
+            if (!_memoryCache.TryGetValue(varietyListKey, out varietyList))
             {
                 varietyList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("综艺"), 1, 12);
-                _redisService.Set(varietyListKey, varietyList, 10);
+                if (varietyList != null && varietyList.Count > 0)
+                    _memoryCache.Set(varietyListKey, varietyList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
             ViewData["VarietyList"] = varietyList;
 
             var animeListKey = "VideoIndex_AnimeList";
-            var animeList = _redisService.Get<List<Video>>(animeListKey);
-            if (animeList == null)
+            var animeList = new List<Video>();
+            if (!_memoryCache.TryGetValue(animeListKey, out animeList))
             {
                 animeList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("动漫"), 1, 12);
-                _redisService.Set(animeListKey, animeList, 10);
+                if (animeList != null && animeList.Count > 0)
+                    _memoryCache.Set(animeListKey, animeList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
             ViewData["AnimeList"] = animeList;
 
             var sexListKey = "VideoIndex_SexList";
-            var sexList = _redisService.Get<List<Video>>(sexListKey);
-            if (sexList == null)
+            var sexList = new List<Video>();
+            if (!_memoryCache.TryGetValue(sexListKey, out sexList))
             {
                 sexList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("伦理"), 1, 6);
-                _redisService.Set(sexListKey, sexList, 10);
+                if (sexList != null && sexList.Count > 0)
+                    _memoryCache.Set(sexListKey, sexList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
             ViewData["SexList"] = sexList;
 
@@ -100,16 +112,45 @@ namespace Banana.Controllers
             long vid = 0;
             if (!long.TryParse(id, out vid))
             {
-                //return "404";
+                return Redirect("/error");
             }
-            var video = _mongoDbService.GetVideo(vid);
-            if (video == null)
+            var videoDetailKey = $"VideoDetail_{id}";
+            var videoDetail = _redisService.Get<VideoDetail>(videoDetailKey);
+            if (videoDetail == null)
             {
-                //return "404";
+                var video = _mongoDbService.GetVideo(vid);
+                if (video == null)
+                {
+                    return Redirect("/error");
+                }
+                var videoSource = _mongoDbService.GetVideoSourceByVideo(video.Id);
+                if (videoSource == null)
+                {
+                    return Redirect("/error");
+                }
+                videoDetail = new VideoDetail()
+                {
+                    Video = video,
+                    VideoSource = videoSource
+                };
+                var cacheTime = 60;//1小时
+                var type = VideoCommonService.GetVideoType(video.Classify);
+                if (type == "电影" || type == "伦理")
+                {
+                    cacheTime = 60 * 24 * 3;//3天
+                }
+                _redisService.Set(videoDetailKey, videoDetail, cacheTime);
             }
-            var videoSource = _mongoDbService.GetVideoSourceByVideo(video.Id);
-            ViewData["VideoSource"] = videoSource;
-            return View(video);
+            //统计
+            _videoRankingService.AccessStatistics(id, videoDetail.Video.Classify);
+            return View(videoDetail);
+        }
+
+        [Route("/video/play/{id}")]
+        public IActionResult VideoPlay(string id)
+        {
+            
+            return View();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Banana.Models;
-using Banana.Services;
+﻿using Banana.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +27,7 @@ namespace Banana
             services.AddSingleton<IVideoService, VideoService>();
             services.AddSingleton<IRedisService, RedisService>();
             services.AddSingleton<IMagnetSearchService, MagnetSearchService>();
+            services.AddSingleton<IVideoRankingService, VideoRankingService>();
 
             services.AddResponseCompression();
 

@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
 
 namespace Banana.Services
 {
@@ -30,31 +27,16 @@ namespace Banana.Services
             return $"{DefaultKey}:{key}";
         }
 
-        private byte[] Serialize(object obj)
+        private string Serialize(object obj)
         {
-            if (obj == null)
-                return null;
-
-            var binaryFormatter = new BinaryFormatter();
-            using (var memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, obj);
-                var data = memoryStream.ToArray();
-                return data;
-            }
+            return JsonConvert.SerializeObject(obj);
         }
 
-        private T Deserialize<T>(byte[] data)
+        private T Deserialize<T>(string json)
         {
-            if (data == null)
+            if (json == null)
                 return default(T);
-
-            var binaryFormatter = new BinaryFormatter();
-            using (var memoryStream = new MemoryStream(data))
-            {
-                var result = (T)binaryFormatter.Deserialize(memoryStream);
-                return result;
-            }
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
 
@@ -69,7 +51,8 @@ namespace Banana.Services
         public T Get<T>(string key)
         {
             key = AddKeyPrefix(key);
-            return Deserialize<T>(_database.StringGet(key));
+            var s = _database.StringGet(key);
+            return Deserialize<T>(s);
         }
 
         public bool IsExist(string key)
@@ -89,6 +72,8 @@ namespace Banana.Services
 
         public bool Set<T>(string key, T data, int cacheTime = 0)
         {
+            if (data == null)
+                return false;
             key = AddKeyPrefix(key);
             TimeSpan? expiry = null;
             if (cacheTime > 0)

@@ -704,7 +704,7 @@ h1, h2, h3, h4, h5, h6, a {
 
         .hy-play-list .item .panel .option {
             display: block;
-            padding: 15px 0
+            padding: 20px 0 0 0;
         }
 
         .hy-play-list .item .panel .playlist ul {
@@ -714,7 +714,7 @@ h1, h2, h3, h4, h5, h6, a {
             .hy-play-list .item .panel .playlist ul li {
                 float: left;
                 padding: 10px 10px 0 0;
-                width: 12.5%
+                width: 20%
             }
 
                 .hy-play-list .item .panel .playlist ul li a {

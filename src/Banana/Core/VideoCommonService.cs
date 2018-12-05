@@ -8,6 +8,7 @@ namespace Banana.Core
         public static Dictionary<string, List<string>> _classifyDic;
         static VideoCommonService()
         {
+            _classifyDic = new Dictionary<string, List<string>>();
             _classifyDic.Add("电影", new List<string>() { "动作片", "喜剧片", "爱情片", "科幻片", "恐怖片", "剧情片", "战争片", "纪录片" });
             _classifyDic.Add("电视剧", new List<string>() { "国产剧", "港剧", "日剧", "欧美剧", "韩剧", "台剧", "泰剧", "越南剧" });
             _classifyDic.Add("综艺", new List<string>() { "综艺" });

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banana.Models
 {
+    [Serializable]
     public class Video
     {
         public long Id { get; set; }
