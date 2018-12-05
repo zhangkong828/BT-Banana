@@ -12,5 +12,7 @@ namespace Banana.Services
         List<KeyValuePair<string, double>> GetDayRanking(string classify, int pageindex, int pagesize);
 
         List<KeyValuePair<string, double>> GetWeekRanking(string classify, int pageindex, int pagesize);
+
+        int GetAccessCount(string id, string classify);
     }
 }

@@ -71,5 +71,11 @@ namespace Banana.Services
                 return _redisService.SortedSetRangeByRankWithScores(currentWeekRankingKey, pageindex, pagesize);
             }
         }
+
+        public int GetAccessCount(string id, string classify)
+        {
+            var num = _redisService.SortedSetScore(VideoCommonService.TotalRankingKey, id);
+            return num.HasValue ? (int)num.Value : 0;
+        }
     }
 }
