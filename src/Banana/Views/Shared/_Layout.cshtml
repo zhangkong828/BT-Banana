@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>@ViewBag.Title - BT香蕉btbanana.com</title>
+    <title>@Html.Raw(ViewBag.Title) - BT香蕉btbanana.com</title>
+    <meta name="keywords" content="@Html.Raw(ViewBag.KeyWords)">
+    <meta name="description" content="@Html.Raw(ViewBag.Description)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -63,7 +65,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li><a href="/">首页</a></li>
                     @*<li><a href="/s">视频搜索</a></li>
-                    <li><a href="/analyse">解析接口</a></li>*@
+                        <li><a href="/analyse">解析接口</a></li>*@
                     <li><a href="/video">电影库</a></li>
                 </ul>
             </div>

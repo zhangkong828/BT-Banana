@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var name = ViewData["VideoPlay_Title"];
+    ViewData["Title"] = "正在播放 " + name + " 在线观看";
+    ViewData["KeyWords"] = $"{name},{name}在线播放,{name}免费看,{name}在线观看";
+    ViewData["Description"] = $"BT香蕉(btbanana.com)正在为您在线播放《{name}》";
+    var VideoId = ViewData["VideoPlay_Id"];
+    var VideoAddress = ViewData["VideoPlay_Address"];
+}
+@section HeadCss{
+    <link href="~/p2pDPlayer/player.css" rel="stylesheet" />
+}
+<div class="row">
+    <div class="col-md-12">
+        <div id="dplayer"></div>
+    </div>
+    <div class="col-md-12 hidden-xs" style="margin-top: 10px;">
+        <input type="text" id="comment" placeholder="请在这里输入弹幕" value="" class="col-md-11 col-sm-11 col-xs-10" />
+        <button class="col-md-1 col-sm-2 col-xs-2 btn btn-sm btn-success" id="send">提交</button>
+    </div>
+</div>
+
+@section FootScripts{
+    <script src="~/p2pDPlayer/p2p.js"></script>
+    <script src="~/p2pDPlayer/player.js"></script>
+    <script>
+        var dp = new DPlayer({
+            container: document.getElementById('dplayer'),
+            autoplay: true,
+            video: {
+                url: '@VideoAddress',
+                type: 'hls'
+            },
+            danmaku: {
+                user:'btbanana',
+                id: '@VideoId',
+                api: 'https://api.prprpr.me/dplayer/'
+            },
+            hlsjsConfig: {
+                debug: false,
+                p2pConfig: {
+                    logLevel: 'none'
+                }
+            }
+        });
+        var _peerId = '', _peerNum = 0, _totalP2PDownloaded = 0, _totalP2PUploaded = 0;
+        dp.on('stats', function (stats) {
+            _totalP2PDownloaded = stats.totalP2PDownloaded;
+            _totalP2PUploaded = stats.totalP2PUploaded;
+            updateStats();
+        });
+        dp.on('peerId', function (peerId) {
+            _peerId = peerId;
+        });
+        dp.on('peers', function (peers) {
+            _peerNum = peers.length;
+            updateStats();
+        });
+
+        function updateStats() {
+            var text = 'P2P正在为您加速' + (_totalP2PDownloaded / 1024).toFixed(2)
+                + 'MB 已分享' + (_totalP2PUploaded / 1024).toFixed(2) + 'MB' + ' 连接节点' + _peerNum + '个';
+            console.log(text);
+        }
+
+        $("#send").click(function () {
+            var that = $(this);
+            var comment = $("#comment").val();
+            if (comment != null && $.trim(comment).length != 0) {
+                that.val("提交中");
+                that.attr("disabled", true);
+                dp.danmaku.send({
+                    text: comment,
+                    color: 16777215,
+                    type: 0
+                }, function () {
+                    $("#comment").val('');
+                    that.attr("disabled", false);
+                    that.val("提交");
+                });
+            } else {
+                alert("请先输入弹幕评论！")
+            }
+
+        });
+    </script>
+}
+

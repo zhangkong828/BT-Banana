@@ -1,4 +1,5 @@
 ﻿using Banana.Core;
+using Banana.Helper;
 using Banana.Models;
 using Banana.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -146,10 +147,11 @@ namespace Banana.Controllers
             return View(videoDetail);
         }
 
-        [Route("/video/play/{id}")]
-        public IActionResult VideoPlay(string id)
+        public IActionResult Play(string id, string key, string title)
         {
-            
+            ViewData["VideoPlay_Id"] = id;
+            ViewData["VideoPlay_Address"] = FormatHelper.DecodeBase64(key);
+            ViewData["VideoPlay_Title"] = title;
             return View();
         }
     }

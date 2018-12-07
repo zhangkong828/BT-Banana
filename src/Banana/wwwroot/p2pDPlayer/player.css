@@ -1328,7 +1328,8 @@
                 }
 
                 .dplayer-controller .dplayer-icons.dplayer-comment-box .dplayer-comment-setting-box label {
-                    cursor: pointer
+                    cursor: pointer;
+                    display:inline;
                 }
 
                 .dplayer-controller .dplayer-icons.dplayer-comment-box .dplayer-comment-setting-box .dplayer-comment-setting-title {
@@ -1815,12 +1816,12 @@
                     }
 
                 .dplayer-controller .dplayer-icons .dplayer-toggle input:checked + label {
-                    border-color: hsla(0,0%,100%,.5)
+                    border-color: #5cb85c
                 }
 
                     .dplayer-controller .dplayer-icons .dplayer-toggle input:checked + label:before {
                         width: 30px;
-                        background: hsla(0,0%,100%,.5)
+                        background: #5cb85c
                     }
 
                     .dplayer-controller .dplayer-icons .dplayer-toggle input:checked + label:after {

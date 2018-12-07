@@ -1,6 +1,10 @@
 ﻿@model Banana.Models.VideoDetail
+@using  Banana.Helper
 @{
-    ViewData["Title"] = "VideoDetail";
+    var name = Model.Video.Name;
+    ViewData["Title"] = name + " 高清在线观看";
+    ViewData["KeyWords"] = $"{name},{name}在线播放,{name}免费看,{name}在线观看";
+    ViewData["Description"] = $"BT香蕉(btbanana.com)正在提供{Model.Video.Classify}《{name}》在线观看免费高清播放，{name}剧情介绍：{Model.Video.Description}";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section HeadCss{
@@ -18,7 +22,7 @@
             <div class="item clearfix">
                 <dl class="content">
                     <dt>
-                        <a class="videopic" href="#" title="暗杀" style="background: rgba(0,0,0,.3) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
+                        <a class="videopic" href="#" title="@Model.Video.Name" style="background: rgba(0,0,0,.3) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
                             <span class="play hidden-xs"></span>
                         </a>
                     </dt>
@@ -53,7 +57,8 @@
                     <div class="item tyui" id="playlist">
 
                         <div class="panel clearfix">
-                            <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist1" title="@Model.VideoSource.SourceName">线路1<span class="text-muted pull-right"><i class="icon iconfont icon-right"></i></span>
+                            <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist1" title="@Model.VideoSource.SourceName">
+                                线路1<span class="text-muted pull-right"><i class="icon iconfont icon-right"></i></span>
                             </a>
 
                             <div id="playlist1" class="playlist collapse in">
@@ -61,7 +66,7 @@
                                     @{
                                         foreach (var source in Model.VideoSource.Sources)
                                         {
-                                            <li><a title="@source.Title" href="@source.Address" target="_blank">@source.Title</a></li>
+                                            <li><a title="@source.Title" href="@($"/video/play?key={FormatHelper.EncodeBase64(source.Address)}&id={Model.Video.Id}&title={Model.Video.Name}")" target="_blank">@source.Title</a></li>
                                         }
                                     }
                                 </ul>
