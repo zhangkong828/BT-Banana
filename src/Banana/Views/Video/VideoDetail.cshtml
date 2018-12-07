@@ -5,7 +5,10 @@
     ViewData["Title"] = name + " 高清在线观看";
     ViewData["KeyWords"] = $"{name},{name}在线播放,{name}免费看,{name}在线观看";
     ViewData["Description"] = $"BT香蕉(btbanana.com)正在提供{Model.Video.Classify}《{name}》在线观看免费高清播放，{name}剧情介绍：{Model.Video.Description}";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml".ToString();
+
+    var VideoType = ViewData["VideoDetail_VideoType"] as string;
+    var HotList = ViewData["VideoDetail_HotList"] as List<VideoRank>;
 }
 @section HeadCss{
     <link href="~/css/iconfont.css" rel="stylesheet" />
@@ -66,7 +69,7 @@
                                     @{
                                         foreach (var source in Model.VideoSource.Sources)
                                         {
-                                            <li><a title="@source.Title" href="@($"/video/play?key={FormatHelper.EncodeBase64(source.Address)}&id={Model.Video.Id}&title={Model.Video.Name}")" target="_blank">@source.Title</a></li>
+                                            <li><a title="@source.Title" href="@($"/video/play?key={FormatHelper.EncodeBase64(source.Address)}&id={Model.Video.Id}&title={Model.Video.Name}{source.Title}")" target="_blank">@source.Title</a></li>
                                         }
                                     }
                                 </ul>
@@ -168,57 +171,23 @@
 
             <div class="hy-video-ranking clearfix">
                 <div class="head">
-                    <a class="text-muted pull-right" href="/m573/?m=vod-type-id-10.html" title="更多">更多 <i class="icon iconfont icon-right"></i></a>
-                    <h5><i class="icon iconfont icon-top text-color"></i> 剧情片排行榜</h5>
+                    @*<a class="text-muted pull-right" href="/" title="更多">更多 <i class="icon iconfont icon-right"></i></a>*@
+                    <h5><i class="icon iconfont icon-top text-color"></i> 热播@(VideoType)</h5>
                 </div>
                 <div class="item">
                     <ul class="clearfix">
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">66</span>
-                            <a href="/m573/?m=vod-detail-id-122.html" title="宫锁沉香"><em class="number active">1</em>宫锁沉香</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">102</span>
-                            <a href="/m573/?m=vod-detail-id-126.html" title="乾隆下扬州"><em class="number active">2</em>乾隆下扬州</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">139</span>
-                            <a href="/m573/?m=vod-detail-id-138.html" title="爱慕"><em class="number active">3</em>爱慕</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">213</span>
-                            <a href="/m573/?m=vod-detail-id-125.html" title="西厢记"><em class="number ">4</em>西厢记</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">234</span>
-                            <a href="/m573/?m=vod-detail-id-132.html" title="亲亲我的宝贝"><em class="number ">5</em>亲亲我的宝贝</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">302</span>
-                            <a href="/m573/?m=vod-detail-id-130.html" title="暖"><em class="number ">6</em>暖</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">358</span>
-                            <a href="/m573/?m=vod-detail-id-128.html" title="穿孔"><em class="number ">7</em>穿孔</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">439</span>
-                            <a href="/m573/?m=vod-detail-id-123.html" title="美国情事"><em class="number ">8</em>美国情事</a>
-                        </li>
-
-                        <li class="text-overflow">
-                            <span class="pull-right text-color">511</span>
-                            <a href="/m573/?m=vod-detail-id-129.html" title="拉面女孩"><em class="number ">9</em>拉面女孩</a>
-                        </li>
-
+                        @{
+                            if (HotList != null)
+                            {
+                                for (int i = 0; i < HotList.Count; i++)
+                                {
+                                    <li class="text-overflow">
+                                        <span class="pull-right text-color">@(HotList[i].Score)&#176;</span>
+                                        <a href="/d/video/@HotList[i].Id" title="@HotList[i].Name"><em class="number active">@(i + 1)</em>@HotList[i].Name</a>
+                                    </li>
+                                }
+                            }
+                        }
                     </ul>
                 </div>
             </div>

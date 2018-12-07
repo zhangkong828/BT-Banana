@@ -1,13 +1,15 @@
 ﻿
 @{
     ViewData["Title"] = "电影库";
+    ViewData["KeyWords"] = $"最新电影，热播电视剧，电影网，免费电影，在线电影";
+    ViewData["Description"] = $"BT香蕉(btbanana.com)电影库提供最新电影和热播电视剧免费在线观看，为影迷提供全网最新最全无广告电影电视剧最完美的观看体验。";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var MovieList = ViewData["MovieList"] as List<Video>;
-    var TVList = ViewData["TVList"] as List<Video>;
-    var VarietyList = ViewData["VarietyList"] as List<Video>;
-    var AnimeList = ViewData["AnimeList"] as List<Video>;
-    var SexList = ViewData["SexList"] as List<Video>;
+    var MovieList = ViewData["MovieList"] as List<VideoRank>;
+    var TVList = ViewData["TVList"] as List<VideoRank>;
+    var VarietyList = ViewData["VarietyList"] as List<VideoRank>;
+    var AnimeList = ViewData["AnimeList"] as List<VideoRank>;
+    var SexList = ViewData["SexList"] as List<VideoRank>;
 }
 @section HeadCss{
     <link href="~/css/iconfont.css" rel="stylesheet" />
@@ -234,9 +236,9 @@
                                         <div class="title">
                                             <h5 class="text-overflow"><a href="/d/video/@SexList[i].Id" title="@SexList[i].Name" target="_blank">@SexList[i].Name</a></h5>
                                         </div>
-                                        <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                            @SexList[i].Starring
-                                        </div>
+                                        @*<div class="subtitle text-muted text-muted text-overflow hidden-xs">
+                                            &nbsp;@(SexList[i].Starring)
+                                        </div>*@
                                     </div>
                                 }
                             }

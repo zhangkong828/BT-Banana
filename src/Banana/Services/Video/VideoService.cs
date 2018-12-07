@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Banana.Models;
+﻿using Banana.Models;
 using MongoDB.Driver;
+using System.Collections.Generic;
 
 namespace Banana.Services
 {
@@ -30,6 +30,13 @@ namespace Banana.Services
             var collection = GetCollection<Video>(DBNAME, "Video");
             var filter = Builders<Video>.Filter.Where(x => x.Id == id);
             return collection.Find(filter).FirstOrDefault();
+        }
+
+        public List<Video> GetVideoList(IEnumerable<long> ids)
+        {
+            var collection = GetCollection<Video>(DBNAME, "Video");
+            var filter = Builders<Video>.Filter.In(x => x.Id, ids);
+            return collection.Find(filter).ToList();
         }
 
         public VideoSource GetVideoSource(long id)

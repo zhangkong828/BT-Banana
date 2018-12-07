@@ -7,6 +7,8 @@ namespace Banana.Services
     {
         Video GetVideo(long id);
 
+        List<Video> GetVideoList(IEnumerable<long> ids);
+
         VideoSource GetVideoSource(long id);
 
         VideoSource GetVideoSourceByVideo(long videoId);

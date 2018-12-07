@@ -6,19 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Banana.Controllers
 {
     public class VideoController : Controller
     {
-        private IVideoService _mongoDbService;
+        private IVideoService _videoService;
         private IRedisService _redisService;
         private IMemoryCache _memoryCache;
         private IVideoRankingService _videoRankingService;
 
-        public VideoController(IVideoService mongoDbService, IRedisService redisService, IMemoryCache memoryCache, IVideoRankingService videoRankingService)
+        public VideoController(IVideoService videoService, IRedisService redisService, IMemoryCache memoryCache, IVideoRankingService videoRankingService)
         {
-            _mongoDbService = mongoDbService;
+            _videoService = videoService;
             _redisService = redisService;
             _memoryCache = memoryCache;
             _videoRankingService = videoRankingService;
@@ -26,59 +27,61 @@ namespace Banana.Controllers
         [Route("/video")]
         public IActionResult Video()
         {
-            var movieListKey = "VideoIndex_MovieList";
-            var movieList = new List<Video>();
-            if (!_memoryCache.TryGetValue(movieListKey, out movieList))
-            {
-                movieList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("电影"), 1, 12);
-                if (movieList != null && movieList.Count > 0)
-                    _memoryCache.Set(movieListKey, movieList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
-            }
-            ViewData["MovieList"] = movieList;
-
-            var tvListKey = "VideoIndex_TVList";
-            var tvList = new List<Video>();
-            if (!_memoryCache.TryGetValue(tvListKey, out tvList))
-            {
-                tvList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("电视剧"), 1, 12);
-                if (tvList != null && tvList.Count > 0)
-                    _memoryCache.Set(tvListKey, tvList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
-            }
-            ViewData["TVList"] = tvList;
-
-            var varietyListKey = "VideoIndex_VarietyList";
-            var varietyList = new List<Video>();
-            if (!_memoryCache.TryGetValue(varietyListKey, out varietyList))
-            {
-                varietyList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("综艺"), 1, 12);
-                if (varietyList != null && varietyList.Count > 0)
-                    _memoryCache.Set(varietyListKey, varietyList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
-            }
-            ViewData["VarietyList"] = varietyList;
-
-            var animeListKey = "VideoIndex_AnimeList";
-            var animeList = new List<Video>();
-            if (!_memoryCache.TryGetValue(animeListKey, out animeList))
-            {
-                animeList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("动漫"), 1, 12);
-                if (animeList != null && animeList.Count > 0)
-                    _memoryCache.Set(animeListKey, animeList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
-            }
-            ViewData["AnimeList"] = animeList;
-
-            var sexListKey = "VideoIndex_SexList";
-            var sexList = new List<Video>();
-            if (!_memoryCache.TryGetValue(sexListKey, out sexList))
-            {
-                sexList = _mongoDbService.GetVideoByClassify(VideoCommonService.GetVideoClassify("伦理"), 1, 6);
-                if (sexList != null && sexList.Count > 0)
-                    _memoryCache.Set(sexListKey, sexList, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
-            }
-            ViewData["SexList"] = sexList;
+            ViewData["MovieList"] = GetWeekRankingList("电影");
+            ViewData["TVList"] = GetWeekRankingList("电视剧");
+            ViewData["VarietyList"] = GetWeekRankingList("综艺");
+            ViewData["AnimeList"] = GetWeekRankingList("动漫");
+            ViewData["SexList"] = GetWeekRankingList("伦理");
 
             return View();
         }
 
+        private List<VideoRank> GetWeekRankingList(string type)
+        {
+            var listKey = $"VideoWeekRankingList_{type}";
+            var result = new List<VideoRank>();
+            if (!_memoryCache.TryGetValue(listKey, out result))
+            {
+                result = new List<VideoRank>();
+                var weekRanking = _videoRankingService.GetWeekRankingByType(type, 1, 12);//周榜前12
+                var weekRankingList = _videoService.GetVideoList(weekRanking.Select(x => Convert.ToInt64(x.Key)));
+                weekRanking.ForEach(item =>
+                {
+                    var weekRankingItem = weekRankingList.FirstOrDefault(x => x.Id == Convert.ToInt64(item.Key));
+                    if (weekRankingItem != null)
+                    {
+                        result.Add(ConvertVideoToVideoRank(weekRankingItem, item.Value));
+                    }
+
+                });
+                if (result.Count < 12)//周榜不足12
+                {
+                    var count = 12 - result.Count;
+                    var updateList = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, count);
+                    updateList.ForEach(item =>
+                    {
+                        result.Add(ConvertVideoToVideoRank(item, 0));
+                    });
+                }
+                if (result != null && result.Count > 0)
+                    _memoryCache.Set(listKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
+            }
+            return result;
+        }
+
+        private VideoRank ConvertVideoToVideoRank(Video video, double score = 0)
+        {
+            return new VideoRank()
+            {
+                Id = video.Id,
+                Name = video.Name,
+                Classify = video.Classify,
+                Score = score,
+                Image = video.Image,
+                Remark = video.Remark,
+                Starring = video.Starring
+            };
+        }
 
         [Route("/s/video/{key}/{index?}")]
         public IActionResult VideoSearch(string key, string index)
@@ -110,6 +113,7 @@ namespace Banana.Controllers
         [Route("/d/video/{id}")]
         public IActionResult VideoDetail(string id)
         {
+            //详情
             long vid = 0;
             if (!long.TryParse(id, out vid))
             {
@@ -119,12 +123,12 @@ namespace Banana.Controllers
             var videoDetail = _redisService.Get<VideoDetail>(videoDetailKey);
             if (videoDetail == null)
             {
-                var video = _mongoDbService.GetVideo(vid);
+                var video = _videoService.GetVideo(vid);
                 if (video == null)
                 {
                     return Redirect("/error");
                 }
-                var videoSource = _mongoDbService.GetVideoSourceByVideo(video.Id);
+                var videoSource = _videoService.GetVideoSourceByVideo(video.Id);
                 if (videoSource == null)
                 {
                     return Redirect("/error");
@@ -142,8 +146,32 @@ namespace Banana.Controllers
                 }
                 _redisService.Set(videoDetailKey, videoDetail, cacheTime);
             }
+
+            var videoType = VideoCommonService.GetVideoType(videoDetail.Video.Classify); ;
+            //热播
+            var hotListKey = "VideoHotList_" + videoType;
+            var hotList = _redisService.Get<List<VideoRank>>(hotListKey);
+            if (hotList == null)
+            {
+                hotList = new List<VideoRank>();
+                var dayRanking = _videoRankingService.GetDayRankingByType(videoType, 1, 10);//日榜前10
+                var dayRankingList = _videoService.GetVideoList(dayRanking.Select(x => Convert.ToInt64(x.Key)));
+                dayRanking.ForEach(item =>
+                {
+                    var dayRankingItem = dayRankingList.FirstOrDefault(x => x.Id == Convert.ToInt64(item.Key));
+                    if (dayRankingItem != null)
+                    {
+                        hotList.Add(ConvertVideoToVideoRank(dayRankingItem, item.Value));
+                    }
+
+                });
+                _redisService.Set(hotListKey, hotList, 10);//10分钟
+            }
+            ViewData["VideoDetail_HotList"] = hotList;
             //统计
             _videoRankingService.AccessStatistics(id, videoDetail.Video.Classify);
+
+            ViewData["VideoDetail_VideoType"] = videoType;
             return View(videoDetail);
         }
 
