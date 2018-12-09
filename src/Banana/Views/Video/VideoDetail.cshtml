@@ -25,7 +25,7 @@
             <div class="item clearfix">
                 <dl class="content">
                     <dt>
-                        <a class="videopic" href="#" title="@Model.Video.Name" style="background: rgba(0,0,0,.3) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
+                        <a class="videopic" href="#" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
                             <span class="play hidden-xs"></span>
                         </a>
                     </dt>
@@ -168,30 +168,31 @@
                     <p><img src="http://www.m1938.com/img/wep.png"></p>
                 </div>
             </div>
+            @{
+                if (HotList != null)
+                {
+                    <div class="hy-video-ranking clearfix">
+                        <div class="head">
+                            @*<a class="text-muted pull-right" href="/" title="更多">更多 <i class="icon iconfont icon-right"></i></a>*@
+                            <h5><i class="icon iconfont icon-top text-color"></i> 热播@(VideoType)</h5>
+                        </div>
+                        <div class="item">
+                            <ul class="clearfix">
 
-            <div class="hy-video-ranking clearfix">
-                <div class="head">
-                    @*<a class="text-muted pull-right" href="/" title="更多">更多 <i class="icon iconfont icon-right"></i></a>*@
-                    <h5><i class="icon iconfont icon-top text-color"></i> 热播@(VideoType)</h5>
-                </div>
-                <div class="item">
-                    <ul class="clearfix">
-                        @{
-                            if (HotList != null)
-                            {
-                                for (int i = 0; i < HotList.Count; i++)
-                                {
-                                    <li class="text-overflow">
-                                        <span class="pull-right text-color">@(HotList[i].Score)&#176;</span>
-                                        <a href="/d/video/@HotList[i].Id" title="@HotList[i].Name"><em class="number active">@(i + 1)</em>@HotList[i].Name</a>
-                                    </li>
+                                @{
+                                    for (int i = 0; i < HotList.Count; i++)
+                                    {
+                                        <li class="text-overflow">
+                                            <span class="pull-right text-color">@(HotList[i].Score)&#176;</span>
+                                            <a href="/d/video/@HotList[i].Id" title="@HotList[i].Name"><em class="number active">@(i + 1)</em>@HotList[i].Name</a>
+                                        </li>
+                                    }
                                 }
-                            }
-                        }
-                    </ul>
-                </div>
-            </div>
-
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 

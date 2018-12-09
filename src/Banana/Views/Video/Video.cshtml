@@ -5,11 +5,11 @@
     ViewData["Description"] = $"BT香蕉(btbanana.com)电影库提供最新电影和热播电视剧免费在线观看，为影迷提供全网最新最全无广告电影电视剧最完美的观看体验。";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var MovieList = ViewData["MovieList"] as List<VideoRank>;
-    var TVList = ViewData["TVList"] as List<VideoRank>;
-    var VarietyList = ViewData["VarietyList"] as List<VideoRank>;
-    var AnimeList = ViewData["AnimeList"] as List<VideoRank>;
-    var SexList = ViewData["SexList"] as List<VideoRank>;
+    var MovieList = ViewData["MovieList"] as List<Video>;
+    var TVList = ViewData["TVList"] as List<Video>;
+    var VarietyList = ViewData["VarietyList"] as List<Video>;
+    var AnimeList = ViewData["AnimeList"] as List<Video>;
+    var SexList = ViewData["SexList"] as List<Video>;
 }
 @section HeadCss{
     <link href="~/css/iconfont.css" rel="stylesheet" />
@@ -19,22 +19,23 @@
     <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="~/js/videohistory.js"></script>
 }
+@Html.Partial("_VideoSearch")
 <div class="row">
 
     <!--电影 -->
     <div class="hy-layout clearfix">
         <div class="hy-video-head">
-            <ul class="pull-right hidden-md hidden-sm hidden-xs">
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-5.html" class="text-muted border-right">动作片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-6.html" class="text-muted border-right">喜剧片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-7.html" class="text-muted border-right">爱情片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-8.html" class="text-muted border-right">科幻片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-9.html" class="text-muted border-right">恐怖片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-10.html" class="text-muted border-right">剧情片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-11.html" class="text-muted border-right">战争片</a> /</li>
-                <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
-            </ul>
-            <h3 class="margin-0"><i class="icon iconfont icon-film text-color"></i> 电影</h3>
+            @*<ul class="pull-right hidden-md hidden-sm hidden-xs">
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-5.html" class="text-muted border-right">动作片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-6.html" class="text-muted border-right">喜剧片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-7.html" class="text-muted border-right">爱情片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-8.html" class="text-muted border-right">科幻片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-9.html" class="text-muted border-right">恐怖片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-10.html" class="text-muted border-right">剧情片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-11.html" class="text-muted border-right">战争片</a> /</li>
+                    <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
+                </ul>*@
+            <h3 class="margin-0"><i class="icon iconfont icon-film text-color"></i> 电影-最近更新</h3>
         </div>
         <div class="clearfix">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
@@ -45,7 +46,7 @@
                             {
                                 for (int i = 0; i < MovieList.Count; i++)
                                 {
-                                    var hidden_xs = i >= 6 ? "hidden-xs" : "";
+                                    var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
                                         <a class="videopic lazy" href="/d/video/@MovieList[i].Id" title="@MovieList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@MovieList[i].Image') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
@@ -61,30 +62,30 @@
                                 }
                             }
                         }
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="hy-video-footer visible-xs clearfix">
-            <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
-        </div>
+        @*<div class="hy-video-footer visible-xs clearfix">
+                <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
+            </div>*@
     </div>
     <!--end 电影 -->
     <!--电视剧 -->
     <div class="hy-layout clearfix">
         <div class="hy-video-head">
-            <ul class="pull-right hidden-md hidden-sm hidden-xs">
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-5.html" class="text-muted border-right">动作片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-6.html" class="text-muted border-right">喜剧片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-7.html" class="text-muted border-right">爱情片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-8.html" class="text-muted border-right">科幻片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-9.html" class="text-muted border-right">恐怖片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-10.html" class="text-muted border-right">剧情片</a> /</li>
-                <li class="text-muted"><a href="/m573/?m=vod-type-id-11.html" class="text-muted border-right">战争片</a> /</li>
-                <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
-            </ul>
-            <h3 class="margin-0"><i class="icon iconfont icon-show text-color"></i> 电视剧</h3>
+            @*<ul class="pull-right hidden-md hidden-sm hidden-xs">
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-5.html" class="text-muted border-right">动作片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-6.html" class="text-muted border-right">喜剧片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-7.html" class="text-muted border-right">爱情片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-8.html" class="text-muted border-right">科幻片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-9.html" class="text-muted border-right">恐怖片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-10.html" class="text-muted border-right">剧情片</a> /</li>
+                    <li class="text-muted"><a href="/m573/?m=vod-type-id-11.html" class="text-muted border-right">战争片</a> /</li>
+                    <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
+                </ul>*@
+            <h3 class="margin-0"><i class="icon iconfont icon-show text-color"></i> 电视剧-最近更新</h3>
         </div>
         <div class="clearfix">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
@@ -95,7 +96,7 @@
                             {
                                 for (int i = 0; i < TVList.Count; i++)
                                 {
-                                    var hidden_xs = i >= 6 ? "hidden-xs" : "";
+                                    var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
                                         <a class="videopic lazy" href="/d/video/@TVList[i].Id" title="@TVList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@TVList[i].Image') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
@@ -117,18 +118,18 @@
                 </div>
             </div>
         </div>
-        <div class="hy-video-footer visible-xs clearfix">
-            <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
-        </div>
+        @*<div class="hy-video-footer visible-xs clearfix">
+                <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
+            </div>*@
     </div>
     <!--end 电视剧 -->
     <!--综艺 -->
     <div class="hy-layout clearfix">
         <div class="hy-video-head">
-            <ul class="pull-right hidden-md hidden-sm hidden-xs">
-                <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
-            </ul>
-            <h3 class="margin-0"><i class="icon iconfont icon-flag text-color"></i> 综艺</h3>
+            @*<ul class="pull-right hidden-md hidden-sm hidden-xs">
+                    <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
+                </ul>*@
+            <h3 class="margin-0"><i class="icon iconfont icon-flag text-color"></i> 综艺-最近更新</h3>
         </div>
         <div class="clearfix">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
@@ -139,7 +140,7 @@
                             {
                                 for (int i = 0; i < VarietyList.Count; i++)
                                 {
-                                    var hidden_xs = i >= 6 ? "hidden-xs" : "";
+                                    var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
                                         <a class="videopic lazy" href="/d/video/@VarietyList[i].Id" title="@VarietyList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@VarietyList[i].Image') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
@@ -161,18 +162,18 @@
                 </div>
             </div>
         </div>
-        <div class="hy-video-footer visible-xs clearfix">
-            <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
-        </div>
+        @*<div class="hy-video-footer visible-xs clearfix">
+                <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
+            </div>*@
     </div>
     <!--end 综艺 -->
     <!--动漫 -->
     <div class="hy-layout clearfix">
         <div class="hy-video-head">
-            <ul class="pull-right hidden-md hidden-sm hidden-xs">
-                <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
-            </ul>
-            <h3 class="margin-0"><i class="icon iconfont icon-mallanimation text-color"></i> 动漫</h3>
+            @*<ul class="pull-right hidden-md hidden-sm hidden-xs">
+                    <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
+                </ul>*@
+            <h3 class="margin-0"><i class="icon iconfont icon-mallanimation text-color"></i> 动漫-最近更新</h3>
         </div>
         <div class="clearfix">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
@@ -183,7 +184,7 @@
                             {
                                 for (int i = 0; i < AnimeList.Count; i++)
                                 {
-                                    var hidden_xs = i >= 6 ? "hidden-xs" : "";
+                                    var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
                                         <a class="videopic lazy" href="/d/video/@AnimeList[i].Id" title="@AnimeList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@AnimeList[i].Image') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
@@ -205,18 +206,18 @@
                 </div>
             </div>
         </div>
-        <div class="hy-video-footer visible-xs clearfix">
-            <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
-        </div>
+        @*<div class="hy-video-footer visible-xs clearfix">
+                <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
+            </div>*@
     </div>
     <!--end 动漫 -->
     <!--伦理 -->
     <div class="hy-layout clearfix">
         <div class="hy-video-head">
-            <ul class="pull-right hidden-md hidden-sm hidden-xs">
-                <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
-            </ul>
-            <h3 class="margin-0"><i class="icon iconfont icon-icon_special text-color"></i> 伦理</h3>
+            @*<ul class="pull-right hidden-md hidden-sm hidden-xs">
+                    <li class="active"><a href="/m573/?m=vod-type-id-1.html" class="text-muted" title="查看更多">更多 <i class="icon iconfont icon-right"></i></a></li>
+                </ul>*@
+            <h3 class="margin-0"><i class="icon iconfont icon-icon_special text-color"></i> 伦理-最近更新</h3>
         </div>
         <div class="clearfix">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
@@ -227,7 +228,7 @@
                             {
                                 for (int i = 0; i < SexList.Count; i++)
                                 {
-                                    var hidden_xs = i >= 6 ? "hidden-xs" : "";
+                                    var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
                                         <a class="videopic lazy" href="/d/video/@SexList[i].Id" title="@SexList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@SexList[i].Image') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
@@ -237,8 +238,8 @@
                                             <h5 class="text-overflow"><a href="/d/video/@SexList[i].Id" title="@SexList[i].Name" target="_blank">@SexList[i].Name</a></h5>
                                         </div>
                                         @*<div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                            &nbsp;@(SexList[i].Starring)
-                                        </div>*@
+                                                &nbsp;@(SexList[i].Starring)
+                                            </div>*@
                                     </div>
                                 }
                             }
@@ -249,9 +250,9 @@
                 </div>
             </div>
         </div>
-        <div class="hy-video-footer visible-xs clearfix">
-            <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
-        </div>
+        @*<div class="hy-video-footer visible-xs clearfix">
+                <a href="/m573/?m=vod-type-id-1.html" class="text-muted">查看更多 <i class="icon iconfont icon-right pull-right"></i></a>
+            </div>*@
     </div>
     <!--end 伦理 -->
 </div>

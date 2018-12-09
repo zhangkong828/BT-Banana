@@ -27,42 +27,23 @@ namespace Banana.Controllers
         [Route("/video")]
         public IActionResult Video()
         {
-            ViewData["MovieList"] = GetWeekRankingList("电影");
-            ViewData["TVList"] = GetWeekRankingList("电视剧");
-            ViewData["VarietyList"] = GetWeekRankingList("综艺");
-            ViewData["AnimeList"] = GetWeekRankingList("动漫");
-            ViewData["SexList"] = GetWeekRankingList("伦理");
+            ViewData["MovieList"] = GetUpdateList("电影");
+            ViewData["TVList"] = GetUpdateList("电视剧");
+            ViewData["VarietyList"] = GetUpdateList("综艺");
+            ViewData["AnimeList"] = GetUpdateList("动漫");
+            ViewData["SexList"] = GetUpdateList("伦理");
 
             return View();
         }
 
-        private List<VideoRank> GetWeekRankingList(string type)
+        private List<Video> GetUpdateList(string type)
         {
-            var listKey = $"VideoWeekRankingList_{type}";
-            var result = new List<VideoRank>();
+            var listKey = $"VideoIndexUpdateList_{type}";
+            var result = new List<Video>();
             if (!_memoryCache.TryGetValue(listKey, out result))
             {
-                result = new List<VideoRank>();
-                var weekRanking = _videoRankingService.GetWeekRankingByType(type, 1, 12);//周榜前12
-                var weekRankingList = _videoService.GetVideoList(weekRanking.Select(x => Convert.ToInt64(x.Key)));
-                weekRanking.ForEach(item =>
-                {
-                    var weekRankingItem = weekRankingList.FirstOrDefault(x => x.Id == Convert.ToInt64(item.Key));
-                    if (weekRankingItem != null)
-                    {
-                        result.Add(ConvertVideoToVideoRank(weekRankingItem, item.Value));
-                    }
-
-                });
-                if (result.Count < 12)//周榜不足12
-                {
-                    var count = 12 - result.Count;
-                    var updateList = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, count);
-                    updateList.ForEach(item =>
-                    {
-                        result.Add(ConvertVideoToVideoRank(item, 0));
-                    });
-                }
+                result = new List<Video>();
+                result = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, 12);
                 if (result != null && result.Count > 0)
                     _memoryCache.Set(listKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
@@ -86,27 +67,28 @@ namespace Banana.Controllers
         [Route("/s/video/{key}/{index?}")]
         public IActionResult VideoSearch(string key, string index)
         {
-            //key = key.Trim();
-            //if (string.IsNullOrEmpty(key))
-            //    return RedirectToAction("index");
-            //int.TryParse(index, out int currentIndex);
-            //currentIndex = currentIndex < 1 ? 1 : currentIndex > 100 ? 100 : currentIndex; //最多100页
-            //var pageSize = 10;
-            //var result = new MagnetLinkSearchResultViewModel();
-            ////只缓存前20页数据  1分钟
-            //if (currentIndex > 20)
-            //{
-            //    result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
-            //}
-            //else
-            //{
-            //    var cacheKey = $"s_m_{key}_{currentIndex}";
-            //    if (!_memoryCache.TryGetValue(cacheKey, out result))
-            //    {
-            //        result = _elasticSearchService.MagnetLinkSearch(key, currentIndex, pageSize);
-            //        _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(5)));
-            //    }
-            //}
+            key = key.Trim();
+            if (string.IsNullOrEmpty(key))
+                return Redirect("/video");
+            int.TryParse(index, out int currentIndex);
+            currentIndex = currentIndex < 1 ? 1 : currentIndex;
+            var pageSize = 10;
+
+            var searchKey = $"VideoSearch_{key}_{currentIndex}";
+            long totalCount = 0;
+            var result = _redisService.Get<List<Video>>(searchKey);
+            if (result == null)
+            {
+                result = new List<Video>();
+                result = _videoService.SearchVideo(key, currentIndex, pageSize, out totalCount);
+                if (result != null && result.Count > 0)
+                {
+                    _redisService.Set(searchKey, result, 10);
+                }
+            }
+            ViewData["VideoSearch_Key"] = key;
+            ViewData["VideoSearch_TotalCount"] = totalCount;
+            ViewData["VideoSearch_Result"] = result;
             return View();
         }
 

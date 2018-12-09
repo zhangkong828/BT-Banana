@@ -13,7 +13,7 @@ namespace Banana.Services
 
         VideoSource GetVideoSourceByVideo(long videoId);
 
-        List<Video> SearchVideo(string key, int pageIndex, int pageSize = 10);
+        List<Video> SearchVideo(string key, int pageIndex, int pageSize, out long totalCount);
 
         List<Video> GetVideoByClassify(string classify, int pageIndex, int pageSize = 10);
 

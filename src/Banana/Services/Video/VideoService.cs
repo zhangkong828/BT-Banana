@@ -53,11 +53,12 @@ namespace Banana.Services
             return collection.Find(filter).FirstOrDefault();
         }
 
-        public List<Video> SearchVideo(string key, int pageIndex, int pageSize = 10)
+        public List<Video> SearchVideo(string key, int pageIndex, int pageSize, out long totalCount)
         {
             var collection = GetCollection<Video>(DBNAME, "Video");
             var filter = Builders<Video>.Filter.Regex(x => x.Name, new MongoDB.Bson.BsonRegularExpression(key));
-            return collection.Find(filter).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
+            totalCount = collection.CountDocuments(filter);
+            return collection.Find(filter).SortByDescending(x => x.UpdateTime).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
         }
 
         public List<Video> GetVideoByClassify(string classify, int pageIndex, int pageSize = 10)
