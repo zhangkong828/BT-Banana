@@ -48,7 +48,7 @@ namespace Banana
 
             #region Redis
             var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
-            var RedisDatabase = connectionMultiplexer.GetDatabase(0);
+            var RedisDatabase = connectionMultiplexer.GetDatabase(0); 
             services.AddSingleton(_ => RedisDatabase);
             #endregion
 
