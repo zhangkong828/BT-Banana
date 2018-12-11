@@ -67,7 +67,7 @@ namespace Banana.Services
                         start = start.AddDays(1);
                     }
                     //合并日key 计算到周key
-                    _redisService.SortedSetCombineAndStore(currentWeekRankingKey, dayKeys, 60 * 24 * 15);//15天
+                    _redisService.SortedSetCombineAndStore(currentWeekRankingKey, dayKeys, 60);//1小时
                 }
                 return _redisService.SortedSetRangeByRankWithScores(currentWeekRankingKey, pageindex, pagesize);
             }
@@ -77,6 +77,13 @@ namespace Banana.Services
         {
             var num = _redisService.SortedSetScore(VideoCommonService.TotalRankingKey, id);
             return num.HasValue ? (int)num.Value : 0;
+        }
+
+        public List<KeyValuePair<string, double>> GetTotalRanking(int pageindex, int pagesize)
+        {
+            if (pageindex <= 1)
+                pageindex = 1;
+            return _redisService.SortedSetRangeByRankWithScores(VideoCommonService.TotalRankingKey, pageindex, pagesize);
         }
     }
 }

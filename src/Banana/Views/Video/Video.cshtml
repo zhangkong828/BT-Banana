@@ -16,7 +16,6 @@
     <link href="~/css/video.css" rel="stylesheet" />
 }
 @section HeadScripts{
-    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="~/js/videohistory.js"></script>
 }
 @Html.Partial("_VideoSearch")
@@ -51,6 +50,7 @@
                                         <a class="videopic lazy" href="/d/video/@MovieList[i].Id" title="@MovieList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@MovieList[i].Image') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
                                             <span class="score">@MovieList[i].Remark</span>
+
                                         </a>
                                         <div class="title">
                                             <h5 class="text-overflow"><a href="/d/video/@MovieList[i].Id" title="@MovieList[i].Name" target="_blank">@MovieList[i].Name</a></h5>

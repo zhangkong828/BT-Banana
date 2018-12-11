@@ -7,7 +7,7 @@
                     <h5 class="margin-0 text-muted">观看历史</h5>
                 </div>
                 <script type="text/javascript ">
-                    $MH.limit = 10;
+                    $MH.limit = 5;
                     $MH.WriteHistoryBox(200, 170, 'font');
                 </script>
             </div>
@@ -23,7 +23,7 @@
             document.getElementById('goTop').onclick = function () {
                 scrollToptimer = setInterval(function () {
                     var top = document.body.scrollTop || document.documentElement.scrollTop;
-                    var speed = top / 2;
+                    var speed = top / 3;
                     if (document.body.scrollTop != 0) {
                         document.body.scrollTop -= speed;
                     } else {

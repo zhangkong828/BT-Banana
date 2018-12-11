@@ -106,7 +106,7 @@ namespace Banana.Services
         {
             var result = new List<KeyValuePair<string, double>>();
             key = AddKeyPrefix(key);
-            var range = _database.SortedSetRangeByRankWithScores(key, (pageindex - 1) * pagesize, pageindex * pagesize, Order.Descending);
+            var range = _database.SortedSetRangeByRankWithScores(key, (pageindex - 1) * pagesize, pageindex * pagesize - 1, Order.Descending);
             foreach (var item in range)
             {
                 result.Add(new KeyValuePair<string, double>(item.Element, item.Score));

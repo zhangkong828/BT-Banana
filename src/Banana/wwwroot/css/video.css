@@ -1423,6 +1423,7 @@ h1, h2, h3, h4, h5, h6, a {
             text-align: center;
             line-height: 50px;
             border: 1px solid #5cb85c;
+            color: #5cb85c;
         }
 
             .hy-gototop .item > li > a .icon {

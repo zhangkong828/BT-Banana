@@ -39,8 +39,7 @@ namespace Banana.Controllers
         private List<Video> GetUpdateList(string type)
         {
             var listKey = $"VideoIndexUpdateList_{type}";
-            var result = new List<Video>();
-            if (!_memoryCache.TryGetValue(listKey, out result))
+            if (!_memoryCache.TryGetValue(listKey, out List<Video> result))
             {
                 result = new List<Video>();
                 result = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, 12);
@@ -75,20 +74,41 @@ namespace Banana.Controllers
             var pageSize = 10;
 
             var searchKey = $"VideoSearch_{key}_{currentIndex}";
-            long totalCount = 0;
-            var result = _redisService.Get<List<Video>>(searchKey);
-            if (result == null)
+            var searchResult = _redisService.Get<VideoSearchResult>(searchKey);
+            if (searchResult == null)
             {
-                result = new List<Video>();
-                result = _videoService.SearchVideo(key, currentIndex, pageSize, out totalCount);
+                long totalCount = 0;
+                searchResult = new VideoSearchResult() { PageIndex = currentIndex, PageSize = pageSize };
+                var result = _videoService.SearchVideo(key, currentIndex, pageSize, out totalCount);
                 if (result != null && result.Count > 0)
                 {
-                    _redisService.Set(searchKey, result, 10);
+                    searchResult.Result = result;
+                    searchResult.TotalCount = totalCount;
+                    searchResult.Key = key;
+                    _redisService.Set(searchKey, searchResult, 10);
                 }
             }
-            ViewData["VideoSearch_Key"] = key;
-            ViewData["VideoSearch_TotalCount"] = totalCount;
-            ViewData["VideoSearch_Result"] = result;
+            ViewData["VideoSearchResult"] = searchResult;
+
+            //总榜
+            var totalRankingKey = "VideoSearch_TotalRankingKey";
+            if (!_memoryCache.TryGetValue(totalRankingKey, out List<VideoRank> totalRankingList))
+            {
+                totalRankingList = new List<VideoRank>();
+                var totalRanking = _videoRankingService.GetTotalRanking(1, 20);
+                var rankingList = _videoService.GetVideoList(totalRanking.Select(x => Convert.ToInt64(x.Key)));
+                totalRanking.ForEach(item =>
+                {
+                    var totalRankingItem = rankingList.FirstOrDefault(x => x.Id == Convert.ToInt64(item.Key));
+                    if (totalRankingItem != null)
+                    {
+                        totalRankingList.Add(ConvertVideoToVideoRank(totalRankingItem, item.Value));
+                    }
+
+                });
+                _memoryCache.Set(totalRankingKey, totalRankingList, new DateTimeOffset(DateTime.Now.AddHours(1)));//1小时
+            }
+            ViewData["VideoSearch_TotalRanking"] = totalRankingList;
             return View();
         }
 
@@ -132,8 +152,7 @@ namespace Banana.Controllers
             var videoType = VideoCommonService.GetVideoType(videoDetail.Video.Classify); ;
             //热播
             var hotListKey = "VideoHotList_" + videoType;
-            var hotList = _redisService.Get<List<VideoRank>>(hotListKey);
-            if (hotList == null)
+            if (!_memoryCache.TryGetValue(hotListKey, out List<VideoRank> hotList))
             {
                 hotList = new List<VideoRank>();
                 var dayRanking = _videoRankingService.GetDayRankingByType(videoType, 1, 10);//日榜前10
@@ -147,13 +166,12 @@ namespace Banana.Controllers
                     }
 
                 });
-                _redisService.Set(hotListKey, hotList, 10);//10分钟
+                _memoryCache.Set(hotListKey, hotList, new DateTimeOffset(DateTime.Now.AddMinutes(5)));//5分钟
             }
             ViewData["VideoDetail_HotList"] = hotList;
             //推荐
             var recommendKey = "VideoRecommendList_" + videoType;
-            var recommendList = _redisService.Get<List<VideoRank>>(recommendKey);
-            if (recommendList == null)
+            if (!_memoryCache.TryGetValue(recommendKey, out List<VideoRank> recommendList))
             {
                 recommendList = new List<VideoRank>();
                 var weekRanking = _videoRankingService.GetWeekRankingByType(videoType, 1, 4);//周榜前4
@@ -167,7 +185,7 @@ namespace Banana.Controllers
                     }
 
                 });
-                _redisService.Set(recommendKey, recommendList, 1 * 60);//1小时
+                _memoryCache.Set(recommendKey, recommendList, new DateTimeOffset(DateTime.Now.AddHours(1)));//1小时
             }
             ViewData["VideoDetail_RecommendList"] = recommendList;
             //统计

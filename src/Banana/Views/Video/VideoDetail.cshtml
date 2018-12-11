@@ -16,7 +16,6 @@
     <link href="~/css/video.css" rel="stylesheet" />
 }
 @section HeadScripts{
-    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="~/js/videohistory.js"></script>
     <script src="~/js/qrcode.min.js"></script>
     <script>
@@ -32,7 +31,7 @@
             <div class="item clearfix">
                 <dl class="content">
                     <dt>
-                        <a class="videopic" href="#" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
+                        <a class="videopic" href="javascript:;" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
                             <span class="play hidden-xs"></span>
                         </a>
                     </dt>
