@@ -150,6 +150,26 @@ namespace Banana.Controllers
                 _redisService.Set(hotListKey, hotList, 10);//10分钟
             }
             ViewData["VideoDetail_HotList"] = hotList;
+            //推荐
+            var recommendKey = "VideoRecommendList_" + videoType;
+            var recommendList = _redisService.Get<List<VideoRank>>(recommendKey);
+            if (recommendList == null)
+            {
+                recommendList = new List<VideoRank>();
+                var weekRanking = _videoRankingService.GetWeekRankingByType(videoType, 1, 4);//周榜前4
+                var weekRankingList = _videoService.GetVideoList(weekRanking.Select(x => Convert.ToInt64(x.Key)));
+                weekRanking.ForEach(item =>
+                {
+                    var weekRankingItem = weekRankingList.FirstOrDefault(x => x.Id == Convert.ToInt64(item.Key));
+                    if (weekRankingItem != null)
+                    {
+                        recommendList.Add(ConvertVideoToVideoRank(weekRankingItem, item.Value));
+                    }
+
+                });
+                _redisService.Set(recommendKey, recommendList, 1 * 60);//1小时
+            }
+            ViewData["VideoDetail_RecommendList"] = recommendList;
             //统计
             _videoRankingService.AccessStatistics(id, videoDetail.Video.Classify);
 
