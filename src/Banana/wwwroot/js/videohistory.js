@@ -39,7 +39,7 @@
         a = (a != '' && '' + a != 'null') ? $MH.tryjosn(a) : { video: [] };
         for (var i = 0; i < a.video.length; i++) {
             if (c > $MH.limit) { break; }
-            if (a.video[i].link && a.video[i].pic && a.video[i].name) {
+            if (a.video[i].link && a.video[i].name) {
                 img_li += "<li><a href=\"" + a.video[i].link + "\" target=\"_self\"><span class=\"text-muted\">" + c + ".</span> " + a.video[i].name + "</a></li>"
                 c++;
             }
@@ -79,13 +79,12 @@
         }
     },
     recordHistory: function (video) {
-        if (video.link.indexOf('http://') == -1 || window.max_Player_File) return;
         var a = $MH.getCookie('HISTORY'), b = new Array(), c = 1;
         if (a != '' && a != null && a != 'null') {
             a = $MH.tryjosn(a);
             for (var i = 0; i < a.video.length; i++) {
                 if (c > $MH.limit) { break; }
-                if (video.link != a.video[i].link && a.video[i].pic) { b.push('{"name":"' + $MH.u8(a.video[i].name) + '","link":"' + $MH.u8(a.video[i].link) + '","pic":"' + $MH.u8(a.video[i].pic) + '"}'); c++; }
+                if (video.link != a.video[i].link) { b.push('{"name":"' + $MH.u8(a.video[i].name) + '","link":"' + $MH.u8(a.video[i].link) + '","pic":"' + $MH.u8(a.video[i].pic) + '"}'); c++; }
             }
         }
         b.unshift('{"name":"' + $MH.u8(video.name) + '","link":"' + $MH.u8(video.link) + '","pic":"' + $MH.u8(video.pic) + '"}');

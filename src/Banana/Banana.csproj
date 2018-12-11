@@ -22,4 +22,10 @@
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Shared\_FooterToolBar.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

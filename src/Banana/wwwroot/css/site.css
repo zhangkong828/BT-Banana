@@ -431,7 +431,7 @@ nav.navbar ul.nav > li > a:hover,
 nav.navbar ul.nav > li.active > a:hover,
 nav.navbar ul.nav li.active > a,
 nav.navbar li.dropdown ul.dropdown-menu > li a:hover {
-    color: #f43438;
+    color: #5cb85c;
 }
 
 nav.navbar.navbar-transparent ul.nav > li > a:hover,
@@ -440,13 +440,13 @@ nav.navbar ul.nav li.scroll.active > a,
 nav.navbar.navbar-dark ul.nav li.dropdown ul.dropdown-menu > li > a:hover,
 nav.navbar ul.nav li.dropdown.on > a,
 nav.navbar-dark ul.nav li.dropdown.on > a {
-    color: #f43438 !important;
+    color: #5cb85c !important;
 }
 
 @media(max-width:920px) {
     nav.navbar .dropdown .megamenu-content .col-menu ul > li > a:hover,
     nav.navbar.navbar-dark .dropdown .megamenu-content .col-menu .title:hover {
-        color: #f43438 !important;
+        color: #5cb85c !important;
     }
 }
 

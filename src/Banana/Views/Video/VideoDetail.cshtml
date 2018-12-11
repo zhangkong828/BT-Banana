@@ -9,6 +9,7 @@
 
     var VideoType = ViewData["VideoDetail_VideoType"] as string;
     var HotList = ViewData["VideoDetail_HotList"] as List<VideoRank>;
+    var RecommendList = ViewData["VideoDetail_RecommendList"] as List<VideoRank>;
 }
 @section HeadCss{
     <link href="~/css/iconfont.css" rel="stylesheet" />
@@ -17,6 +18,12 @@
 @section HeadScripts{
     <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="~/js/videohistory.js"></script>
+    <script src="~/js/qrcode.min.js"></script>
+    <script>
+        $(function () {
+            new QRCode(document.getElementById("qrcode"), window.location.href);
+        })
+    </script>
 }
 <div class="row">
 
@@ -93,64 +100,28 @@
                 </div>
                 <div class="swiper-container hy-switch swiper-container-horizontal">
                     <div class="swiper-wrapper">
-
-                        <div class="col-md-3 col-sm-3 col-xs-6 ">
-                            <div class="item">
-                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
-                                    <span class="play hidden-xs"></span>
-                                    <span class="score">890</span>
-                                </a>
-                                <div class="title">
-                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
-                                </div>
-                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6 ">
-                            <div class="item">
-                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
-                                    <span class="play hidden-xs"></span>
-                                    <span class="score">890</span>
-                                </a>
-                                <div class="title">
-                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
-                                </div>
-                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6 ">
-                            <div class="item">
-                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
-                                    <span class="play hidden-xs"></span>
-                                    <span class="score">890</span>
-                                </a>
-                                <div class="title">
-                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
-                                </div>
-                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6 ">
-                            <div class="item">
-                                <a class="videopic lazy" href="/m573/?m=vod-detail-id-355.html" title="暗杀" data-original="http://pics.myzyzy.com:8181/upload/vod/2015-09/2015921911439958.jpg">
-                                    <span class="play hidden-xs"></span>
-                                    <span class="score">890</span>
-                                </a>
-                                <div class="title">
-                                    <h5 class="text-overflow"><a href="/m573/?m=vod-detail-id-355.html" title="暗杀">暗杀</a></h5>
-                                </div>
-                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                    全智贤 李政宰 河正宇 吴达洙 赵镇雄
-                                </div>
-                            </div>
-                        </div>
-
+                        @{
+                            if (RecommendList != null)
+                            {
+                                foreach (var item in RecommendList)
+                                {
+                                    <div class="col-md-3 col-sm-3 col-xs-6 ">
+                                        <div class="item">
+                                            <a class="videopic" href="/d/video/@item.Id" target="_blank" title="@item.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@item.Image') center no-repeat;">
+                                                <span class="play hidden-xs"></span>
+                                                <span class="score"></span>
+                                            </a>
+                                            <div class="title">
+                                                <h5 class="text-overflow"><a href="/d/video/@item.Id" title="@item.Name" target="_blank">@item.Name</a></h5>
+                                            </div>
+                                            <div class="subtitle text-muted text-overflow hidden-xs">
+                                                @item.Starring
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
 
                     </div>
                 </div>
@@ -165,7 +136,7 @@
             <div class="hy-details-qrcode clearfix">
                 <div class="item">
                     <h5 class="text-muted">扫一扫用手机观看</h5>
-                    <p><img src="http://www.m1938.com/img/wep.png"></p>
+                    <p id="qrcode"></p>
                 </div>
             </div>
             @{
@@ -198,42 +169,15 @@
 
 </div>
 
-<div class="hy-gototop hidden-sm hidden-xs">
-    <ul class="item clearfix">
-        <li>
-            <a href="javascript:()" title="观看记录"><i class="icon iconfont icon-record1"></i></a>
-            <div class="history clearfix">
-                <div class="head">
-                    <h5 class="margin-0 text-muted">观看历史</h5>
-                </div>
-                <script type="text/javascript ">
-                    $MH.limit = 10;
-                    $MH.WriteHistoryBox(200, 170, 'font');
-                    $MH.recordHistory({
-                        name: '[vod:name]',
-                        link: '[vod:link]',
-                        pic: '[vod:pic]'
-                    })
-                </script>
-            </div>
-        </li>
-        <li>
-            <a href="javascript:()" title="二维码"><i class="icon iconfont icon-code1"></i></a>
-            <div class="code clearfix">
-                <p class="margin-0"><img class="pic-responsive" src="http://bshare.optimix.asia/barCode?site=weixin&url=http%3A%2F%2Fwww.jisuysw.com%2F" alt="扫描二维码" /></p>
-            </div>
-        </li>
-        <li><a href="javascript:scroll(0,0)" title="返回顶部"><i class="icon iconfont icon-uparrow"></i></a></li>
-    </ul>
-</div>
+@Html.Partial("_FooterToolBar")
 
 @section FootScripts{
     <script>
         $(function () {
-            $(".videopic.lazy").lazyload({
-                effect: "fadeIn",
-                threshold: 50,
-            });
+            $MH.recordHistory({
+                name: '@Model.Video.Name',
+                link: window.location.href
+            })
         })
     </script>
 }

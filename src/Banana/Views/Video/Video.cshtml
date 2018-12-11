@@ -257,41 +257,7 @@
     <!--end 伦理 -->
 </div>
 
-<div class="hy-gototop hidden-sm hidden-xs">
-    <ul class="item clearfix">
-        <li>
-            <a href="javascript:()" title="观看记录"><i class="icon iconfont icon-record1"></i></a>
-            <div class="history clearfix">
-                <div class="head">
-                    <h5 class="margin-0 text-muted">观看历史</h5>
-                </div>
-                <script type="text/javascript ">
-                    $MH.limit = 10;
-                    $MH.WriteHistoryBox(200, 170, 'font');
-                    $MH.recordHistory({
-                        name: '[vod:name]',
-                        link: '[vod:link]',
-                        pic: '[vod:pic]'
-                    })
-                </script>
-            </div>
-        </li>
-        <li>
-            <a href="javascript:()" title="二维码"><i class="icon iconfont icon-code1"></i></a>
-            <div class="code clearfix">
-                <p class="margin-0"><img class="pic-responsive" src="http://bshare.optimix.asia/barCode?site=weixin&url=http%3A%2F%2Fwww.jisuysw.com%2F" alt="扫描二维码" /></p>
-            </div>
-        </li>
-        <li><a href="javascript:scroll(0,0)" title="返回顶部"><i class="icon iconfont icon-uparrow"></i></a></li>
-    </ul>
-</div>
+@Html.Partial("_FooterToolBar")
 @section FootScripts{
-    <script>
-        $(function () {
-            //$(".videopic.lazy").lazyload({
-            //    effect: "fadeIn",
-            //    threshold: 50,
-            //});
-        })
-    </script>
+
 }

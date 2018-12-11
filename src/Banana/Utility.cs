@@ -7,6 +7,7 @@ namespace Banana
 {
     public class Utility
     {
+
         /// <summary>
         /// 获取指定日期的指定周的星期几的日期。周日-周六
         /// </summary>
@@ -20,5 +21,7 @@ namespace Banana
             int wd2 = (int)dt.DayOfWeek;
             return wd2 == wd1 ? dt.AddDays(7 * Number) : dt.AddDays(7 * Number - wd2 + wd1);
         }
+
+
     }
 }
