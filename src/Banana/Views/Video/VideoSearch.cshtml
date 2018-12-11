@@ -2,7 +2,226 @@
 @{
     ViewData["Title"] = "VideoSearch";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>VideoSearch</h2>
+    var SearchKey = ViewData["VideoSearch_Key"];
+    var TotalCount = ViewData["VideoSearch_TotalCount"];
+    var Result = ViewData["VideoSearch_Result"] as List<Video>;
+}
+@section HeadCss{
+    <link href="~/css/iconfont.css" rel="stylesheet" />
+    <link href="~/css/video.css" rel="stylesheet" />
+}
+@section HeadScripts{
+    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script src="~/js/videohistory.js"></script>
+}
+<div class="row">
+    <div class="col-md-9 col-sm-12 hy-main-content">
+        <div class="hy-layout clearfix">
+            <div class="hy-video-head">
+                <span class="text-muted pull-right hidden-xs">当前第<span class="text-color">“1”</span>页</span>
+                <h4 class="margin-0">搜索到与<span class="text-color">“@SearchKey”</span>相关的<span class="text-color">“@TotalCount”</span>条结果</h4>
+            </div>
+            @{
+                if (Result != null && Result.Count > 0)
+                {
+                    foreach (var item in Result)
+                    {
+                        <div class="hy-video-details active clearfix">
+                            <div class="item clearfix">
+                                <dl class="content">
+                                    <dt>
+                                        <a class="videopic" href="/d/video/@item.Id" style="background: url('data:image/jpg;base64,@item.Image')  no-repeat; background-position:50% 50%; background-size: cover;" target="_blank">
+                                            <span class="play hidden-xs"></span>
+                                            <span class="note textbg"></span>
+                                        </a>
+                                    </dt>
+                                    <dd class="clearfix">
+                                        <div class="head">
+                                            <h3><a href="/d/video/@item.Id" target="_blank">@item.Name</a></h3>
+                                        </div>
+                                        <ul>
+                                            <li><span class="text-muted">备注：</span>@item.Remark</li>
+                                            <li><span class="text-muted">主演：</span>@item.Starring</li>
+                                            <li><span class="text-muted">导演：</span>@item.Director</li>
+                                            <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">地区：</span>@item.Region</li>
+                                            <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">分类：</span><a href="/" title="@item.Classify">@item.Classify</a></li>
+                                            <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">语言：</span></li>
+                                            <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">年份：</span>@item.ReleaseDate</li>
+                                        </ul>
+                                        <div class="block">
+                                            <a class="text-muted" href="/d/video/@item.Id" target="_blank">查看详情 <i class="icon iconfont icon-right"></i> </a>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                    }
+                }
+            }
+
+
+
+            <div class="hy-page clearfix">
+                共1条数据&nbsp;当前:1/1页&nbsp;<em>首页</em>&nbsp;<em>上一页</em>&nbsp;<span class="pagenow">1</span>&nbsp;<em>下一页</em>&nbsp;<em>尾页</em>&nbsp;<input type="input" name="page" id="page" size="4" class="pagego"><input type="button" value="跳 转" onclick="pagego('/m573/index.php?m=vod-search-pg-{pg}-wd-%E8%B4%BC%E7%8E%8B.html',1)" class="pagebtn">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-12 hy-main-side hidden-sm hidden-xs">
+        <div class="hy-layout clearfix">
+
+            <div class="hy-video-ranking clearfix">
+                <div class="head">
+                    <a class="text-muted pull-right" href="/m573/?m=vod-type-id-1.html">更多 <i class="icon iconfont icon-right"></i></a>
+                    <h4><i class="icon iconfont icon-top text-color"></i> 电影排行榜</h4>
+                </div>
+                <div class="item">
+                    <ul class="clearfix">
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">67</span>
+                            <a href="/m573/?m=vod-detail-id-88.html" title="冥婚淒谈"><em class="number active">1</em>冥婚淒谈</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">69</span>
+                            <a href="/m573/?m=vod-detail-id-122.html" title="宫锁沉香"><em class="number active">2</em>宫锁沉香</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">80</span>
+                            <a href="/m573/?m=vod-detail-id-107.html" title="我爱你"><em class="number active">3</em>我爱你</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">101</span>
+                            <a href="/m573/?m=vod-detail-id-72.html" title="控制"><em class="number ">4</em>控制</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">102</span>
+                            <a href="/m573/?m=vod-detail-id-85.html" title="传说的故乡"><em class="number ">5</em>传说的故乡</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">103</span>
+                            <a href="/m573/?m=vod-detail-id-65.html" title="巨型食人鱼"><em class="number ">6</em>巨型食人鱼</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">104</span>
+                            <a href="/m573/?m=vod-detail-id-57.html" title="倾城之恋"><em class="number ">7</em>倾城之恋</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">104</span>
+                            <a href="/m573/?m=vod-detail-id-126.html" title="乾隆下扬州"><em class="number ">8</em>乾隆下扬州</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">108</span>
+                            <a href="/m573/?m=vod-detail-id-109.html" title="大浪淘沙"><em class="number ">9</em>大浪淘沙</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hy-video-ranking  clearfix">
+                <div class="head">
+                    <a class="text-muted pull-right" href="/m573/?m=vod-type-id-2.html">更多 <i class="icon iconfont icon-right"></i></a>
+                    <h4><i class="icon iconfont icon-top text-color"></i> 电视剧排行榜</h4>
+                </div>
+                <div class="item">
+                    <ul class="clearfix">
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">58</span>
+                            <a href="/m573/?m=vod-detail-id-277.html" title="上班族金太郎 第二季--电视剧"><em class="number active">1</em>上班族金太郎 第二季--</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">64</span>
+                            <a href="/m573/?m=vod-detail-id-217.html" title="飞行少年--电视剧"><em class="number active">2</em>飞行少年--电视剧</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">75</span>
+                            <a href="/m573/?m=vod-detail-id-208.html" title="飞越生命线--电视剧"><em class="number active">3</em>飞越生命线--电视剧</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">83</span>
+                            <a href="/m573/?m=vod-detail-id-256.html" title="超级明星的爱恋--电视剧"><em class="number ">4</em>超级明星的爱恋--电视剧</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">84</span>
+                            <a href="/m573/?m=vod-detail-id-196.html" title="天下有情之天涯路--电视剧"><em class="number ">5</em>天下有情之天涯路--电视</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">88</span>
+                            <a href="/m573/?m=vod-detail-id-228.html" title="玫瑰的眼泪--电视剧"><em class="number ">6</em>玫瑰的眼泪--电视剧</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">103</span>
+                            <a href="/m573/?m=vod-detail-id-259.html" title="爱神之影--电视剧"><em class="number ">7</em>爱神之影--电视剧</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">104</span>
+                            <a href="/m573/?m=vod-detail-id-212.html" title="恋爱讲义之安室爱美惠--电视剧"><em class="number ">8</em>恋爱讲义之安室爱美惠--</a>
+                        </li>
+
+                        <li class="text-overflow">
+                            <span class="pull-right text-color">109</span>
+                            <a href="/m573/?m=vod-detail-id-167.html" title="谁为我心动--电视剧"><em class="number ">9</em>谁为我心动--电视剧</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hy-video-list  clearfix">
+                <div class="head">
+                    <a class="pull-right text-muted" href="/m573/?m=vod-topicindex.html">更多 <i class="icon iconfont icon-right"></i></a>
+                    <h4>推荐专题</h4>
+                </div>
+                <div class="item">
+                    <ul class="clearfix">
+
+                        <li>
+                            <a class="videopic" href="/m573/?m=vod-topic-id-1.html" title="黄晓明" style="padding-top: 50%; background: url(/m573/upload/vodtopic/2015-08-22/201508221440239471.jpg) no-repeat; background-position:50% 50%; background-size: cover;">
+                                <span class="play hidden-xs"></span>
+                                <span class="note textbg text-overflow">黄晓明</span>
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <a class="videopic" href="/m573/?m=vod-topic-id-2.html" title="梁家辉" style="padding-top: 50%; background: url(/m573/upload/vodtopic/2015-08-22/201508221440239541.jpg) no-repeat; background-position:50% 50%; background-size: cover;">
+                                <span class="play hidden-xs"></span>
+                                <span class="note textbg text-overflow">梁家辉</span>
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <a class="videopic" href="/m573/?m=vod-topic-id-3.html" title="张家辉" style="padding-top: 50%; background: url(/m573/upload/vodtopic/2015-08-22/201508221440239630.jpg) no-repeat; background-position:50% 50%; background-size: cover;">
+                                <span class="play hidden-xs"></span>
+                                <span class="note textbg text-overflow">张家辉</span>
+                            </a>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
