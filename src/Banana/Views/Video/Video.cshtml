@@ -58,7 +58,7 @@
                                             <h5 class="text-overflow"><a href="/d/video/@MovieList[i].Id" title="@MovieList[i].Name" target="_blank">@MovieList[i].Name</a></h5>
                                         </div>
                                         <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                            @MovieList[i].Starring
+                                            @Utility.GetString(MovieList[i].Starring)
                                         </div>
                                     </div>
                                 }
@@ -108,7 +108,7 @@
                                             <h5 class="text-overflow"><a href="/d/video/@TVList[i].Id" title="@TVList[i].Name" target="_blank">@TVList[i].Name</a></h5>
                                         </div>
                                         <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                            @TVList[i].Starring
+                                            @Utility.GetString(TVList[i].Starring)
                                         </div>
                                     </div>
                                 }
@@ -152,7 +152,7 @@
                                             <h5 class="text-overflow"><a href="/d/video/@VarietyList[i].Id" title="@VarietyList[i].Name" target="_blank">@VarietyList[i].Name</a></h5>
                                         </div>
                                         <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                            @VarietyList[i].Starring
+                                            @Utility.GetString(VarietyList[i].Starring)
                                         </div>
                                     </div>
                                 }
@@ -196,7 +196,7 @@
                                             <h5 class="text-overflow"><a href="/d/video/@AnimeList[i].Id" title="@AnimeList[i].Name" target="_blank">@AnimeList[i].Name</a></h5>
                                         </div>
                                         <div class="subtitle text-muted text-muted text-overflow hidden-xs">
-                                            @AnimeList[i].Starring
+                                            @Utility.GetString(AnimeList[i].Starring)
                                         </div>
                                     </div>
                                 }

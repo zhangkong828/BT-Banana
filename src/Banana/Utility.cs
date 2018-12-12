@@ -25,5 +25,9 @@ namespace Banana
             return string.IsNullOrWhiteSpace(str) ? "/images/no.jpg" : ("data:image/jpg;base64," + str);
         }
 
+        public static string GetString(string str)
+        {
+            return string.IsNullOrWhiteSpace(str) ? "..." : str;
+        }
     }
 }
