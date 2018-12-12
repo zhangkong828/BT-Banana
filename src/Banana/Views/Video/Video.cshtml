@@ -18,9 +18,11 @@
 @section HeadScripts{
     <script src="~/js/videohistory.js"></script>
 }
-@Html.Partial("_VideoSearch")
+@section NavBarSearchTool{
+    @Html.Partial("_VideoSearch")
+}
+@Html.Partial("_MobileVideoSearch")
 <div class="row">
-
     <!--电影 -->
     <div class="hy-layout clearfix">
         <div class="hy-video-head">
@@ -47,7 +49,7 @@
                                 {
                                     var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
-                                        <a class="videopic lazy" href="/d/video/@MovieList[i].Id" title="@MovieList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@MovieList[i].Image') 50% 50% no-repeat;">
+                                        <a class="videopic lazy" href="/d/video/@MovieList[i].Id" title="@MovieList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('@Utility.GetImage(MovieList[i].Image)') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
                                             <span class="score">@MovieList[i].Remark</span>
 
@@ -98,7 +100,7 @@
                                 {
                                     var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
-                                        <a class="videopic lazy" href="/d/video/@TVList[i].Id" title="@TVList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@TVList[i].Image') 50% 50% no-repeat;">
+                                        <a class="videopic lazy" href="/d/video/@TVList[i].Id" title="@TVList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('@Utility.GetImage(TVList[i].Image)') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
                                             <span class="score">@TVList[i].Remark</span>
                                         </a>
@@ -142,7 +144,7 @@
                                 {
                                     var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
-                                        <a class="videopic lazy" href="/d/video/@VarietyList[i].Id" title="@VarietyList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@VarietyList[i].Image') 50% 50% no-repeat;">
+                                        <a class="videopic lazy" href="/d/video/@VarietyList[i].Id" title="@VarietyList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('@Utility.GetImage(VarietyList[i].Image)') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
                                             <span class="score">@VarietyList[i].Remark</span>
                                         </a>
@@ -186,7 +188,7 @@
                                 {
                                     var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
-                                        <a class="videopic lazy" href="/d/video/@AnimeList[i].Id" title="@AnimeList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@AnimeList[i].Image') 50% 50% no-repeat;">
+                                        <a class="videopic lazy" href="/d/video/@AnimeList[i].Id" title="@AnimeList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('@Utility.GetImage(AnimeList[i].Image)') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
                                             <span class="score">@AnimeList[i].Remark</span>
                                         </a>
@@ -230,7 +232,7 @@
                                 {
                                     var hidden_xs = i >= 4 ? "hidden-xs" : "";
                                     <div class="col-md-2 col-sm-3 col-xs-6 @hidden_xs">
-                                        <a class="videopic lazy" href="/d/video/@SexList[i].Id" title="@SexList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('data:image/jpg;base64,@SexList[i].Image') 50% 50% no-repeat;">
+                                        <a class="videopic lazy" href="/d/video/@SexList[i].Id" title="@SexList[i].Name" target="_blank" style="background:rgba(0,0,0,.3) url('@Utility.GetImage(SexList[i].Image)') 50% 50% no-repeat;">
                                             <span class="play hidden-xs"></span>
                                             <span class="score">@SexList[i].Remark</span>
                                         </a>

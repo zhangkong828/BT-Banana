@@ -1,34 +1,21 @@
-﻿<div class="row visible-xs" style="margin-bottom:20px;">
-    <form class="form col-md-6 col-md-offset-3" onsubmit="return false;">
-        <div class="input-group">
-            <input type="text" class="form-control" id="videokey" autocomplete="off">
-            <span class="input-group-btn">
-                <input class="btn btn-success" type="submit" value="搜索" id="videoSearch">
-            </span>
-        </div>
-    </form>
-</div>
+﻿<form class="navbar-form navbar-right hidden-xs" onsubmit="return false;">
+    <label for="navbar-search" class="sr-only">Search:</label>
+    <div class="form-group has-feedback has-feedback-left">
+        <span class="form-control-feedback"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" name="s" id="navbar-search" value="" placeholder="搜索" autocomplete="off">
+    </div>
+</form>
 <script>
     $(function () {
-        function VideoSearch() {
-            var key = $.trim($("#videokey").val());
-            if (key === "" || key.length <= 0) {
-                return;
-            } else {
-                window.open('/s/video/' + encodeURIComponent(key));
-            }
-        }
-        $('#videokey').bind('keypress', function (event) {
-            if (event.keyCode === "13") {
-                VideoSearch();
+        $('#navbar-search').bind('keypress', function (event) {
+            if (event.keyCode == "13") {
+                var key = $('#navbar-search').val();
+                if (key == "" || key.length <= 0) {
+                    //console.log("请先输入参数")
+                } else {
+                    window.location.href = '/s/video/' + encodeURIComponent(key);
+                }
             }
         });
-
-        $('#videoSearch').bind('click', function (event) {
-            VideoSearch();
-        });
-
-        $("#videokey").focus().select();
-
-    });
+    })
 </script>

@@ -82,12 +82,13 @@ strong {
 }
 
 .gnome-navbar-brand {
-    height: 50px;
-    float: left;
     outline: 0;
-    font-size: 16px;
     padding-top: 12px;
     color: #5cb85c;
+    margin: 0 auto;
+    width: 80px;
+    text-align: center;
+    font-size: 20px;
 }
 
     .gnome-navbar-brand img {
@@ -184,7 +185,7 @@ strong {
     }
 
     .navbar-default .navbar-toggle {
-        border-color: #5cb85c;
+        border: none;
     }
 
         .navbar-default .navbar-toggle:hover,
@@ -219,7 +220,9 @@ strong {
     border-radius: 0;
     transition: none;
     box-shadow: none;
-    padding: 8px 8px 8px 40px;
+    padding: 8px 0px 8px 10px;
+    border-bottom: 1px solid #5cb85c;
+    height: 35px;
 }
 
     #navbar-search:focus {
@@ -245,9 +248,7 @@ strong {
     }
 
 /* CSS hack to align search icon with the text*/
-.feedback-container {
-    border: 1px solid #5cb85c;
-}
+
 .fa.form-control-feedback {
     line-height: 34px;
 }
@@ -258,7 +259,7 @@ strong {
 }
 
 .has-feedback-left .form-control-feedback {
-    left: 0;
+    /*left: 0;*/
 }
 
 .form-horizontal .has-feedback-left .form-control-feedback {

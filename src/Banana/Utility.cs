@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Banana
 {
@@ -22,6 +19,11 @@ namespace Banana
             return wd2 == wd1 ? dt.AddDays(7 * Number) : dt.AddDays(7 * Number - wd2 + wd1);
         }
 
+
+        public static string GetImage(string str)
+        {
+            return string.IsNullOrWhiteSpace(str) ? "/images/no.jpg" : ("data:image/jpg;base64," + str);
+        }
 
     }
 }

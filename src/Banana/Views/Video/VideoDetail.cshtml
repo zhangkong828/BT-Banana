@@ -24,6 +24,9 @@
         })
     </script>
 }
+@section NavBarSearchTool{
+    @Html.Partial("_VideoSearch")
+}
 <div class="row">
 
     <div class="col-md-9 col-sm-12 hy-main-content">
@@ -31,7 +34,7 @@
             <div class="item clearfix">
                 <dl class="content">
                     <dt>
-                        <a class="videopic" href="javascript:;" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@Model.Video.Image') center no-repeat;">
+                        <a class="videopic" href="javascript:;" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('@Utility.GetImage(Model.Video.Image)') center no-repeat;">
                             <span class="play hidden-xs"></span>
                         </a>
                     </dt>
@@ -43,7 +46,7 @@
                             <li><span class="text-muted">备注：</span>@Model.Video.Remark</li>
                             <li><span class="text-muted">主演：</span>@Model.Video.Starring</li>
                             <li><span class="text-muted">导演：</span>@Model.Video.Director</li>
-                            <li class="col-sm-6 padding-0"><span class="text-muted">影片分类：</span><a href="/m573/?m=vod-type-id-10.html" title="@Model.Video.Classify">@Model.Video.Classify</a></li>
+                            <li class="col-sm-6 padding-0"><span class="text-muted">影片分类：</span><a href="JavaScript:;" title="@Model.Video.Classify">@Model.Video.Classify</a></li>
                             <li class="col-sm-6 hidden-xs padding-0"><span class="text-muted">影片类型：</span>@Model.Video.Type</li>
                             <li class="col-sm-6 padding-0"><span class="text-muted">影片地区：</span>@Model.Video.Region</li>
                             <li class="col-sm-6 hidden-sm hidden-xs padding-0"><span class="text-muted">影片语言：</span>@Model.Video.Language</li>

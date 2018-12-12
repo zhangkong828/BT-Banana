@@ -26,34 +26,27 @@
     <![endif]-->
 </head>
 <body>
-    <!-- Start Navigation -->
-    <nav class="navbar navbar-default navbar-mobile navbar-fixed navbar-transparent bootsnav">
-
-        <div class="container">
-            <!-- Start Header Navigation -->
-            <div class="navbar-header visible-xs-block visible-sm-block">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#brand">
-                    BT香蕉
-                </a>
+    <header class="gnome-header">
+        <nav class="navbar navbar-default clearfix">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-wrapper" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                    <a class="gnome-navbar-brand visible-xs" title="BT香蕉" href="/">BT香蕉</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-wrapper" aria-expanded="false" style="height: 1px;">
+                    <ul class="nav navbar-nav">
+                        <li><a title="首页" href="/">首页</a></li>
+                        <li><a title="电影库" href="/video">电影库</a></li>
+                    </ul>
+                </div>
             </div>
-            <!-- End Header Navigation -->
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-menu">
-                <ul class="nav navbar-nav navbar-left">
-                    <li><a href="/">首页</a></li>
-                    @*<li><a href="/s">视频搜索</a></li>
-                        <li><a href="/analyse" target="_blank">解析接口</a></li>*@
-                    <li><a href="/video" target="_blank">电影库</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-    </nav>
-    <!-- End Navigation -->
-    <div class="clearfix"></div>
+        </nav>
+    </header>
     <div class="container pagehead">
 
         <div class="row">
@@ -94,20 +87,19 @@
     @Html.Partial("_Footer")
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="~/js/bootsnav.min.js" asp-append-version="true"></script>
     <script>
         $(function () {
 
             function submitSearch() {
                 var key = $.trim($("#ikey").val());
-                if (key === "" || key.length <= 0) {
+                if (key == "" || key.length <= 0) {
                     //alert("请先输入参数")
                 } else {
                     window.open('/s/magnet/' + encodeURIComponent(key));
                 }
             }
             $('#ikey').bind('keypress', function (event) {
-                if (event.keyCode === "13") {
+                if (event.keyCode == "13") {
                     submitSearch();
                 }
             });

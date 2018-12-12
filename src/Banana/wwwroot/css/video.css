@@ -63,12 +63,12 @@ h1, h2, h3, h4, h5, h6, a {
 }
 
 .hy-main-content {
-    /*padding-left: 0*/
+    padding-left: 0
 }
 
 .hy-main-side {
-    /*padding-left: 5px;*/
-    /*padding-right: 0*/
+    padding-left: 5px;
+    padding-right: 0
 }
 
     .hy-main-side .side:last-child {

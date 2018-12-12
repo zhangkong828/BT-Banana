@@ -1,12 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "VideoSearch";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var SearchResult = ViewData["VideoSearchResult"] as VideoSearchResult;
     var TotalRanking = ViewData["VideoSearch_TotalRanking"] as List<VideoRank>;
 
     var pageLink = $"'/s/video/{SearchResult.Key}/__id__'";
+
+
+    ViewData["Title"] = "根据关键字:" + SearchResult.Key + " 相关搜索";
 }
 @section HeadCss{
     <link href="~/css/iconfont.css" rel="stylesheet" />
@@ -15,6 +17,10 @@
 @section HeadScripts{
     <script src="~/js/videohistory.js"></script>
 }
+@section NavBarSearchTool{
+    @Html.Partial("_VideoSearch")
+}
+@Html.Partial("_MobileVideoSearch")
 <div class="row">
     <div class="col-md-9 col-sm-12 hy-main-content">
         <div class="hy-layout clearfix">
@@ -31,7 +37,7 @@
                             <div class="item clearfix">
                                 <dl class="content">
                                     <dt>
-                                        <a class="videopic" href="/d/video/@item.Id" style="background: url('data:image/jpg;base64,@item.Image')  no-repeat; background-position:50% 50%; background-size: cover;" target="_blank">
+                                        <a class="videopic" href="/d/video/@item.Id" style="background: url('@Utility.GetImage(item.Image)')  no-repeat; background-position:50% 50%; background-size: cover;" target="_blank">
                                             <span class="play hidden-xs"></span>
                                             <span class="note textbg"></span>
                                         </a>
@@ -45,7 +51,7 @@
                                             <li><span class="text-muted">主演：</span>@item.Starring</li>
                                             <li><span class="text-muted">导演：</span>@item.Director</li>
                                             <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">地区：</span>@item.Region</li>
-                                            <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">分类：</span><a href="/" title="@item.Classify">@item.Classify</a></li>
+                                            <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">分类：</span><a href="JavaScript:;" title="@item.Classify">@item.Classify</a></li>
                                             <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">语言：</span></li>
                                             <li class="col-md-6 hidden-md hidden-sm hidden-xs padding-0"><span class="text-muted">年份：</span>@item.ReleaseDate</li>
                                         </ul>

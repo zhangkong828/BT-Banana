@@ -38,11 +38,12 @@ namespace Banana.Controllers
 
         private List<Video> GetUpdateList(string type)
         {
+            int count = type == "伦理" ? 6 : 12;
             var listKey = $"VideoIndexUpdateList_{type}";
             if (!_memoryCache.TryGetValue(listKey, out List<Video> result))
             {
                 result = new List<Video>();
-                result = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, 12);
+                result = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, count);
                 if (result != null && result.Count > 0)
                     _memoryCache.Set(listKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
             }
@@ -80,13 +81,11 @@ namespace Banana.Controllers
                 long totalCount = 0;
                 searchResult = new VideoSearchResult() { PageIndex = currentIndex, PageSize = pageSize };
                 var result = _videoService.SearchVideo(key, currentIndex, pageSize, out totalCount);
+                searchResult.Result = result;
+                searchResult.TotalCount = totalCount;
+                searchResult.Key = key;
                 if (result != null && result.Count > 0)
-                {
-                    searchResult.Result = result;
-                    searchResult.TotalCount = totalCount;
-                    searchResult.Key = key;
                     _redisService.Set(searchKey, searchResult, 10);
-                }
             }
             ViewData["VideoSearchResult"] = searchResult;
 
