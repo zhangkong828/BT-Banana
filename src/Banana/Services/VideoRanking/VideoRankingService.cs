@@ -25,8 +25,17 @@ namespace Banana.Services
         /// </summary>
         private string GetCurrentWeekRankingKeyByType(string type, out DateTime start, out DateTime end)
         {
-            start = Utility.GetWeekUpOfDate(DateTime.Now, DayOfWeek.Monday, 0).Date;
-            end = Utility.GetWeekUpOfDate(DateTime.Now, DayOfWeek.Sunday, 1).Date;
+            var now = DateTime.Now;
+            if (now.DayOfWeek == DayOfWeek.Sunday)
+            {
+                start = Utility.GetWeekUpOfDate(now, DayOfWeek.Monday, -1).Date;
+                end = start.AddDays(6);
+            }
+            else
+            {
+                start = Utility.GetWeekUpOfDate(now, DayOfWeek.Monday, 0).Date;
+                end = start.AddDays(6);
+            }
             return $"{VideoCommonService.WeekRankingKey}{start.ToString("yyyyMMdd")}{end.ToString("yyyyMMdd")}{type}";
         }
 
