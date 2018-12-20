@@ -45,7 +45,7 @@ namespace Banana.Controllers
                 result = new List<Video>();
                 result = _videoService.GetVideoByClassify(VideoCommonService.GetVideoClassify(type), 1, count);
                 if (result != null && result.Count > 0)
-                    _memoryCache.Set(listKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(10)));
+                    _memoryCache.Set(listKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(20)));
             }
             return result;
         }
