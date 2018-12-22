@@ -18,5 +18,7 @@ namespace Banana.Services
         List<Video> GetVideoByClassify(string classify, int pageIndex, int pageSize = 10);
 
         List<Video> GetVideoByClassify(List<string> classify, int pageIndex, int pageSize = 10);
+
+        List<Video> GetUpdateVideoList(int pageIndex, int pageSize, out long totalCount);
     }
 }

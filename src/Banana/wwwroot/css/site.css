@@ -67,7 +67,7 @@ h6 {
 }
 
 strong {
-    color:#000;
+    color: #000;
 }
 
 .section {
@@ -477,6 +477,27 @@ pager
         margin: 0 20px
     }
 
+.updateList {
+}
+
+.updateList-title {
+    color: #5cb85c;
+    font-size: 16px;
+}
+
+.updateList ul {
+}
+
+.updateList li {
+    list-style: none;
+}
+
+.updateList a {
+    display: inline-block;
+    width: 100%;
+}
+
+
 .single-strong {
     color: #606060;
     font-size: 14px;
@@ -510,7 +531,6 @@ pager
     }
 
 .search-item-link {
-    
 }
 
     .search-item-link em {
@@ -550,21 +570,24 @@ pager
 }
 
 
-.search_no{
-    margin:40px 0px;
+.search_no {
+    margin: 40px 0px;
 }
-.search_result{
-    padding-top:30px;
+
+.search_result {
+    padding-top: 30px;
 }
+
 .search_item {
     margin: 0px 0px 10px 0px;
     border-bottom: 1px solid #eee;
     padding-bottom: 12px;
 }
+
 .search_item_title {
     font-size: medium;
     line-height: 1.2;
 }
-.search_item_link{
 
+.search_item_link {
 }

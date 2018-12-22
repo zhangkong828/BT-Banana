@@ -2,6 +2,7 @@
 @{
     Layout = null;
     var BaiDuHot = ViewData["BaiDuHot"] as List<string>;
+    var VideoUpdateList = ViewData["VideoUpdateList"] as List<Video>;
 }
 <!DOCTYPE HTML>
 <html>
@@ -68,7 +69,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-10 col-md-offset-1" style="margin-top:30px; margin-bottom: 40px;">
+            <div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
                 <div class="hotkey">
                     @{
                         if (BaiDuHot != null)
@@ -79,6 +80,26 @@
                             }
                         }
                     }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1" style=" margin-bottom: 40px;">
+                <div class="updateList">
+                    <span class="updateList-title">最近更新电影：</span>
+                    <ul>
+                        @{
+                            if (VideoUpdateList != null)
+                            {
+                                foreach (var item in VideoUpdateList)
+                                {
+                                    <li><a class="clearfix" href="/d/v/@item.Id" target="_blank"><span class="pull-left">@($"[{item.Classify}] {item.Name}[{item.Remark}]")</span><span class="pull-right">@(item.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss"))</span></a></li>
+                                }
+
+                            }
+                        }
+                    </ul>
                 </div>
             </div>
         </div>

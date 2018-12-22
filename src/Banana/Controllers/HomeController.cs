@@ -23,13 +23,15 @@ namespace Banana.Controllers
         private IMemoryCache _memoryCache;
         //private readonly IRedisService _redisService;
         private readonly IMagnetSearchService _magnetSearchService;
+        private IVideoService _videoService;
 
-        public HomeController(IConfiguration config, IMemoryCache memoryCache, IMagnetSearchService magnetSearchService)
+        public HomeController(IConfiguration config, IMemoryCache memoryCache, IMagnetSearchService magnetSearchService, IVideoService videoService)
         {
             _configInfos = config;
             _memoryCache = memoryCache;
             //_redisService = redisService;
             _magnetSearchService = magnetSearchService;
+            _videoService = videoService;
         }
 
 
@@ -47,6 +49,15 @@ namespace Banana.Controllers
                     _memoryCache.Set(cacheKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(20)));
             }
             ViewData["BaiDuHot"] = result;
+            var videoUpdateList = new List<Video>();
+            var videoUpdateListKey = "VideoUpdateListKey";
+            if (!_memoryCache.TryGetValue(videoUpdateListKey, out videoUpdateList))
+            {
+                videoUpdateList = _videoService.GetUpdateVideoList(1, 10, out long totalCount);
+                if (videoUpdateList != null && videoUpdateList.Count > 0)
+                    _memoryCache.Set(videoUpdateListKey, videoUpdateList, new DateTimeOffset(DateTime.Now.AddMinutes(20)));
+            }
+            ViewData["VideoUpdateList"] = videoUpdateList;
             return View();
         }
 
