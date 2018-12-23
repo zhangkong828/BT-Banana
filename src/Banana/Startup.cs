@@ -1,10 +1,10 @@
-﻿using Banana.Services;
+﻿using Banana.Filters;
+using Banana.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,23 +34,18 @@ namespace Banana
             services.AddMemoryCache();
             services.AddSession();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<GlobalExceptionFilter>();
+            });
 
             services.AddOptions();
-            //services.Configure<ConfigInfos>(Configuration.GetSection("ConfigInfos"));
 
             #region MongoDB
             var MongoConnectionString = Configuration["MongoDB:connectionString"];
             var mClient = new MongoClient(MongoConnectionString);
             services.AddSingleton(_ => mClient);
             #endregion
-
-
-            //#region Redis
-            //var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
-            //var RedisDatabase = connectionMultiplexer.GetDatabase(0); 
-            //services.AddSingleton(_ => RedisDatabase);
-            //#endregion
 
             #region ElasticSearch
             var EsUrls = Configuration["ElasticSearch:Url"].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();

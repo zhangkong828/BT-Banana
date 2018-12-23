@@ -27,6 +27,7 @@ namespace Banana.Controllers
         [Route("/video")]
         public IActionResult Video()
         {
+            throw new Exception("11");
             ViewData["MovieList"] = GetUpdateList("电影");
             ViewData["TVList"] = GetUpdateList("电视剧");
             ViewData["VarietyList"] = GetUpdateList("综艺");
