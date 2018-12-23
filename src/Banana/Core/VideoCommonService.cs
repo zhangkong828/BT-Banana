@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Banana.Core
 {
@@ -13,7 +12,23 @@ namespace Banana.Core
             _classifyDic.Add("电视剧", new List<string>() { "国产剧", "港剧", "日剧", "欧美剧", "韩剧", "台剧", "泰剧", "越南剧" });
             _classifyDic.Add("综艺", new List<string>() { "综艺" });
             _classifyDic.Add("动漫", new List<string>() { "动漫" });
-            _classifyDic.Add("伦理", new List<string>() { "伦理片", "写真视频", "美女写真", "美女视频", "韩国主播VIP视频" });
+            _classifyDic.Add("伦理", new List<string>() { "伦理片", "美女写真", "美女视频", "韩国主播VIP视频" });
+        }
+        public static string GetVideoRealClassify(string classify,out string type)
+        {
+            type = "";
+            foreach (var item in _classifyDic)
+            {
+                foreach (var name in item.Value)
+                {
+                    if (name == classify)
+                    {
+                        type = item.Key;
+                        return name;
+                    }
+                }
+            }
+            return null;
         }
 
         public static List<string> GetVideoClassify(string type)

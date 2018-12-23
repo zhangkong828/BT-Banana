@@ -27,7 +27,6 @@ namespace Banana.Controllers
         [Route("/video")]
         public IActionResult Video()
         {
-            throw new Exception("11");
             ViewData["MovieList"] = GetUpdateList("电影");
             ViewData["TVList"] = GetUpdateList("电视剧");
             ViewData["VarietyList"] = GetUpdateList("综艺");
@@ -63,6 +62,34 @@ namespace Banana.Controllers
                 Remark = video.Remark,
                 Starring = video.Starring
             };
+        }
+
+        [Route("/video/list/{classify}/{index?}")]
+        public IActionResult VideoList(string classify, string index)
+        {
+            if (string.IsNullOrEmpty(classify))
+                return Redirect("/video");
+            var name = VideoCommonService.GetVideoRealClassify(classify, out string type);
+            if (name == null)
+                return Redirect("/video");
+            int.TryParse(index, out int currentIndex);
+            currentIndex = currentIndex < 1 ? 1 : currentIndex;
+            var pageSize = 18;
+            var listKey = $"VideoList_{name}_{currentIndex}";
+            if (!_memoryCache.TryGetValue(listKey, out VideoSearchResult result))
+            {
+                long totalCount = 0;
+                result = new VideoSearchResult() { PageIndex = currentIndex, PageSize = pageSize };
+                var list = _videoService.GetVideoByClassify(name, currentIndex, pageSize, out totalCount);
+                result.Result = list;
+                result.TotalCount = totalCount;
+                result.Key = name;
+                if (list != null && list.Count > 0)
+                    _memoryCache.Set(listKey, result, new DateTimeOffset(DateTime.Now.AddMinutes(20)));
+            }
+            ViewData["VideoType"] = type;
+            ViewData["VideoList"] = result;
+            return View();
         }
 
         [Route("/s/video/{key}/{index?}")]

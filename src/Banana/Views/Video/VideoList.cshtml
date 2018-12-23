@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var Result = ViewData["VideoList"] as VideoSearchResult;
+    var Type = ViewData["VideoType"];
+    var pageLink = $"'/video/list/{Result.Key}/__id__'";
+
+    ViewData["Title"] = $"{Type}-{Result.Key}列表";
+}
+@section HeadCss{
+    <link href="~/css/iconfont.css" rel="stylesheet" />
+    <link href="~/css/video.css" rel="stylesheet" />
+}
+@section HeadScripts{
+    <script src="~/js/videohistory.js"></script>
+}
+@section NavBarSearchTool{
+    @Html.Partial("_VideoSearch")
+}
+
+<div class="row">
+    <ol class="breadcrumb" style="background: none;">
+        <li><a href="/video">电影库</a></li>
+        <li>@Type</li>
+        <li class="active">@Result.Key</li>
+    </ol>
+    <div class="hy-layout clearfix">
+        <div class="hy-video-list">
+            <div class="item clearfix">
+                @{
+                    if (Result.Result != null && Result.Result.Count > 0)
+                    {
+                        foreach (var item in Result.Result)
+                        {
+                            <div class="col-md-2 col-sm-3 col-xs-6">
+                                <a class="videopic lazy" href="/d/video/@item.Id" title="@item.Name" target="_blank" style="background:rgba(0,0,0,.3) url('@Utility.GetImage(item.Image)') 50% 50% no-repeat;">
+                                    <span class="play hidden-xs"></span>
+                                    <span class="score">@item.Remark</span>
+
+                                </a>
+                                <div class="title">
+                                    <h5 class="text-overflow"><a href="/d/video/@item.Id" title="@item.Name" target="_blank">@item.Name</a></h5>
+                                </div>
+                                <div class="subtitle text-muted text-muted text-overflow hidden-xs">
+                                    @Utility.GetString(item.Starring)
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                @{
+                    if (Result.TotalCount > 0)
+                    {
+                        <div id="pagination" class="paging"></div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_FooterToolBar")
+@section FootScripts {
+    <script src="~/js/pager.js"></script>
+    <script>
+        $(function () {
+            var total = @(Result.TotalCount);
+            var pagesize = @Result.PageSize;
+            var pageindex=@Result.PageIndex;
+            $("#pagination").pagination(total, {
+                link_to:@Html.Raw(pageLink),
+                current_page: pageindex - 1,//当前页 下标0开始
+                num_edge_entries:1,
+                num_display_entries: 5, //主体页数
+                items_per_page: pagesize,
+                prev_text: "<",
+                next_text: ">"
+            });
+        });
+    </script>
+}
+

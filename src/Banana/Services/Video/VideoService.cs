@@ -61,14 +61,15 @@ namespace Banana.Services
             return collection.Find(filter).SortByDescending(x => x.UpdateTime).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
         }
 
-        public List<Video> GetVideoByClassify(string classify, int pageIndex, int pageSize = 10)
+        public List<Video> GetVideoByClassify(string classify, int pageIndex, int pageSize, out long totalCount)
         {
             var collection = GetCollection<Video>(DBNAME, "Video");
             var filter = Builders<Video>.Filter.Where(x => x.Classify == classify);
+            totalCount = collection.CountDocuments(filter);
             return collection.Find(filter).SortByDescending(x => x.UpdateTime).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
         }
 
-        public List<Video> GetVideoByClassify(List<string> classify, int pageIndex, int pageSize = 10)
+        public List<Video> GetVideoByClassify(List<string> classify, int pageIndex, int pageSize)
         {
             var collection = GetCollection<Video>(DBNAME, "Video");
             var filter = Builders<Video>.Filter.In(x => x.Classify, classify);
