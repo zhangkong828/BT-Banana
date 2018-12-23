@@ -467,22 +467,20 @@ pager
 }
 
 .hotkey {
-    text-align: center;
-    font-size: 16px;
-    color: gray;
-    margin: 0 auto
+    margin: 0 40px;
 }
 
     .hotkey a {
-        margin: 0 20px
+        margin-right: 20px;
     }
 
 .updateList {
 }
 
-.updateList-title {
+.index-title {
     color: #5cb85c;
     font-size: 16px;
+    display:inline-block;
 }
 
 .updateList ul {

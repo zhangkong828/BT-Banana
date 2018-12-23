@@ -48,12 +48,12 @@
             </div>
         </nav>
     </header>
-    <div class="container pagehead">
+    <div class="container">
 
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6 col-md-offset-3">
-                    <a href="/" style="display: block; margin: 70px 0;">
+                    <a href="/" style="display: block; margin: 30px 0;">
                         <img class="img-responsive center-block" src="~/images/logo_b.png" alt="btbanana.com search logo" title="btbanana.com" />
                     </a>
                 </div>
@@ -61,7 +61,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="key" id="ikey" autocomplete="off">
                         <span class="input-group-btn">
-                            <input class="btn btn-success" type="submit" value="搜索" id="searchForm">
+                            <input class="btn btn-success" type="submit" value="磁力搜索" id="searchForm">
                         </span>
                     </div>
                 </form>
@@ -69,8 +69,9 @@
         </div>
 
         <div class="row">
-            <div class="col-md-10 col-md-offset-1" style="margin-top:30px;">
-                <div class="hotkey">
+            <div class="col-md-10 col-md-offset-1" style="margin-top: 20px;">
+                <span class="index-title hidden-xs">热门关键词：</span>
+                <div class="hotkey hidden-xs">
                     @{
                         if (BaiDuHot != null)
                         {
@@ -81,20 +82,21 @@
                         }
                     }
                 </div>
+
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-10 col-md-offset-1" style=" margin-bottom: 40px;">
+            <div class="col-md-10 col-md-offset-1" style="margin-top: 20px; margin-bottom: 40px;">
                 <div class="updateList">
-                    <span class="updateList-title">最近更新电影：</span>
+                    <span class="index-title hidden-xs">最近更新：</span>
                     <ul>
                         @{
                             if (VideoUpdateList != null)
                             {
                                 foreach (var item in VideoUpdateList)
                                 {
-                                    <li><a class="clearfix" href="/d/v/@item.Id" target="_blank"><span class="pull-left">@($"[{item.Classify}] {item.Name}[{item.Remark}]")</span><span class="pull-right">@(item.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss"))</span></a></li>
+                                    <li><a class="clearfix" href="/d/video/@item.Id" target="_blank"><span class="pull-left">@($"[{item.Classify}] {item.Name}[{item.Remark}]")</span><span class="pull-right hidden-xs">@(item.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss"))</span></a></li>
                                 }
 
                             }

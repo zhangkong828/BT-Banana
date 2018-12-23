@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Banana.Helper;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
@@ -12,12 +13,12 @@ namespace Banana.Services
         private readonly IDatabase _database;
 
         private readonly string DefaultKey;
-        public RedisService(IConfiguration config, IDatabase database)
+        public RedisService(IConfiguration config)
         {
             _configInfos = config;
-            _database = database;
+            _database = RedisHelper.GetDateBase();
 
-            DefaultKey = _configInfos["Redis:defaultKey"];
+            DefaultKey = _configInfos["Redis:DefaultKey"];
         }
 
         #region Private

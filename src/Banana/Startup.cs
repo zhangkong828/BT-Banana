@@ -46,11 +46,11 @@ namespace Banana
             #endregion
 
 
-            #region Redis
-            var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
-            var RedisDatabase = connectionMultiplexer.GetDatabase(0); 
-            services.AddSingleton(_ => RedisDatabase);
-            #endregion
+            //#region Redis
+            //var connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["Redis:Connection"]);
+            //var RedisDatabase = connectionMultiplexer.GetDatabase(0); 
+            //services.AddSingleton(_ => RedisDatabase);
+            //#endregion
 
             #region ElasticSearch
             var EsUrls = Configuration["ElasticSearch:Url"].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
