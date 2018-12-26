@@ -1,5 +1,6 @@
 ﻿using Banana.Filters;
 using Banana.Services;
+using CSRedis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,11 @@ namespace Banana
             });
 
             services.AddOptions();
+
+            #region Redis
+            var RedisClient = new CSRedisClient(Configuration["Redis:CSRedisConnection"]);
+            services.AddSingleton(_ => RedisClient);
+            #endregion
 
             #region MongoDB
             var MongoConnectionString = Configuration["MongoDB:connectionString"];
