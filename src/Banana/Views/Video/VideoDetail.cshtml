@@ -27,149 +27,152 @@
 @section NavBarSearchTool{
     @Html.Partial("_VideoSearch")
 }
-<div class="row">
-
-    <div class="col-md-9 col-sm-12 hy-main-content">
-        <div class="hy-video-details clearfix">
-            <div class="item clearfix">
-                <dl class="content">
-                    <dt>
-                        <a class="videopic" href="javascript:;" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('@Utility.GetImage(Model.Video.Image)') center no-repeat;">
-                            <span class="play hidden-xs"></span>
-                        </a>
-                    </dt>
-                    <dd class="clearfix">
-                        <div class="head">
-                            <h3>@Model.Video.Name</h3>
-                        </div>
-                        <ul class="clearfix" style="margin-top:20px;">
-                            <li><span class="text-muted">备注：</span>@Model.Video.Remark</li>
-                            <li><span class="text-muted">主演：</span>@Model.Video.Starring</li>
-                            <li><span class="text-muted">导演：</span>@Model.Video.Director</li>
-                            <li class="col-sm-6 padding-0"><span class="text-muted">影片分类：</span><a href="JavaScript:;" title="@Model.Video.Classify">@Model.Video.Classify</a></li>
-                            <li class="col-sm-6 hidden-xs padding-0"><span class="text-muted">影片类型：</span>@Model.Video.Type</li>
-                            <li class="col-sm-6 padding-0"><span class="text-muted">影片地区：</span>@Model.Video.Region</li>
-                            <li class="col-sm-6 hidden-sm hidden-xs padding-0"><span class="text-muted">影片语言：</span>@Model.Video.Language</li>
-                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">上映年份：</span>@Model.Video.ReleaseDate</li>
-                            <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">更新时间：</span>@Model.Video.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")</li>
-                        </ul>
-                    </dd>
-                </dl>
-            </div>
-        </div>
-        <div class="hy-layout active clearfix">
-            <div class="hy-switch-tabs">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#list1" data-toggle="tab" title="播放线路">播放线路</a></li>
-                    <li><a href="#list2" data-toggle="tab" title="剧情介绍">剧情介绍</a></li>
-                </ul>
-            </div>
-            <div class="tab-content">
-                <div class="hy-play-list tab-pane fade in active" id="list1">
-                    <div class="item tyui" id="playlist">
-
-                        <div class="panel clearfix">
-                            <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist1" title="@Model.VideoSource.SourceName">
-                                线路1<span class="text-muted pull-right"><i class="icon iconfont icon-right"></i></span>
+    <div class="row">
+        <ol class="breadcrumb" style="background: none;">
+            <li><a href="/video">电影库</a></li>
+            <li class="active">@VideoType</li>
+        </ol>
+        <div class="col-md-9 col-sm-12 hy-main-content">
+            <div class="hy-video-details clearfix">
+                <div class="item clearfix">
+                    <dl class="content">
+                        <dt>
+                            <a class="videopic" href="javascript:;" title="@Model.Video.Name" style="background: rgba(0,0,0,.1) url('@Utility.GetImage(Model.Video.Image)') center no-repeat;">
+                                <span class="play hidden-xs"></span>
                             </a>
+                        </dt>
+                        <dd class="clearfix">
+                            <div class="head">
+                                <h3>@Model.Video.Name</h3>
+                            </div>
+                            <ul class="clearfix" style="margin-top:20px;">
+                                <li><span class="text-muted">备注：</span>@Model.Video.Remark</li>
+                                <li><span class="text-muted">主演：</span>@Model.Video.Starring</li>
+                                <li><span class="text-muted">导演：</span>@Model.Video.Director</li>
+                                <li class="col-sm-6 padding-0"><span class="text-muted">影片分类：</span><a href="JavaScript:;" title="@Model.Video.Classify">@Model.Video.Classify</a></li>
+                                <li class="col-sm-6 hidden-xs padding-0"><span class="text-muted">影片类型：</span>@Model.Video.Type</li>
+                                <li class="col-sm-6 padding-0"><span class="text-muted">影片地区：</span>@Model.Video.Region</li>
+                                <li class="col-sm-6 hidden-sm hidden-xs padding-0"><span class="text-muted">影片语言：</span>@Model.Video.Language</li>
+                                <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">上映年份：</span>@Model.Video.ReleaseDate</li>
+                                <li class="col-md-6 hidden-sm hidden-xs padding-0"><span class="text-muted">更新时间：</span>@Model.Video.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss")</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="hy-layout active clearfix">
+                <div class="hy-switch-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#list1" data-toggle="tab" title="播放线路">播放线路</a></li>
+                        <li><a href="#list2" data-toggle="tab" title="剧情介绍">剧情介绍</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="hy-play-list tab-pane fade in active" id="list1">
+                        <div class="item tyui" id="playlist">
 
-                            <div id="playlist1" class="playlist collapse in">
+                            <div class="panel clearfix">
+                                <a class="option" data-toggle="collapse" data-parent="#playlist" href="#playlist1" title="@Model.VideoSource.SourceName">
+                                    线路1<span class="text-muted pull-right"><i class="icon iconfont icon-right"></i></span>
+                                </a>
+
+                                <div id="playlist1" class="playlist collapse in">
+                                    <ul class="clearfix">
+                                        @{
+                                            foreach (var source in Model.VideoSource.Sources)
+                                            {
+                                                <li><a title="@source.Title" href="@($"/video/play?key={FormatHelper.EncodeBase64(source.Address)}&id={Model.Video.Id}&title={Model.Video.Name}{source.Title}")" target="_blank">@source.Title</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="hy-play-list tab-pane fade in" id="list2">
+                        <div class="item">
+                            <div class="plot">@Html.Raw(Model.Video.Description)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--相关-->
+            <div class="hy-layout clearfix">
+                <div class="hy-video-list">
+                    <div class="hy-video-head">
+                        <h3 class="margin-0">猜你喜欢</h3>
+                    </div>
+                    <div class="swiper-container hy-switch swiper-container-horizontal">
+                        <div class="swiper-wrapper">
+                            @{
+                                if (RecommendList != null)
+                                {
+                                    foreach (var item in RecommendList)
+                                    {
+                                        <div class="col-md-3 col-sm-3 col-xs-6 ">
+                                            <div class="item">
+                                                <a class="videopic" href="/d/video/@item.Id" target="_blank" title="@item.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@item.Image') center no-repeat;">
+                                                    <span class="play hidden-xs"></span>
+                                                    <span class="score"></span>
+                                                </a>
+                                                <div class="title">
+                                                    <h5 class="text-overflow"><a href="/d/video/@item.Id" title="@item.Name" target="_blank">@item.Name</a></h5>
+                                                </div>
+                                                <div class="subtitle text-muted text-overflow hidden-xs">
+                                                    @item.Starring
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--end 相关-->
+        </div>
+
+        <div class="col-md-3 col-sm-12 hy-main-side hidden-sm hidden-xs">
+            <div class="hy-layout clearfix">
+                <div class="hy-details-qrcode clearfix">
+                    <div class="item">
+                        <h5 class="text-muted">扫一扫用手机观看</h5>
+                        <p id="qrcode"></p>
+                    </div>
+                </div>
+                @{
+                    if (HotList != null)
+                    {
+                        <div class="hy-video-ranking clearfix">
+                            <div class="head">
+                                @*<a class="text-muted pull-right" href="/" title="更多">更多 <i class="icon iconfont icon-right"></i></a>*@
+                                <h5><i class="icon iconfont icon-top text-color"></i> 热播@(VideoType)</h5>
+                            </div>
+                            <div class="item">
                                 <ul class="clearfix">
+
                                     @{
-                                        foreach (var source in Model.VideoSource.Sources)
+                                        for (int i = 0; i < HotList.Count; i++)
                                         {
-                                            <li><a title="@source.Title" href="@($"/video/play?key={FormatHelper.EncodeBase64(source.Address)}&id={Model.Video.Id}&title={Model.Video.Name}{source.Title}")" target="_blank">@source.Title</a></li>
+                                            <li class="text-overflow">
+                                                <span class="pull-right text-color">@(HotList[i].Score)&#176;</span>
+                                                <a href="/d/video/@HotList[i].Id" title="@HotList[i].Name"><em class="number active">@(i + 1)</em>@HotList[i].Name</a>
+                                            </li>
                                         }
                                     }
                                 </ul>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-                <div class="hy-play-list tab-pane fade in" id="list2">
-                    <div class="item">
-                        <div class="plot">@Html.Raw(Model.Video.Description)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--相关-->
-        <div class="hy-layout clearfix">
-            <div class="hy-video-list">
-                <div class="hy-video-head">
-                    <h3 class="margin-0">猜你喜欢</h3>
-                </div>
-                <div class="swiper-container hy-switch swiper-container-horizontal">
-                    <div class="swiper-wrapper">
-                        @{
-                            if (RecommendList != null)
-                            {
-                                foreach (var item in RecommendList)
-                                {
-                                    <div class="col-md-3 col-sm-3 col-xs-6 ">
-                                        <div class="item">
-                                            <a class="videopic" href="/d/video/@item.Id" target="_blank" title="@item.Name" style="background: rgba(0,0,0,.1) url('data:image/jpg;base64,@item.Image') center no-repeat;">
-                                                <span class="play hidden-xs"></span>
-                                                <span class="score"></span>
-                                            </a>
-                                            <div class="title">
-                                                <h5 class="text-overflow"><a href="/d/video/@item.Id" title="@item.Name" target="_blank">@item.Name</a></h5>
-                                            </div>
-                                            <div class="subtitle text-muted text-overflow hidden-xs">
-                                                @item.Starring
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                        }
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!--end 相关-->
-    </div>
-
-    <div class="col-md-3 col-sm-12 hy-main-side hidden-sm hidden-xs">
-        <div class="hy-layout clearfix">
-            <div class="hy-details-qrcode clearfix">
-                <div class="item">
-                    <h5 class="text-muted">扫一扫用手机观看</h5>
-                    <p id="qrcode"></p>
-                </div>
-            </div>
-            @{
-                if (HotList != null)
-                {
-                    <div class="hy-video-ranking clearfix">
-                        <div class="head">
-                            @*<a class="text-muted pull-right" href="/" title="更多">更多 <i class="icon iconfont icon-right"></i></a>*@
-                            <h5><i class="icon iconfont icon-top text-color"></i> 热播@(VideoType)</h5>
-                        </div>
-                        <div class="item">
-                            <ul class="clearfix">
-
-                                @{
-                                    for (int i = 0; i < HotList.Count; i++)
-                                    {
-                                        <li class="text-overflow">
-                                            <span class="pull-right text-color">@(HotList[i].Score)&#176;</span>
-                                            <a href="/d/video/@HotList[i].Id" title="@HotList[i].Name"><em class="number active">@(i + 1)</em>@HotList[i].Name</a>
-                                        </li>
-                                    }
-                                }
-                            </ul>
-                        </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 @Html.Partial("_FooterToolBar")
 
